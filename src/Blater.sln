@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFiles", "{F14EFD73-F33E-4B22-AAD5-373A951F2593}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blater", "Blater\Blater.csproj", "{937C9C92-1106-4166-B241-E210ADF17875}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{937C9C92-1106-4166-B241-E210ADF17875}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{937C9C92-1106-4166-B241-E210ADF17875}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{937C9C92-1106-4166-B241-E210ADF17875}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{937C9C92-1106-4166-B241-E210ADF17875}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4178FBB9-9FF5-4E85-BA2C-B12AD5B3ABF8}
+	EndGlobalSection
+EndGlobal
