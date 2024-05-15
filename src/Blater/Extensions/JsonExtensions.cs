@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 
 namespace Blater.Extensions
 {
@@ -10,7 +11,8 @@ namespace Blater.Extensions
 			PropertyNameCaseInsensitive = true,
 			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 			AllowTrailingCommas = true,
-			ReadCommentHandling = JsonCommentHandling.Skip
+			ReadCommentHandling = JsonCommentHandling.Skip,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
 		};
 		
 		public static string? ToJson(this object? str)
