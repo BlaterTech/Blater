@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
+using Blater.BlaterResults;
 using Blater.Models.Pagination;
-using Blater.Results;
 
 namespace Blater.Interfaces;
 

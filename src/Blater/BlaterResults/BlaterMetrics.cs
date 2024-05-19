@@ -1,4 +1,4 @@
-namespace Blater.Results;
+namespace Blater.BlaterResults;
 
 public class BlaterMetrics
 {

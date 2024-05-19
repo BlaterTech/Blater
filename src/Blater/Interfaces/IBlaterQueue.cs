@@ -1,6 +1,6 @@
 
 
-using Blater.Results;
+using Blater.BlaterResults;
 
 namespace Blater.Interfaces;
 
