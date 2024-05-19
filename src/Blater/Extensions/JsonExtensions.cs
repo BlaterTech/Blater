@@ -12,7 +12,11 @@ namespace Blater.Extensions
 			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 			AllowTrailingCommas = true,
 			ReadCommentHandling = JsonCommentHandling.Skip,
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            Converters =
+            {
+                new JsonStringEnumConverter()
+            }
 		};
 		
 		public static string? ToJson(this object? str)
