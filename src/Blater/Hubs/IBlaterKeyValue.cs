@@ -1,3 +1,5 @@
+using Blater.Results;
+
 namespace Blater.Hubs;
 
 public interface IBlaterKeyValueHub

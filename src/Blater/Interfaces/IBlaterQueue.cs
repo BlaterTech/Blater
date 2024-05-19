@@ -1,5 +1,7 @@
 
 
+using Blater.Results;
+
 namespace Blater.Interfaces;
 
 public interface IBlaterQueue

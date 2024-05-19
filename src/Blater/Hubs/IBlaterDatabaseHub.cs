@@ -1,4 +1,5 @@
 using Blater.Models.Pagination;
+using Blater.Results;
 
 namespace Blater.Hubs;
 

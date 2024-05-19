@@ -1,4 +1,4 @@
-namespace Blater.Models.Results;
+namespace Blater.Results;
 
 public static class BlaterResultErrors
 {
