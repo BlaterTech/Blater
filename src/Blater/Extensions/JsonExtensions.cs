@@ -23,6 +23,11 @@ namespace Blater.Extensions
 		{
 			return str == null ? null : JsonSerializer.Serialize(str, DefaultJsonSerializerOptions);
 		}
+        
+        public static string? ToJson(this object? str, JsonSerializerOptions options)
+        {
+            return str == null ? null : JsonSerializer.Serialize(str, options);
+        }
 		
 		public static JsonObject? ToJsonObject(this string? str)
 		{
