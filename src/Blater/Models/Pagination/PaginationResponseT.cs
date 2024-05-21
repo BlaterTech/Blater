@@ -15,7 +15,7 @@ public class PaginationResponse<T> : BasePaginationResponse
         NextPage = response.NextPage;
         PreviousPage = response.PreviousPage;
         
-        Items = new List<T>();
+        Items = [];
         
         if (response is PaginationResponse<T> paginationResponse)
         {

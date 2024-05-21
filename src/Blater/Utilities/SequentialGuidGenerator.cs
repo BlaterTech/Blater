@@ -13,7 +13,8 @@ public static class SequentialGuidGenerator
         var randomBytes = new byte[8];
         Random.Shared.NextBytes(randomBytes);
 
-        return new Guid((int)(timeStamp >> 32),
+        return new Guid(
+            (int)(timeStamp >> 32),
             (short)(timeStamp >> 16),
             (short)timeStamp, randomBytes);
     }
