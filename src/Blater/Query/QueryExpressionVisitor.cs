@@ -1,17 +1,20 @@
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using Microsoft.Extensions.ObjectPool;
 
 namespace Blater.Query;
 
-public class QueryExpressionVisitor(StringBuilder stringBuilder) : ExpressionVisitor
+public class QueryExpressionVisitor : ExpressionVisitor
 {
-    public StringBuilder StringBuilder { get; } = stringBuilder;
     
-    public override Expression? Visit(Expression? node)
+    
+    public QueryExpressionVisitor(StringBuilder stringBuilder)
     {
         
-        
-        return base.Visit(node);
+        StringBuilder = stringBuilder;
     }
+    
+    public StringBuilder StringBuilder { get; }
+
 }

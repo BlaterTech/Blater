@@ -111,7 +111,7 @@ namespace Blater.Query
             Expression<Func<TSource, bool>> filter = d => d.FullTypeName == fullTypeName;
         
             return Expression.Call(typeof(Queryable), nameof(Queryable.Where),
-                new[] { typeof(TSource) }, node, filter);
+                                   [typeof(TSource)], node, filter);
         }
         
         #endregion
