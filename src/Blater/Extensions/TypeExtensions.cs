@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Reflection;
-using Humanizer;
 
 namespace Blater.Extensions
 {
@@ -70,25 +69,27 @@ namespace Blater.Extensions
         public static IEnumerable<Type> GetGenericTypeImplementations(this Type type, Type interfaceOrBaseType)
         {
             var typeInfo = type.GetTypeInfo();
-            if (!typeInfo.IsGenericTypeDefinition)
+            
+            if (typeInfo.IsGenericTypeDefinition)
             {
-                var baseTypes = interfaceOrBaseType.GetTypeInfo().IsInterface
-                    ? typeInfo.ImplementedInterfaces
-                    : type.GetBaseTypes();
-                foreach (var baseType in baseTypes)
+                yield break;
+            }
+            
+            var baseTypes = interfaceOrBaseType.GetTypeInfo().IsInterface
+                ? typeInfo.ImplementedInterfaces
+                : type.GetBaseTypes();
+            
+            foreach (var baseType in baseTypes)
+            {
+                if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == interfaceOrBaseType)
                 {
-                    if (baseType.IsGenericType
-                        && baseType.GetGenericTypeDefinition() == interfaceOrBaseType)
-                    {
-                        yield return baseType;
-                    }
+                    yield return baseType;
                 }
-
-                if (type.IsGenericType
-                    && type.GetGenericTypeDefinition() == interfaceOrBaseType)
-                {
-                    yield return type;
-                }
+            }
+            
+            if (type.IsGenericType && type.GetGenericTypeDefinition() == interfaceOrBaseType)
+            {
+                yield return type;
             }
         }
 

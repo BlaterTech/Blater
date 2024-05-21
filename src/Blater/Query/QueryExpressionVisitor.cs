@@ -1,14 +1,10 @@
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Text;
-using Microsoft.Extensions.ObjectPool;
 
 namespace Blater.Query;
 
 public class QueryExpressionVisitor : ExpressionVisitor
 {
-    
-    
     public QueryExpressionVisitor(StringBuilder stringBuilder)
     {
         
@@ -16,5 +12,10 @@ public class QueryExpressionVisitor : ExpressionVisitor
     }
     
     public StringBuilder StringBuilder { get; }
-
+    
+    public override Expression? Visit(Expression? node)
+    {
+        StringBuilder.Append('{');
+        return base.Visit(node);
+    }
 }
