@@ -3,16 +3,18 @@ using Microsoft.Extensions.ObjectPool;
 
 namespace Blater.Query;
 
-public class QueryExpressionVisitorPooledObjectPolicy(ObjectPool<StringBuilder> stringBuilderObjectPool) : IPooledObjectPolicy<QueryExpressionVisitor>
+public class QueryExpressionVisitorPooledObjectPolicy(ObjectPool<StringBuilder> stringBuilderObjectPool) : IPooledObjectPolicy<QueryExpressionCompiler>
 {
-    public QueryExpressionVisitor Create()
+    public QueryExpressionCompiler Create()
     {
         var stringBuilder = stringBuilderObjectPool.Get();
         stringBuilder.Clear();
-        return new QueryExpressionVisitor(stringBuilder);
+        
+        
+        return new QueryExpressionCompiler(stringBuilder);
     }
     
-    public bool Return(QueryExpressionVisitor obj)
+    public bool Return(QueryExpressionCompiler obj)
     {
         stringBuilderObjectPool.Return(obj.StringBuilder);
         return true;

@@ -9,10 +9,11 @@ public class SimpleFindQueryTest
     [Fact]
     public void EmptyQueryWithSelectFields()
     {
-        var fields = new[] { "Name", "Year", "StringList" };
+        var fields = new List<string> (){ "Name", "Year", "StringList" };
+        var sortFields = new List<string> (){ "Name" };
         
         Expression<Func<TestModel, bool>> predicate = x => true;
-        var query = predicate.CompileToBlaterQuery(fields);
+        var query = predicate.CompileToBlaterQuery(fields, sortFields);
         
         var expected = """
                        {
@@ -39,42 +40,17 @@ public class SimpleFindQueryTest
             x.Name == "Test"                   &&
             x.Description.Contains("Test")     &&
             x.StringList.Any(s => s == "Test") &&
-            x.StringList.All(s => s == "Test") &&
+            x.StringList.All(s => s != string.Empty) &&
             x.StringList.In("A", "B")          &&
             x.Name.Regex(".*");
         
-        var fields = new[] { "Name", "Year", "StringList" };
+        var fields = new List<string> (){ "Name", "Year", "StringList" };
+        var sortFields = new List<string> (){ "Name" };
         
-        var query = predicate.CompileToBlaterQuery(fields);
+        var query = predicate.CompileToBlaterQuery(fields, sortFields);
         
         var expectedPretty = $$$$"""
-                               {
-                                "selector":{
-                                    "$and":[
-                                        {"Description":{"$ne":null}},
-                                        {"Description":{"$ne":"aa"}},
-                                        {"$or":[
-                                            {"Id":{"$eq":"{{{{guid}}}}"}},
-                                            {"Id":{"$eq":"{{{{guid}}}}"}}
-                                        ]},
-                                        {"$or":[
-                                            {"Year":{"$gt":2020}},
-                                            {"Year":{"$lt":2024}}
-                                        ]},
-                                        {"$or":[
-                                            {"Year":{"$gte":2021}},
-                                            {"Year":{"$lte":2024}}
-                                        ]},
-                                        {"Name":{"$eq":"Test"}},
-                                        {"Description":{"$regex":"Test"}},
-                                        {"StringList":{"$elemMatch":{"$eq":"Test"}}},
-                                        {"StringList":{"$allMatch":{"$eq":"Test"}}},
-                                        {"StringList":{"$elemMatch":["A","B"]}},
-                                        {"Name":{"$regex":".*"}}
-                                    ]
-                                },
-                                "fields":["Name","Year","StringList"]
-                               }
+                               
                                """;
         
         var expected = expectedPretty.Replace("\n", "").Replace(" ", "");

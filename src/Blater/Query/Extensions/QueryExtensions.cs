@@ -1,16 +1,14 @@
-using System.Linq.Expressions;
-
 namespace Blater.Query.Extensions;
 
 public static class QueryExtensions
 {
-    public static bool In<T>(this List<T> list, params T[] values)
+    public static bool In<TSource>(this IEnumerable<TSource> source, params TSource[] values)
     {
-        return true;
+        return source.Any(values.Contains);
     }
     
-    public static bool Regex(this string value, string pattern)
+    public static bool Regex<TSource>(this IEnumerable<TSource> source, string regex)
     {
-        return true;
+        return source.Any(s => System.Text.RegularExpressions.Regex.IsMatch(s?.ToString() ?? throw new InvalidOperationException(), regex));
     }
 }

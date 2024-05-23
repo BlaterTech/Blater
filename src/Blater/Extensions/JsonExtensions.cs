@@ -12,7 +12,7 @@ namespace Blater.Extensions
 			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 			AllowTrailingCommas = true,
 			ReadCommentHandling = JsonCommentHandling.Skip,
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
             Converters =
             {
                 new JsonStringEnumConverter()

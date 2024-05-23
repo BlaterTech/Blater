@@ -8,15 +8,15 @@ public static class QueryCompiler
 {
     internal static readonly ObjectPool<StringBuilder> StringBuilderPool = new DefaultObjectPoolProvider().CreateStringBuilderPool();
     
-    internal static readonly ObjectPool<QueryExpressionVisitor> QueryExpressionVisitor =
-        new DefaultObjectPool<QueryExpressionVisitor>(new QueryExpressionVisitorPooledObjectPolicy(StringBuilderPool));
+    internal static readonly ObjectPool<QueryExpressionCompiler> QueryExpressionVisitor =
+        new DefaultObjectPool<QueryExpressionCompiler>(new QueryExpressionVisitorPooledObjectPolicy(StringBuilderPool));
     
-    public static string CompileToBlaterQuery(this Expression expression, params string[] selectProperties)
+    public static string CompileToBlaterQuery(this Expression expression, List<string> selectProperties, List<string> sortProperties)
     {
         var queryExpressionVisitor = QueryExpressionVisitor.Get();
         try
         {
-            queryExpressionVisitor.CompileToBlaterQuery(expression, selectProperties);
+            queryExpressionVisitor.CompileToBlaterQuery(expression, selectProperties, sortProperties);
             return queryExpressionVisitor.StringBuilder.ToString();
         }
         finally
