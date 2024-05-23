@@ -21,8 +21,4 @@
       <PackageReference Include="Microsoft.Extensions.ObjectPool" Version="8.0.5" />
       <PackageReference Include="NetEscapades.EnumGenerators" Version="1.0.0-beta09" />
     </ItemGroup>
-    
-    <ItemGroup>
-      <Folder Include="Query\Policies\" />
-    </ItemGroup>
 </Project>

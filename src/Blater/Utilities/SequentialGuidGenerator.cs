@@ -5,7 +5,11 @@ namespace Blater.Utilities;
 /// </summary>
 public static class SequentialGuidGenerator
 {
-    public static Guid NewId()
+    /// <summary>
+    /// Generate a new sequential GUID.
+    /// </summary>
+    /// <returns></returns>
+    public static Guid NewGuid()
     {
         var timeStamp = DateTime.UtcNow.Ticks;
 
@@ -17,5 +21,10 @@ public static class SequentialGuidGenerator
             (int)(timeStamp >> 32),
             (short)(timeStamp >> 16),
             (short)timeStamp, randomBytes);
+    }
+    
+    public static ShortGuid NewShortGuid()
+    {
+        return new ShortGuid();
     }
 }

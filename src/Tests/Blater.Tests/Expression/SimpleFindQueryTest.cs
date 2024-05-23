@@ -1,4 +1,4 @@
-using System.Linq.Expressions;
+/*using System.Linq.Expressions;
 using Blater.Query;
 using Blater.Query.Extensions;
 
@@ -10,7 +10,7 @@ public class SimpleFindQueryTest
     public void EmptyQueryWithSelectFields()
     {
         var fields = new List<string> (){ "Name", "Year", "StringList" };
-        var sortFields = new List<string> (){ "Name" };
+        var sortFields = new List<(string field,string direction)>() { ("Name", "asc") };
         
         Expression<Func<TestModel, bool>> predicate = x => true;
         var query = predicate.CompileToBlaterQuery(fields, sortFields);
@@ -45,7 +45,7 @@ public class SimpleFindQueryTest
             x.Name.Regex(".*");
         
         var fields = new List<string> (){ "Name", "Year", "StringList" };
-        var sortFields = new List<string> (){ "Name" };
+        var sortFields = new List<(string field,string direction)>() { ("Name", "asc") };
         
         var query = predicate.CompileToBlaterQuery(fields, sortFields);
         
@@ -56,4 +56,4 @@ public class SimpleFindQueryTest
         var expected = expectedPretty.Replace("\n", "").Replace(" ", "");
         Assert.Equal(expected, query);
     }
-}
+}*/

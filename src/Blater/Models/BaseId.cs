@@ -6,7 +6,7 @@ public class BaseId
 {
     public BaseId()
     {
-        Id = SequentialGuidGenerator.NewId();
+        Id = SequentialGuidGenerator.NewShortGuid();
     }
-    public Guid Id { get; set; }
+    public ShortGuid Id { get; set; }
 }

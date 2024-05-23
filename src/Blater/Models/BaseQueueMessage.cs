@@ -1,6 +1,8 @@
+using Blater.Utilities;
+
 namespace Blater.Models;
 
 public class BaseQueueMessage
 {
-    public int Id { get; set; }
+    public ShortGuid Id { get; set; }
 }

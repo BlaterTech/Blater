@@ -11,13 +11,13 @@ public static class QueryCompiler
     internal static readonly ObjectPool<QueryExpressionCompiler> QueryExpressionVisitor =
         new DefaultObjectPool<QueryExpressionCompiler>(new QueryExpressionVisitorPooledObjectPolicy(StringBuilderPool));
     
-    public static string CompileToBlaterQuery(this Expression expression, List<string> selectProperties, List<string> sortProperties)
+    public static string CompileToBlaterQuery(this Expression expression, List<string> selectProperties, List<(string field,string direction)> sortProperties)
     {
         var queryExpressionVisitor = QueryExpressionVisitor.Get();
         try
         {
-            queryExpressionVisitor.CompileToBlaterQuery(expression, selectProperties, sortProperties);
-            return queryExpressionVisitor.StringBuilder.ToString();
+            var result = queryExpressionVisitor.CompileToBlaterQuery(expression, selectProperties, sortProperties);
+            return result;
         }
         finally
         {
