@@ -10,5 +10,5 @@ public class TestModel : BaseDataModel
     
     public string? Description { get; set; }
     
-    public List<string> StringList { get; set; } = new List<string>();
+    public List<string> StringList { get; set; } = new();
 }

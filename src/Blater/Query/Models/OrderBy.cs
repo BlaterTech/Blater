@@ -1,11 +1,10 @@
 using System.Linq.Expressions;
 using Blater.Enumerations;
 
-namespace Blater.Query.Models
+namespace Blater.Query.Models;
+
+public class OrderBy
 {
-    public class OrderBy
-    {
-        public Expression? Expression { get; set; }
-        public OrderDirection Direction { get; set; }
-    }
+    public Expression? Expression { get; set; }
+    public OrderDirection Direction { get; set; }
 }
