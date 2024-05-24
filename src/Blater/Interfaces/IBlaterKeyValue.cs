@@ -11,7 +11,7 @@ public interface IBlaterKeyValue
     /// <typeparam name="TValue"></typeparam>
     /// <returns>Returns null if not found</returns>
     Task<BlaterResult<TValue>> Get<TValue>(string key);
-    
+
     /// <summary>
     ///     Get a value from the key value store
     /// </summary>
