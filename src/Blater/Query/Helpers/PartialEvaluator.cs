@@ -5,175 +5,175 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Blater.Query.Extensions;
 
-namespace Blater.Query.Helpers
+namespace Blater.Query.Helpers;
+
+/// <summary>
+/// Rewrites an expression tree so that locally sortable sub-expressions are evaluated and converted into ConstantExpression nodes.
+/// </summary>
+public static class PartialEvaluator
 {
     /// <summary>
-    /// Rewrites an expression tree so that locally isolatable sub-expressions are evaluated and converted into ConstantExpression nodes.
+    /// Performs evaluation and replacement of independent sub-trees
     /// </summary>
-    public static class PartialEvaluator
+    /// <param name="expression">The root of the expression tree.</param>
+    /// <param name="fnCanBeEvaluated">A function that decides whether a given expression node can be part of the local function.</param>
+    /// <returns>A new tree with subtrees evaluated and replaced.</returns>
+    public static Expression? Eval(Expression expression, Func<Expression, bool> fnCanBeEvaluated)
     {
-        /// <summary>
-        /// Performs evaluation and replacement of independent sub-trees
-        /// </summary>
-        /// <param name="expression">The root of the expression tree.</param>
-        /// <param name="fnCanBeEvaluated">A function that decides whether a given expression node can be part of the local function.</param>
-        /// <returns>A new tree with sub-trees evaluated and replaced.</returns>
-        public static Expression? Eval(Expression expression, Func<Expression, bool> fnCanBeEvaluated)
-        {
-            return SubtreeEvaluator.Eval(Nominator.Nominate(fnCanBeEvaluated, expression), expression);
-        }
-        
-        /// <summary>
-        /// Performs evaluation and replacement of independent sub-trees
-        /// </summary>
-        /// <param name="expression">The root of the expression tree.</param>
-        /// <returns>A new tree with sub-trees evaluated and replaced.</returns>
-        public static Expression? Eval(Expression expression)
-        {
-            return Eval(expression, CanBeEvaluatedLocally);
-        }
-        
-        private static bool CanBeEvaluatedLocally(Expression expression)
-        {
-            return expression.NodeType != ExpressionType.Parameter;
-        }
-        
-        /// <summary>
-        /// Evaluates and replaces sub-trees when first candidate is reached (top-down)
-        /// </summary>
-        class SubtreeEvaluator : ExpressionVisitor
-        {
-            HashSet<Expression> candidates;
-            
-            private SubtreeEvaluator(HashSet<Expression> candidates)
-            {
-                this.candidates = candidates;
-            }
-            
-            internal static Expression? Eval(HashSet<Expression> candidates, Expression exp)
-            {
-                return new SubtreeEvaluator(candidates).Visit(exp);
-            }
-            
-            public override Expression? Visit(Expression? exp)
-            {
-                if (exp == null)
-                {
-                    return null;
-                }
-                
-                if (this.candidates.Contains(exp))
-                {
-                    return Evaluate(exp);
-                }
-                
-                return base.Visit(exp);
-            }
-            
-            private static Expression Evaluate(Expression e)
-            {
-                var type = e.Type;
-                if (e.NodeType == ExpressionType.Convert)
-                {
-                    // check for unnecessary convert & strip them
-                    var u = (UnaryExpression)e;
-                    if (TypeHelper.GetNonNullableType(u.Operand.Type) == TypeHelper.GetNonNullableType(type))
-                    {
-                        e = ((UnaryExpression)e).Operand;
-                    }
-                }
-                
-                if (e.NodeType == ExpressionType.Constant)
-                {
-                    // in case we actually threw out a nullable conversion above, simulate it here
-                    if (e.Type == type)
-                    {
-                        return e;
-                    }
-                    else if (TypeHelper.GetNonNullableType(e.Type) == TypeHelper.GetNonNullableType(type))
-                    {
-                        return Expression.Constant(((ConstantExpression)e).Value, type);
-                    }
-                }
-                
-                if (e is MemberExpression { Expression: ConstantExpression ce } me)
-                    // member accesses off of constants are common, and yet since these partial evals
-                    // are never re-used, using reflection to access the member is faster than compiling  
-                    // and invoking a lambda
-                {
-                    var value = ce.Value;
-                    return Expression.Constant(me.Member.GetValue(value), type);
-                }
-                
-                if (type.GetTypeInfo().IsValueType)
-                {
-                    e = Expression.Convert(e, typeof(object));
-                }
-                
-                Expression<Func<object>> lambda = Expression.Lambda<Func<object>>(e);
-                #if NOREFEMIT
-                Func<object> fn = ExpressionEvaluator.CreateDelegate(lambda);
-                #else
-                Func<object> fn = lambda.Compile();
-                #endif
-                return Expression.Constant(fn(), type);
-            }
-        }
+        return SubtreeEvaluator.Eval(Nominator.Nominate(fnCanBeEvaluated, expression), expression);
     }
     
     /// <summary>
-    /// Performs bottom-up analysis to determine which nodes can possibly
-    /// be part of an evaluated sub-tree.
+    /// Performs evaluation and replacement of independent subtrees
     /// </summary>
-    class Nominator : ExpressionVisitor
+    /// <param name="expression">The root of the expression tree.</param>
+    /// <returns>A new tree with subtrees evaluated and replaced.</returns>
+    public static Expression? Eval(Expression expression)
     {
-        readonly Func<Expression, bool> _fnCanBeEvaluated;
-        readonly HashSet<Expression> _candidates;
-        bool _cannotBeEvaluated;
+        return Eval(expression, CanBeEvaluatedLocally);
+    }
+    
+    private static bool CanBeEvaluatedLocally(Expression expression)
+    {
+        return expression.NodeType != ExpressionType.Parameter;
+    }
+    
+    /// <summary>
+    /// Evaluates and replaces subtrees when first candidate is reached (top-down)
+    /// </summary>
+    private class SubtreeEvaluator : ExpressionVisitor
+    {
+        private readonly HashSet<Expression> _candidates;
         
-        private Nominator(Func<Expression, bool> fnCanBeEvaluated)
+        private SubtreeEvaluator(HashSet<Expression> candidates)
         {
-            _candidates = new HashSet<Expression>();
-            _fnCanBeEvaluated = fnCanBeEvaluated;
+            _candidates = candidates;
         }
         
-        internal static HashSet<Expression> Nominate(Func<Expression, bool> fnCanBeEvaluated, Expression expression)
+        internal static Expression? Eval(HashSet<Expression> candidates, Expression exp)
         {
-            var nominator = new Nominator(fnCanBeEvaluated);
-            nominator.Visit(expression);
-            return nominator._candidates;
+            return new SubtreeEvaluator(candidates).Visit(exp);
         }
         
-        protected override Expression VisitConstant(ConstantExpression c)
+        public override Expression? Visit(Expression? exp)
         {
-            return base.VisitConstant(c);
-        }
-        
-        public override Expression? Visit(Expression? expression)
-        {
-            if (expression == null)
+            if (exp == null)
             {
-                return expression;
+                return null;
             }
             
-            var saveCannotBeEvaluated = _cannotBeEvaluated;
-            _cannotBeEvaluated = false;
-            base.Visit(expression);
-            
-            if (!_cannotBeEvaluated)
+            if (_candidates.Contains(exp))
             {
-                if (_fnCanBeEvaluated(expression))
+                return Evaluate(exp);
+            }
+            
+            return base.Visit(exp);
+        }
+        
+        private static Expression Evaluate(Expression e)
+        {
+            var type = e.Type;
+            if (e.NodeType == ExpressionType.Convert)
+            {
+                // check for unnecessary convert & strip them
+                var u = (UnaryExpression)e;
+                if (TypeHelper.GetNonNullableType(u.Operand.Type) == TypeHelper.GetNonNullableType(type))
                 {
-                    _candidates.Add(expression);
-                }
-                else
-                {
-                    _cannotBeEvaluated = true;
+                    e = ((UnaryExpression)e).Operand;
                 }
             }
             
-            _cannotBeEvaluated |= saveCannotBeEvaluated;
+            if (e.NodeType == ExpressionType.Constant)
+            {
+                // in case we actually threw out a nullable conversion above, simulate it here
+                if (e.Type == type)
+                {
+                    return e;
+                }
+                
+                if (TypeHelper.GetNonNullableType(e.Type) == TypeHelper.GetNonNullableType(type))
+                {
+                    return Expression.Constant(((ConstantExpression)e).Value, type);
+                }
+            }
+            
+            if (e is MemberExpression { Expression: ConstantExpression ce } me)
+                // member accesses off of constants are common, and yet since these partial evals
+                // are never re-used, using reflection to access the member is faster than compiling  
+                // and invoking a lambda
+            {
+                var value = ce.Value;
+                return Expression.Constant(me.Member.GetValue(value), type);
+            }
+            
+            if (type.GetTypeInfo().IsValueType)
+            {
+                e = Expression.Convert(e, typeof(object));
+            }
+            
+            var lambda = Expression.Lambda<Func<object>>(e);
+            #if NOREFEMIT
+                Func<object> fn = ExpressionEvaluator.CreateDelegate(lambda);
+            #else
+            var fn = lambda.Compile();
+            #endif
+            return Expression.Constant(fn(), type);
+        }
+    }
+}
+
+/// <summary>
+/// Performs bottom-up analysis to determine which nodes can possibly
+/// be part of an evaluated subtree.
+/// </summary>
+internal class Nominator : ExpressionVisitor
+{
+    private readonly Func<Expression, bool> _fnCanBeEvaluated;
+    private readonly HashSet<Expression> _candidates;
+    private bool _cannotBeEvaluated;
+    
+    private Nominator(Func<Expression, bool> fnCanBeEvaluated)
+    {
+        _candidates = new HashSet<Expression>();
+        _fnCanBeEvaluated = fnCanBeEvaluated;
+    }
+    
+    internal static HashSet<Expression> Nominate(Func<Expression, bool> fnCanBeEvaluated, Expression expression)
+    {
+        var nominator = new Nominator(fnCanBeEvaluated);
+        nominator.Visit(expression);
+        return nominator._candidates;
+    }
+    
+    protected override Expression VisitConstant(ConstantExpression c)
+    {
+        return base.VisitConstant(c);
+    }
+    
+    public override Expression? Visit(Expression? expression)
+    {
+        if (expression == null)
+        {
             return expression;
         }
+        
+        var saveCannotBeEvaluated = _cannotBeEvaluated;
+        _cannotBeEvaluated = false;
+        base.Visit(expression);
+        
+        if (!_cannotBeEvaluated)
+        {
+            if (_fnCanBeEvaluated(expression))
+            {
+                _candidates.Add(expression);
+            }
+            else
+            {
+                _cannotBeEvaluated = true;
+            }
+        }
+        
+        _cannotBeEvaluated |= saveCannotBeEvaluated;
+        return expression;
     }
 }
