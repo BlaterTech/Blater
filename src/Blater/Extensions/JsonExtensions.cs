@@ -17,6 +17,9 @@ namespace Blater.Extensions
             {
                 new JsonStringEnumConverter()
             },
+            #if DEBUG
+            WriteIndented = true,
+            #endif
 		};
 		
 		public static string? ToJson(this object? str)
