@@ -11,6 +11,7 @@ namespace Blater.Extensions
 			PropertyNameCaseInsensitive = true,
 			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 			AllowTrailingCommas = true,
+            WriteIndented = true,
 			ReadCommentHandling = JsonCommentHandling.Skip,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
             Converters =
