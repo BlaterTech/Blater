@@ -1,9 +1,7 @@
-using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
-using Blater.Query.Extensions;
 using Humanizer;
 
 namespace Blater.Query
@@ -114,7 +112,7 @@ namespace Blater.Query
         
         protected override Expression VisitMember(MemberExpression node)
         {
-            _members.TryAdd(node.Member, new List<string>());
+            _members.TryAdd(node.Member, []);
             StringBuilder.Append($"\"{node.Member.Name.Camelize()}\":");
             return node;
         }
