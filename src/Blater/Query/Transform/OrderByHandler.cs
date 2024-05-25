@@ -4,7 +4,6 @@ namespace Blater.Query.Transform;
 
 public class OrderByHandler
 {
-    
     /// <summary>
     /// gets the full name of the field (hello.world)
     /// </summary>

@@ -27,7 +27,6 @@ public class LinqVisitor : ExpressionVisitor
         return ctx.LinqQuery;
     }
     
-    
     protected override Expression VisitMethodCall(MethodCallExpression node)
     {
         //mainly interested in the left, also handle in reverse order

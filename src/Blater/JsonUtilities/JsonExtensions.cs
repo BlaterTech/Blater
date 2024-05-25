@@ -1,8 +1,9 @@
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
+using Blater.JsonUtilities.Converters;
 
-namespace Blater.Extensions;
+namespace Blater.JsonUtilities;
 
 public static class JsonExtensions
 {
@@ -15,6 +16,7 @@ public static class JsonExtensions
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
         Converters =
         {
+            new ShortIdConverter(),
             new JsonStringEnumConverter()
         },
         #if DEBUG

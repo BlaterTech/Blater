@@ -1,3 +1,5 @@
+using Blater.JsonUtilities;
+
 namespace Blater.Models.Pagination;
 
 public class PaginationResponse<T> : BasePaginationResponse

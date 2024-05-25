@@ -8,7 +8,7 @@ using Blater.Query.Transform.Handlers.StringHandlers;
 namespace Blater.Query.Transform;
 
 /// <summary>
-/// registry of all the handlers used to convert the linq where clauses into mongo json object.
+/// Registry of all the handlers used to convert the linq where clauses into mongo json object.
 /// </summary>
 public static class HandlerRegistry
 {

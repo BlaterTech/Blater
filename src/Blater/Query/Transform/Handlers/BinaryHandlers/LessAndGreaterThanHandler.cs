@@ -12,19 +12,14 @@ public class LessAndGreaterThanHandler : BinaryHandler
             return;
         }
         
-        string? @operator = null;
-        
-        switch (expression.NodeType)
+        var @operator = expression.NodeType switch
         {
-            case ExpressionType.LessThan:
-                @operator = "$lt"; break;
-            case ExpressionType.LessThanOrEqual:
-                @operator = "$lte"; break;
-            case ExpressionType.GreaterThan:
-                @operator = "$gt"; break;
-            case ExpressionType.GreaterThanOrEqual:
-                @operator = "$gte"; break;
-        }
+            ExpressionType.LessThan           => "$lt",
+            ExpressionType.LessThanOrEqual    => "$lte",
+            ExpressionType.GreaterThan        => "$gt",
+            ExpressionType.GreaterThanOrEqual => "$gte",
+            _                                 => null
+        };
         
         var nameValue = GetNameValue(expression);
         //var name = GetMemberName(nameValue.Member, context);
@@ -36,7 +31,10 @@ public class LessAndGreaterThanHandler : BinaryHandler
         
         var compareObject = new DynamicDictionary
         {
-            { @operator, nameValue.Constant?.Value }
+            {
+                @operator,
+                nameValue.Constant?.Value
+            }
         };
         var result = CreateQuery(nameValue.Member, compareObject, context);
         

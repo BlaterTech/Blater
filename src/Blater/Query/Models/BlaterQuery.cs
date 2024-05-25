@@ -8,7 +8,7 @@ public class BlaterQuery
     /// JSON object, or <see cref="BlaterQuery"/>, describing criteria used to select documents. More information
     /// provided in the section on selector syntax.
     /// </summary>
-    public Dictionary<string, object> Selector { get; set; } = new();
+    public IDictionary<string, object>? Selector { get; set; }
     
     /// <summary>
     /// Maximum number of results returned. Default is 25. Optional
@@ -28,5 +28,5 @@ public class BlaterQuery
     /// <summary>
     /// the sorts to apply to this query, note an index is required to use a sort.
     /// </summary>
-    public List<Dictionary<string, OrderDirection>> Sort { get; set; } = [];
+    public List<Dictionary<string, OrderDirection>>? Sort { get; set; }
 }

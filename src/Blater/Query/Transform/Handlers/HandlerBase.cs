@@ -24,7 +24,7 @@ public abstract class HandlerBase<T> : IHandler<T> where T : Expression
     
     protected virtual DynamicDictionary? CreateQuery(Expression? left, DynamicDictionary? right, VisitorContext? context)
     {
-        var evaluator = new NameEvaluator2(context, right);
+        var evaluator = new NameEvaluator(context, right);
         evaluator.Visit(left);
         return evaluator.Query;
     }

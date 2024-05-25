@@ -8,7 +8,7 @@ namespace Blater.Query.Transform.Handlers;
     /// <summary>
     /// this will extract the name an expression.
     /// </summary>
-    internal class NameEvaluator2 : ExpressionVisitor
+    internal class NameEvaluator : ExpressionVisitor
     {
         private readonly VisitorContext? _context;
         private readonly DynamicDictionary? _right;
@@ -16,12 +16,11 @@ namespace Blater.Query.Transform.Handlers;
         public DynamicDictionary? Query;
 
 
-        public NameEvaluator2(VisitorContext? context, DynamicDictionary? right)
+        public NameEvaluator(VisitorContext? context, DynamicDictionary? right)
         {
             _context = context;
             _right = right;
         }
-
 
         public override Expression? Visit(Expression? exp)
         {

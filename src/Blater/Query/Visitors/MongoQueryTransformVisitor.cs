@@ -6,7 +6,7 @@ namespace Blater.Query.Visitors;
 
 public class MongoQueryTransformVisitor : ExpressionVisitor
 {
-    private readonly Dictionary<Type, List<IHandler>?> _handlers;
+    private readonly Dictionary<Type, List<IHandler>?> _handlers = HandlerRegistry.Handlers;
     public VisitorContext? Context { get; set; }
     
     public static IDictionary<string, object>? Eval(Expression expression)
@@ -18,12 +18,6 @@ public class MongoQueryTransformVisitor : ExpressionVisitor
         visitor.Visit(expression);
         
         return context.GetResult();
-    }
-    
-    
-    public MongoQueryTransformVisitor()
-    {
-        _handlers = HandlerRegistry.Handlers;
     }
     
     public override Expression Visit(Expression? node)
@@ -61,10 +55,10 @@ public class MongoQueryTransformVisitor : ExpressionVisitor
         return Handle(node, base.VisitDefault);
     }
     
-//        protected override Expression VisitDynamic(DynamicExpression node)
-//        {
-//            return Handle(node, base.VisitDynamic);
-//        }
+//  protected override Expression VisitDynamic(DynamicExpression node)
+//  {
+//      return Handle(node, base.VisitDynamic);
+//  }
     
     protected override Expression VisitExtension(Expression node)
     {

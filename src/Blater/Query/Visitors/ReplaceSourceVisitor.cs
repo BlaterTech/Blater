@@ -3,11 +3,6 @@ using System.Linq.Expressions;
 
 namespace Blater.Query.Visitors;
 
-/// <summary>
-/// as Armchair is running some of the <see cref="IQueryable{T}"/> against Couchdb
-/// and the test will be in-proc, this visitor, takes the part of the query handled by Couchdb
-/// and replaces it with the yield'ed results.
-/// </summary>
 public class ReplaceSourceVisitor : ExpressionVisitor
 {
     private readonly IEnumerable _newSource;

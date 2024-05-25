@@ -22,9 +22,10 @@ internal class MemberNameEvaluator : ExpressionVisitor
             Value = left;
             Property = node.Right;
         }
-        else
+        
+        if (node.Right is ConstantExpression right)
         {
-            Value = (ConstantExpression)node.Right;
+            Value = right;
             Property = node.Left;
         }
         

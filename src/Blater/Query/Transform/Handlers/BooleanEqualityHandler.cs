@@ -46,6 +46,5 @@ public class BooleanEqualityHandler : HandlerBase<UnaryExpression>
         var result = new DynamicDictionary { { name, equal } };
         
         context.SetResult(result);
-        
     }
 }

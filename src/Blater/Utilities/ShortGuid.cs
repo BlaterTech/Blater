@@ -2,32 +2,18 @@ namespace Blater.Utilities;
 
 public struct ShortGuid : IEquatable<ShortGuid>
 {
-    #region Static
-    
     /// <summary>
     /// A read-only instance of the ShortGuid class whose value 
     /// is guaranteed to be all zeroes. 
     /// </summary>
     public static readonly ShortGuid Empty = new(Guid.Empty);
     
-    #endregion
-    
-    #region Fields
-    
-    private Guid _guid;
-    private string _value;
-    
-    #endregion
-    
-    #region Contructors
-    
     /// <summary>
     /// Creates a ShortGuid from a new Guid
     /// </summary>
     public ShortGuid()
     {
-        _guid = SequentialGuidGenerator.NewGuid();
-        _value = Encode(_guid);
+        Value = Encode(SequentialGuidGenerator.NewGuid());
     }
     
     /// <summary>
@@ -37,8 +23,7 @@ public struct ShortGuid : IEquatable<ShortGuid>
     /// base64 string</param>
     public ShortGuid(string value)
     {
-        _value = value;
-        _guid = Decode(value);
+        Value = value;
     }
     
     /// <summary>
@@ -47,49 +32,15 @@ public struct ShortGuid : IEquatable<ShortGuid>
     /// <param name="guidValue">The Guid to encode</param>
     public ShortGuid(Guid guidValue)
     {
-        _value = Encode(guidValue);
-        _guid = guidValue;
+        Value = Encode(guidValue);
     }
-    
-    #endregion
     
     #region Properties
     
     /// <summary>
-    /// Gets/sets the underlying Guid
-    /// </summary>
-    public Guid GuidValue
-    {
-        get => _guid;
-        set
-        {
-            if (value == _guid)
-            {
-                return;
-            }
-            
-            _guid = value;
-            _value = Encode(value);
-        }
-    }
-    
-    /// <summary>
     /// Gets/sets the underlying base64 encoded string
     /// </summary>
-    public string Value
-    {
-        get => _value;
-        set
-        {
-            if (value == _value)
-            {
-                return;
-            }
-            
-            _value = value;
-            _guid = Decode(value);
-        }
-    }
+    private string Value { get; set; }
     
     #endregion
     
@@ -101,7 +52,7 @@ public struct ShortGuid : IEquatable<ShortGuid>
     /// <returns></returns>
     public override string ToString()
     {
-        return _value;
+        return Value;
     }
     
     #endregion
@@ -118,10 +69,9 @@ public struct ShortGuid : IEquatable<ShortGuid>
     {
         return obj switch
         {
-            ShortGuid guid => _guid.Equals(guid._guid),
-            Guid guid      => _guid.Equals(guid),
-            string         => _guid.Equals(((ShortGuid)obj)._guid),
-            _              => false
+            ShortGuid sid => sid.Equals(this),
+            string        => obj.ToString() == Value,
+            _             => false
         };
     }
     
@@ -135,18 +85,18 @@ public struct ShortGuid : IEquatable<ShortGuid>
     /// <returns></returns>
     public override int GetHashCode()
     {
-        return _guid.GetHashCode();
+        return Value.GetHashCode(StringComparison.Ordinal);
     }
     
     #endregion
     
-    #region NewGuid
+    #region NewShortId
     
     /// <summary>
     /// Initialises a new instance of the ShortGuid class
     /// </summary>
     /// <returns></returns>
-    public static ShortGuid NewGuid()
+    public static ShortGuid NewShortId()
     {
         return new ShortGuid(SequentialGuidGenerator.NewGuid());
     }
@@ -156,24 +106,12 @@ public struct ShortGuid : IEquatable<ShortGuid>
     #region Encode
     
     /// <summary>
-    /// Creates a new instance of a Guid using the string value, 
-    /// then returns the base64 encoded version of the Guid.
-    /// </summary>
-    /// <param name="value">An actual Guid string (i.e. not a ShortGuid)</param>
-    /// <returns></returns>
-    public static string Encode(string value)
-    {
-        var guid = new Guid(value);
-        return Encode(guid);
-    }
-    
-    /// <summary>
     /// Encodes the given Guid as a base64 string that is 22 
     /// characters long.
     /// </summary>
     /// <param name="guidValue">The Guid to encode</param>
     /// <returns></returns>
-    public static string Encode(Guid guidValue)
+    private static string Encode(Guid guidValue)
     {
         var encoded = Convert.ToBase64String(guidValue.ToByteArray());
         
@@ -194,7 +132,7 @@ public struct ShortGuid : IEquatable<ShortGuid>
     /// </summary>
     /// <param name="value">The base64 encoded string of a Guid</param>
     /// <returns>A new Guid</returns>
-    public static Guid Decode(string value)
+    private static Guid Decode(string value)
     {
         value = value
                .Replace("_", "/", StringComparison.OrdinalIgnoreCase)
@@ -209,7 +147,7 @@ public struct ShortGuid : IEquatable<ShortGuid>
     
     public static bool operator ==(ShortGuid x, ShortGuid y)
     {
-        return x._guid == y._guid;
+        return x.GetHashCode() == y.GetHashCode();
     }
     
     public static bool operator !=(ShortGuid x, ShortGuid y)
@@ -224,7 +162,7 @@ public struct ShortGuid : IEquatable<ShortGuid>
             return false;
         }
         
-        return x._guid == y.Value._guid;
+        return x.GetHashCode() == y.GetHashCode();
     }
     
     public static bool operator !=(ShortGuid x, ShortGuid? y)
@@ -246,7 +184,7 @@ public struct ShortGuid : IEquatable<ShortGuid>
             return false;
         }
         
-        return x.Value._guid == y.Value._guid;
+        return x.GetHashCode() == y.GetHashCode();
     }
     
     /// <summary>
@@ -268,7 +206,7 @@ public struct ShortGuid : IEquatable<ShortGuid>
     /// <returns></returns>
     public static implicit operator string(ShortGuid shortGuid)
     {
-        return shortGuid._value;
+        return shortGuid.Value;
     }
     
     /// <summary>
@@ -278,7 +216,7 @@ public struct ShortGuid : IEquatable<ShortGuid>
     /// <returns></returns>
     public static implicit operator Guid(ShortGuid shortGuid)
     {
-        return shortGuid._guid;
+        return Decode(shortGuid);
     }
     
     /// <summary>
@@ -303,7 +241,7 @@ public struct ShortGuid : IEquatable<ShortGuid>
     
     public bool Equals(ShortGuid other)
     {
-        return _guid.Equals(other._guid);
+        return Value == other.Value;
     }
     
     #endregion
