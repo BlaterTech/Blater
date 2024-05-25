@@ -1,23 +1,22 @@
 
-
 using Blater.BlaterResults;
 
 namespace Blater.Interfaces;
 
 public interface IBlaterQueue
 {
-    Task<BlaterResult> PublishQueueMessage(string queue, BaseQueueMessage message);
-    Task<BlaterResult> PublishQueueMessages(string queue, IEnumerable<BaseQueueMessage> message);
+    Task<BlaterResult> Enqueue(string queue, BaseQueueMessage message);
+    Task<BlaterResult> Enqueue(string queue, IEnumerable<BaseQueueMessage> message);
 
-    Task<BlaterResult<IReadOnlyList<BaseQueueMessage>>> PeekQueueMessage(string queue, int count);
+    Task<BlaterResult<IReadOnlyList<BaseQueueMessage>>> Peek(string queue, int count);
 
-    Task<BlaterResult<IReadOnlyList<BaseQueueMessage>>> ReadQueueMessages(string queue, int count, QueueReadOptions readOptions);
+    Task<BlaterResult<IReadOnlyList<BaseQueueMessage>>> Dequeue(string queue, int count, QueueReadOptions readOptions);
 
-    Task<BlaterResult> ArchiveQueueMessage(string queue, BaseQueueMessage message);
+    Task<BlaterResult> Archive(string queue, BaseQueueMessage message);
 
-    Task<BlaterResult<int>> CountQueueMessages();
+    Task<BlaterResult<int>> Count(string queue);
 
-    Task<BlaterResult> DeleteQueueMessage(string queue, BaseQueueMessage message);
+    Task<BlaterResult> Delete(string queue, BaseQueueMessage message);
 
     #region Queue Management
 
