@@ -11,7 +11,7 @@ public interface IBlaterDatabaseStore
 
     public Task<BlaterResult> Upsert(string typeName, string json);
 
-    public Task<BlaterResult> DeleteOne(Guid id);
+    public Task<BlaterResult?> DeleteOne(Guid id);
 
     public Task<BlaterResult<int>> Count(string typeName);
     public Task<BlaterResult<int>> Count(string typeName, string query);
