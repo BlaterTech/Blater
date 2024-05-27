@@ -20,11 +20,19 @@ public class AndOrVisitorHandler : HandlerBase<BinaryExpression>
         var right = context.GetResult();
         var left = context.GetResult();
         
+        //if (right == null || left == null)
+        //{
+        //    return;
+        //}
+        
         var @operator = isAnd
             ? "$and"
             : "$or";
         
-        var query = new DynamicDictionary { { @operator, new List<IDictionary<string, object>?> { left, right } } };
+        var query = new DynamicDictionary
+        {
+            { @operator, new List<IDictionary<string, object>> { left!, right! } }
+        };
         
         context.SetResult(query);
     }

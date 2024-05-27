@@ -8,7 +8,7 @@ namespace Blater.Query.Models;
 /// </summary>
 public class LinqQuery
 {
-    private readonly List<Expression?> _whereClauses = [];
+    private readonly List<Expression> _whereClauses = [];
     private readonly List<OrderBy> _ordering = [];
     
     public LinqQuery(Expression fullQuery)
@@ -21,7 +21,7 @@ public class LinqQuery
     /// <summary>
     /// the where clauses to be processed by couchdb, which needs to be converted into mongo json and executed
     /// </summary>
-    public IEnumerable<Expression?> WhereClauses => _whereClauses;
+    public IEnumerable<Expression> WhereClauses => _whereClauses;
     
     /// <summary>
     /// the parent query, anything we cannot do with couchdb will need to be
@@ -50,7 +50,7 @@ public class LinqQuery
     public IPostProcess PostProcess { get; set; }
     
     
-    public void AddWhereClause(Expression? expression)
+    public void AddWhereClause(Expression expression)
     {
         _whereClauses.Add(expression);
     }

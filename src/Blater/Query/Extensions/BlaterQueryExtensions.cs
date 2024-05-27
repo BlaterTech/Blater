@@ -1,6 +1,6 @@
 namespace Blater.Query.Extensions;
 
-public static class QueryExtensions
+public static class BlaterQueryExtensions
 {
     public static bool In<TSource>(this IEnumerable<TSource> source, params TSource[] values)
     {

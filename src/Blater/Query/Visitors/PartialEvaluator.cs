@@ -4,8 +4,10 @@
 using System.Linq.Expressions;
 using System.Reflection;
 using Blater.Query.Extensions;
+using Blater.Query.Helpers;
+using FastExpressionCompiler;
 
-namespace Blater.Query.Helpers;
+namespace Blater.Query.Visitors;
 
 /// <summary>
 /// Rewrites an expression tree so that locally sortable sub-expressions are evaluated and converted into ConstantExpression nodes.
@@ -112,11 +114,9 @@ public static class PartialEvaluator
             }
             
             var lambda = Expression.Lambda<Func<object>>(e);
-            #if NOREFEMIT
-                Func<object> fn = ExpressionEvaluator.CreateDelegate(lambda);
-            #else
-            var fn = lambda.Compile();
-            #endif
+
+            var fn = lambda.CompileFast();
+
             return Expression.Constant(fn(), type);
         }
     }

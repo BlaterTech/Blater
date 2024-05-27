@@ -6,7 +6,12 @@ public class WhereSubPatternHandler() : SubPatternHandlerBase(objects => objects
 {
     public override void Update(ProcessingLinqContext ctx)
     {
-        ctx.LinqQuery.AddWhereClause(ctx.CurrentMethod?.Expression.Arguments[1]);
+        var clause = ctx.CurrentMethod?.Expression.Arguments[1];
+        if (clause == null)
+        {
+            return;
+        }
+        ctx.LinqQuery.AddWhereClause(clause);
     }
     
     public override bool IndexQueryCompleted(ProcessingLinqContext ctx)
