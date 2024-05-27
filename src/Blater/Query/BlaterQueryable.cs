@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Linq.Expressions;
 
 namespace Blater.Query;
@@ -18,4 +18,4 @@ public class BlaterQueryable<T> : IQueryable<T>, IQueryable, IEnumerable<T>, IEn
     public Type ElementType { get; }
     public Expression Expression { get; }
     public IQueryProvider Provider { get; }
-}
+}*/
