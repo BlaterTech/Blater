@@ -1,6 +1,6 @@
 namespace Blater.BlaterResults;
 
-public class BlaterResult
+public partial class BlaterResult
 {
     public BlaterResult() => Errors = [];
 
