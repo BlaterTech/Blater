@@ -7,8 +7,6 @@ namespace Blater.Query.Transform;
 public class VisitorContext(MongoQueryTransformVisitor visitor)
 {
     private readonly Stack<IDictionary<string, object>?> _terms = new(5);
-    
-    
     public void Visit(Expression expression)
     {
         visitor.Visit(expression);

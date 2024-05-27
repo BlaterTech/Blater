@@ -22,9 +22,4 @@ public static class SequentialGuidGenerator
             (short)(timeStamp >> 16),
             (short)timeStamp, randomBytes);
     }
-    
-    public static ShortGuid NewShortGuid()
-    {
-        return new ShortGuid();
-    }
 }

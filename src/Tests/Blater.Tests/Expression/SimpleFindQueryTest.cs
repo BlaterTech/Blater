@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Blater.JsonUtilities;
 using Blater.Query;
 using Blater.Query.Extensions;
 using Blater.Query.Helpers;
@@ -64,9 +65,9 @@ public class SimpleFindQueryTest
     }*/
     
     [Fact]
-    public void Test1()
+    public void WorstCaseScenario()
     {
-        var guid = ShortGuid.NewShortId();
+        var guid = SequentialGuidGenerator.NewGuid();
         
         Expression<Func<TestModel, bool>> predicate = x =>
             x.Description != null                    &&
@@ -111,14 +112,49 @@ public class SimpleFindQueryTest
             //Sort = orders.Count == 0 ? null : orders
         };
         
-        var json = JsonSerializer.Serialize(mongoQuery, new JsonSerializerOptions
-        {
-            WriteIndented = true, 
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
-        });
+        var json = mongoQuery.ToJson();
     
         var expected = expectedPretty.Replace("\n", "").Replace(" ", "");
         //Assert.Equal(expected, query);
+    }
+    
+    [Fact]
+    public void BestCaseScenario()
+    {
+        var guid = SequentialGuidGenerator.NewGuid();
+        //
+        var expected = $$$"""
+                       {
+                         "$and": [
+                           {
+                             "$and": [
+                               {
+                                 "Id": {
+                                   "$eq": "{{{guid}}}"
+                                 }
+                               },
+                               {
+                                 "Name": {
+                                   "$eq": "Test"
+                                 }
+                               }
+                             ]
+                           },
+                           {
+                             "Description": {
+                               "$regex": "Test"
+                             }
+                           }
+                         ]
+                       }
+                       """;
+        
+        //
+        
+        Expression<Func<TestModel, bool>> predicate = x => x.Id == guid && x.Name == "Test" && x.Description.Contains("Test");
+        
+        var mangoQuery = predicate.ExpressionToMangoQuery();
+        
+        Assert.Equal(expected, mangoQuery);
     }
 }
