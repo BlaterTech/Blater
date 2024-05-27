@@ -59,7 +59,6 @@ internal class NameEvaluator : ExpressionVisitor
     
     protected override Expression VisitMember(MemberExpression node)
     {
-        var type = node.Member.DeclaringType;
         var name = node.Member.Name;
         
         //Check if it has JsonPropertyNameAttribute
