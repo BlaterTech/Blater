@@ -1,6 +1,6 @@
 namespace Blater.Models;
 
-public class BlaterUser : BaseId
+public class BlaterUser : BaseDataModel
 {
     public string Name { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;

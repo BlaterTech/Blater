@@ -1,5 +1,7 @@
 using System.Linq.Expressions;
 using Blater.JsonUtilities;
+using Blater.Models;
+using Blater.Query;
 using Blater.Query.Extensions;
 using Blater.Query.Models;
 using Blater.Query.Visitors;
@@ -63,7 +65,7 @@ public class SimpleFindQueryTest
     [Fact]
     public void WorstCaseScenario()
     {
-        var guid = SequentialGuidGenerator.NewGuid();
+        var guid = SequentialGuidGenerator.NewGuid().ToString();
         
         Expression<Func<TestModel, bool>> predicate = x =>
             x.Description != null                    &&
@@ -117,7 +119,9 @@ public class SimpleFindQueryTest
     [Fact]
     public void BestCaseScenario()
     {
-        var guid = SequentialGuidGenerator.NewGuid();
+        var guid = SequentialGuidGenerator.NewGuid().ToString();
+        
+        
         //
         var expected = $$$"""
                        {
@@ -149,8 +153,10 @@ public class SimpleFindQueryTest
         
         Expression<Func<TestModel, bool>> predicate = x => x.Id == guid && x.Name == "Test" && x.Description.Contains("Test");
         
-        var mangoQuery = predicate.ExpressionToMangoQuery();
+        var queryClauses = predicate.ExpressionToMangoQuery();
         
-        Assert.Equal(expected, mangoQuery);
+        var json = queryClauses.ToJson();
+        
+        Assert.Equal(expected, json);
     }
 }

@@ -34,7 +34,7 @@ internal class NameEvaluator : ExpressionVisitor
     {
         var isDictionary = typeof(IEnumerable).GetTypeInfo().IsAssignableFrom(node.Method.DeclaringType);
         
-        //only support dictionay index by name
+        //only support dictionary index by name
         if (!isDictionary || (node.Method.Name != "get_Item" && node.Method.Name != "ContainsKey"))
         {
             return node;

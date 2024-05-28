@@ -27,23 +27,19 @@ public static class ExpressionExtensions
         return json;
     }*/
     
-    public static string ExpressionToMangoQuery(this Expression expression)
+    public static IDictionary<string, object> ExpressionToMangoQuery(this Expression expression)
     {
         //PreProcess
         var expressionEvaluated = PartialEvaluator.Eval(expression);
         
         if (expressionEvaluated == null)
         {
-            return "error";
+            return  new Dictionary<string, object>();
         }
-        
-        var linqQuery = LinqVisitor.Eval(expressionEvaluated);
         
         var query = MongoQueryTransformVisitor.Eval(expressionEvaluated);
         
-        var json = query.ToJson();
-        
-        return json ?? "error";
+        return query ?? new Dictionary<string, object>();
     }
     
     public static BlaterQuery? ExpressionToBlaterQuery(this Expression expression)

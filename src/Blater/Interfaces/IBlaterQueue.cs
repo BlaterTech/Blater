@@ -1,5 +1,5 @@
 
-using Blater.BlaterResults;
+using Blater.Resullts;
 
 namespace Blater.Interfaces;
 

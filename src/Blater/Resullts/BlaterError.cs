@@ -1,4 +1,4 @@
-namespace Blater.BlaterResults;
+namespace Blater.Resullts;
 
 public class BlaterError
 {
