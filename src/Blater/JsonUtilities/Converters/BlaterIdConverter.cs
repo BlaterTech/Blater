@@ -57,15 +57,11 @@ namespace Blater.JsonUtilities.Converters
 
         public override void Write(Utf8JsonWriter writer, BlaterId value, JsonSerializerOptions options)
         {
-            writer.WriteStartObject();
-            writer.WriteString("guidValue", value.GuidValue.ToString());
-            writer.WriteString("partition", value.Partition);
+            writer.WriteString("_id", $"{value.Partition}:{value.GuidValue.ToString()}");
             if (value.Revision != null)
             {
-                writer.WriteString("_rev", value.Revision);
-                //writer.WriteString("rev", value.Revision);
+                writer.WriteString("rev", value.Revision);
             }
-            writer.WriteEndObject();
         }
     }
 }
