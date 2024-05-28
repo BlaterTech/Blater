@@ -63,7 +63,7 @@ namespace Blater.JsonUtilities.Converters
             if (value.Revision != null)
             {
                 writer.WriteString("_rev", value.Revision);
-                writer.WriteString("rev", value.Revision);
+                //writer.WriteString("rev", value.Revision);
             }
             writer.WriteEndObject();
         }
