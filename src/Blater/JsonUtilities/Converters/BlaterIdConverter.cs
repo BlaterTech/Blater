@@ -30,6 +30,7 @@ namespace Blater.JsonUtilities.Converters
                             guidValue = readerCopy.GetString();
                             break;
                         case "rev":
+                        case "_rev":
                             revision = readerCopy.GetString();
                             break;
                     }
