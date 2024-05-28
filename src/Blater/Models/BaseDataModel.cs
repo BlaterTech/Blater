@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
+
 // ReSharper disable UnusedMember.Global
 
 namespace Blater.Models;
@@ -14,25 +15,26 @@ public class BaseDataModel
         //Creates a new BlaterId with the sanitized type name.
         Id = new BlaterId(typeName);
     }
-
+    
     [JsonPropertyName("_id")]
-    public virtual BlaterId Id { get; set; }
-
+    public BlaterId Id { get; set; }
+    
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }
-
+    
     /// <summary>
     ///     Deletion flag.
     ///     Available if document was removed.
     /// </summary>
-
+    
     [JsonIgnore]
     public bool Deleted { get; private set; }
-
+    
     #region TODO
 
     [JsonIgnore]
     public IReadOnlyCollection<string> Conflicts { get; private set; } = default!;
+
 
     [JsonPropertyName("_conflicts")]
     public List<string> ConflictsOther
@@ -40,8 +42,10 @@ public class BaseDataModel
         set => Conflicts = value.AsReadOnly();
     }
 
+
     [JsonIgnore]
     public IReadOnlyCollection<string> DeletedConflicts { get; private set; } = default!;
+
 
     [JsonPropertyName("_deleted_conflicts")]
     public List<string> DeletedConflictsOther
@@ -49,8 +53,10 @@ public class BaseDataModel
         set => DeletedConflicts = value.AsReadOnly();
     }
 
+
     [JsonIgnore]
     public int LocalSequence { get; private set; }
+
 
     [JsonPropertyName("_localSeq")]
     public int LocalSequenceOther
@@ -58,8 +64,10 @@ public class BaseDataModel
         set => LocalSequence = value;
     }
 
+
     [JsonIgnore]
     public IReadOnlyCollection<RevisionInfo> RevisionsInfo { get; private set; } = default!;
+
 
     [JsonPropertyName("_revs_info")]
     public List<RevisionInfo> RevisionsInfoOther
@@ -75,11 +83,12 @@ public class BaseDataModel
     [JsonIgnore]
     public Revisions? Revisions { get; private set; }
 
+
     [JsonPropertyName("_revisions")]
     public Revisions RevisionsOther
     {
         set => Revisions = value;
     }
-
+    
     #endregion
 }
