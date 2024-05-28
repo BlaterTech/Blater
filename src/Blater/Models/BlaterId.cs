@@ -1,9 +1,29 @@
 using System.Text.Json.Serialization;
+using Blater.Utilities;
 
 namespace Blater.Models;
 
 public struct BlaterId : IEquatable<BlaterId>
 {
+    public BlaterId(string partition)
+    {
+        Partition = partition;
+        GuidValue = SequentialGuidGenerator.NewGuid();
+    }
+    
+    public BlaterId(string partition, Guid guidValue)
+    {
+        Partition = partition;
+        GuidValue = guidValue;
+    }
+    
+    public BlaterId(string partition, Guid guidValue, string? revision)
+    {
+        Partition = partition;
+        GuidValue = guidValue;
+        Revision = revision;
+    }
+    
     public Guid GuidValue { get; set; }
     
     public string Partition { get; set; }
@@ -49,6 +69,11 @@ public struct BlaterId : IEquatable<BlaterId>
         
         return GuidValue.Equals(other.GuidValue) && Partition.Equals(other.Partition, StringComparison.OrdinalIgnoreCase) && Revision.Equals(other.Revision, StringComparison.OrdinalIgnoreCase);
     }
+    
+    public static implicit operator string(BlaterId blaterId)
+    {
+        return blaterId.ToString();
+    }
 
     public override bool Equals(object? obj)
     {
@@ -63,5 +88,10 @@ public struct BlaterId : IEquatable<BlaterId>
     public override int GetHashCode()
     {
         return HashCode.Combine(GuidValue, Partition, Revision);
+    }
+    
+    public override string ToString()
+    {
+        return $"{Partition}:{GuidValue}";
     }
 }
