@@ -11,10 +11,13 @@ public class BaseDataModel
     public BaseDataModel()
     {
         var type = GetType();
+        var typeName = type.FullName?.SanitizeString() ?? type.Name;
+        //Creates a new BlaterId with the sanitized type name.
+        Id = new BlaterId(typeName);
     }
     
     [JsonPropertyName("_id")]
-    public BlaterId? Id { get; set; }
+    public BlaterId Id { get; set; }
     
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }
@@ -26,7 +29,6 @@ public class BaseDataModel
     
     [JsonIgnore]
     public bool Deleted { get; private set; }
-    
     
     #region TODO
 
