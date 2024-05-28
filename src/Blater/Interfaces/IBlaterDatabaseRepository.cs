@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace Blater.Interfaces;
 
-public interface IBlaterDatabaseRepository<T>
+public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
 {
     public Task<BlaterResult<T>> FindOne(string id);
     public Task<BlaterResult<T>> FindOne(Expression<Func<T, bool>> predicate);

@@ -1,6 +1,7 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+
 using Blater.Models;
 
 namespace Blater.JsonUtilities.Converters
@@ -46,7 +47,7 @@ namespace Blater.JsonUtilities.Converters
                                 revision = reader.GetString();
                                 break;
                         }
-                        
+
                         break;
                     }
                 }
