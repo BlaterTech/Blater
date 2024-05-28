@@ -6,10 +6,12 @@ using Blater.Utilities;
 namespace Blater.Models;
 
 [SuppressMessage("Design", "CA1044:Properties should not be write only")]
+[SuppressMessage("Naming", "CA1720:Identifier contains type name")]
 public class BaseDataModel
 {
     public BaseDataModel()
     {
+        Guid = SequentialGuidGenerator.NewGuid();
         var type = GetType();
         FullTypeName =  type.FullName?.SanitizeString() ?? type.Name;
     }
@@ -17,7 +19,7 @@ public class BaseDataModel
     [JsonPropertyName("_id")]
     public string Id => $"{Partition ?? FullTypeName}:{Guid}";
     
-    internal Guid Guid { get; set; } = SequentialGuidGenerator.NewGuid();
+    public Guid Guid { get; set; }
     
     public string? Partition { get; set; }
     
