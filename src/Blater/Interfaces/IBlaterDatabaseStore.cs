@@ -4,7 +4,7 @@ namespace Blater.Interfaces;
 
 public interface IBlaterDatabaseStore
 {
-    public Task<BlaterResult<string>> FindOne(string typeName, Guid id);
+    public Task<BlaterResult<string>> FindOne(Guid id);
     public Task<BlaterResult<string>> FindOne(string typeName, string query);
 
     public Task<BlaterResult<IEnumerable<string>>> FindMany(string typeName, string query);
