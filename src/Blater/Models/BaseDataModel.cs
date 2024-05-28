@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 using Blater.Utilities;
 // ReSharper disable UnusedMember.Global
@@ -22,8 +21,8 @@ public class BaseDataModel
     
     public string? Partition { get; set; }
     
-    [JsonPropertyName("_rev")]
-    public string? Revision { get; internal set; }
+    [JsonPropertyName("rev")]
+    public string? Revision { get; set; }
     
     internal string FullTypeName { get; set; }
     
