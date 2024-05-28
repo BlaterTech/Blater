@@ -37,7 +37,7 @@ public abstract class SubPatternHandlerBase : ISubPatternHandler
         };
     }
     
-    protected SubPatternHandlerBase(params string[] methods)
+    protected SubPatternHandlerBase(params List<string> methods)
     {
         Supported = exp =>
         {

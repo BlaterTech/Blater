@@ -1,7 +1,5 @@
 using System.Linq.Expressions;
 using Blater.JsonUtilities;
-using Blater.Models;
-using Blater.Query;
 using Blater.Query.Extensions;
 using Blater.Query.Models;
 using Blater.Query.Visitors;

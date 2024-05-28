@@ -10,7 +10,7 @@ namespace Blater.Query.Handlers;
 public class SkipSubPatternHandler() : SubPatternHandlerBase(objects => objects.Skip(1))
 {
     //skip, take, distinct, single, count, any
-    private static readonly string[] AllowedNextStep = ["skip", "take", "distinct", "single", "count", "any"];
+    private static readonly List<string> AllowedNextStep = ["skip", "take", "distinct", "single", "count", "any"];
     
     
     public override void Update(ProcessingLinqContext ctx)
