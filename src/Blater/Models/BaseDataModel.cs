@@ -11,7 +11,6 @@ public class BaseDataModel
 {
     public BaseDataModel()
     {
-        Guid = SequentialGuidGenerator.NewGuid();
         var type = GetType();
         FullTypeName =  type.FullName?.SanitizeString() ?? type.Name;
     }
