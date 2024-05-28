@@ -10,6 +10,9 @@ public static class StringExtensions
                   .Replace(" ", "_", StringComparison.OrdinalIgnoreCase)
                   .Replace("+", "_", StringComparison.OrdinalIgnoreCase)
                   .Replace(".", "_", StringComparison.OrdinalIgnoreCase)
+                  .Replace("\\", "_", StringComparison.OrdinalIgnoreCase)
+                  .Replace("//", "_", StringComparison.OrdinalIgnoreCase)
+                  .Replace("?", "_", StringComparison.OrdinalIgnoreCase)
                    ;
     }
 
