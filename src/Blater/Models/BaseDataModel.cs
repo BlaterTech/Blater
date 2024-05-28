@@ -12,7 +12,7 @@ public class BaseDataModel
     public BaseDataModel()
     {
         var type = GetType();
-        FullTypeName =  type.FullName?.ToLower().Replace(".", "_", StringComparison.OrdinalIgnoreCase) ?? type.Name;
+        FullTypeName =  type.FullName?.SanitizeString() ?? type.Name;
     }
     
     [JsonPropertyName("_id")]
