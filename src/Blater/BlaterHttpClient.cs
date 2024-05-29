@@ -42,11 +42,39 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
         }
     }
     
+    public async Task<T?> Post<T>(string url, HttpContent content)
+    {
+        try
+        {
+            var response = await httpClient.PostAsync(url, content).ConfigureAwait(false);
+            return await HandleResponse<T>(response);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "BlaterHttpClient Exception === Error while making POST request to {Url}", url);
+            throw;
+        }
+    }
+    
     public async Task<T?> Put<T>(string url, object? body = null)
     {
         try
         {
             var response = await httpClient.PutAsJsonAsync(url, body).ConfigureAwait(false);
+            return await HandleResponse<T>(response);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "BlaterHttpClient Exception === Error while making PUT request to {Url}", url);
+            throw;
+        }
+    }
+    
+    public async Task<T?> Put<T>(string url, HttpContent content)
+    {
+        try
+        {
+            var response = await httpClient.PutAsync(url, content).ConfigureAwait(false);
             return await HandleResponse<T>(response);
         }
         catch (Exception e)
@@ -66,6 +94,20 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
         catch (Exception e)
         {
             logger.LogError(e, "BlaterHttpClient Exception === Error while making DELETE request to {Url}", url);
+            throw;
+        }
+    }
+    
+    public async Task<T?> Patch<T>(string url, HttpContent content)
+    {
+        try
+        {
+            var response = await httpClient.PatchAsync(url, content).ConfigureAwait(false);
+            return await HandleResponse<T>(response);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "BlaterHttpClient Exception === Error while making PATCH request to {Url}", url);
             throw;
         }
     }
