@@ -4,12 +4,6 @@ namespace Blater.Models;
 
 public struct BlaterId : IEquatable<BlaterId>
 {
-    public BlaterId(string partition)
-    {
-        Partition = partition;
-        GuidValue = SequentialGuidGenerator.NewGuid();
-    }
-
     public BlaterId(string partition, Guid guidValue)
     {
         Partition = partition;
@@ -73,7 +67,7 @@ public struct BlaterId : IEquatable<BlaterId>
 
     public override bool Equals(object? obj)
     {
-        return obj is not null && obj is BlaterId other && Equals(other);
+        return obj is BlaterId other && Equals(other);
     }
 
     public override int GetHashCode()
