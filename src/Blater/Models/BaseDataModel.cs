@@ -8,14 +8,6 @@ namespace Blater.Models;
 [SuppressMessage("Design", "CA1044:Properties should not be write only")]
 public class BaseDataModel
 {
-    protected BaseDataModel()
-    {
-        var type = GetType();
-        var typeName = type.FullName?.SanitizeString() ?? type.Name;
-        //Creates a new BlaterId with the sanitized type name.
-        Id = new BlaterId(typeName);
-    }
-    
     [JsonPropertyName("_id")]
     public BlaterId Id { get; set; }
     
