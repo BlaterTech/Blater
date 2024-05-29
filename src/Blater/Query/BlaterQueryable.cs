@@ -1,9 +1,10 @@
-/*using System.Collections;
+using System.Collections;
 using System.Linq.Expressions;
+using Blater.Query.Interfaces;
 
 namespace Blater.Query;
 
-public class BlaterQueryable<T> : IQueryable<T>, IQueryable, IEnumerable<T>, IEnumerable, IOrderedQueryable<T>, IOrderedQueryable
+public class BlaterQueryable<T> : IBlaterQueryable<T>, IQueryable, IEnumerable<T>, IEnumerable, IOrderedQueryable<T>, IOrderedQueryable where T : BaseDataModel
 {
     public IEnumerator<T> GetEnumerator()
     {
@@ -18,4 +19,4 @@ public class BlaterQueryable<T> : IQueryable<T>, IQueryable, IEnumerable<T>, IEn
     public Type ElementType { get; }
     public Expression Expression { get; }
     public IQueryProvider Provider { get; }
-}*/
+}
