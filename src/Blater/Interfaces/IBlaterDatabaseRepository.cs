@@ -8,6 +8,8 @@ namespace Blater.Interfaces;
 
 public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
 {
+    #region FindOne
+    
     /// <summary>
     /// Finds a single document by its id
     /// </summary>
@@ -30,6 +32,10 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// <returns></returns>
     public Task<BlaterResult<T>> FindOne(string partition, Expression<Func<T, bool>> predicate);
     
+    #endregion
+    
+    #region FindMany
+    
     /// <summary>
     /// Finds many documents using query
     /// </summary>
@@ -45,6 +51,9 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// <returns></returns>
     public Task<BlaterResult<IReadOnlyList<T>>> FindMany(string partition, Expression<Func<T, bool>> predicate);
     
+    #endregion
+    
+    #region Insert
     /// <summary>
     /// Upserts a document, it replaces the document if it exists
     /// </summary>
@@ -65,6 +74,9 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// <param name="entity"></param>
     /// <returns></returns>
     public Task<BlaterResult<T>> Update(T entity);
+    #endregion
+    
+    #region Delete
     
     /// <summary>
     /// Deletes a document
@@ -94,7 +106,11 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// <param name="predicate"></param>
     /// <returns></returns>
     public Task<BlaterResult<int>> DeleteMany(string partition, Expression<Func<T, bool>> predicate);
-
+    
+    #endregion
+    
+    #region Count
+    
     /// <summary>
     /// Counts all documents
     /// </summary>
@@ -122,6 +138,8 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// <param name="predicate"></param>
     /// <returns></returns>
     public Task<BlaterResult<int>> Count(string partition, Expression<Func<T, bool>> predicate);
+    
+    #endregion
     
     public IBlaterQueryable<T> Queryable { get; }
 }

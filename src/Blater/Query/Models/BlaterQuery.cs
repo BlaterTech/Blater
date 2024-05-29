@@ -43,7 +43,7 @@ public class BlaterQuery
     public int? ReadQorum { get; set; }
 
     public string? Bookmark { get; set; }
-
+    
     [JsonPropertyName("execution_stats")]
-    public bool? ExecutionStats { get; set; }
+    public bool ExecutionStats { get; set; } = true;
 }

@@ -5,7 +5,7 @@
         <Nullable>enable</Nullable>
         <LangVersion>preview</LangVersion>
         <EnablePreviewFeatures>true</EnablePreviewFeatures>
-        
+
         <Version>1.0.0.0</Version>
         <Authors>Blater</Authors>
         <PackageLicenseUrl>https://github.com/BlaterTech/Blater/blob/main/LICENSE</PackageLicenseUrl>
@@ -16,14 +16,23 @@
     </PropertyGroup>
     
     <ItemGroup>
-      <PackageReference Include="FastExpressionCompiler" Version="4.2.0" />
-      <PackageReference Include="FastGenericNew.SourceGenerator" Version="3.1.0-preview1">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="Humanizer.Core" Version="3.0.0-beta.13" />
-      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
-      <PackageReference Include="Microsoft.Extensions.ObjectPool" Version="8.0.5" />
-      <PackageReference Include="NetEscapades.EnumGenerators" Version="1.0.0-beta09" />
+        <InternalsVisibleTo Include="Blater.SDK"/>
+        <InternalsVisibleTo Include="Blater.Backend"/>
+        <InternalsVisibleTo Include="Blater.Database"/>
+        <InternalsVisibleTo Include="Blater.Internal"/>
+        <InternalsVisibleTo Include="Blater.Tests"/>
+        <InternalsVisibleTo Include="Blater.Database.Tests"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="FastExpressionCompiler" Version="4.2.0"/>
+        <PackageReference Include="FastGenericNew.SourceGenerator" Version="3.1.0-preview1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Humanizer.Core" Version="3.0.0-beta.13"/>
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1"/>
+        <PackageReference Include="Microsoft.Extensions.ObjectPool" Version="8.0.5"/>
+        <PackageReference Include="NetEscapades.EnumGenerators" Version="1.0.0-beta09"/>
     </ItemGroup>
 </Project>

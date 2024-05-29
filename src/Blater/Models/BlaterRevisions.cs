@@ -4,19 +4,11 @@ using System.Text.Json.Serialization;
 namespace Blater.Models;
 
 [SuppressMessage("Design", "CA1044:Properties should not be write only")]
-public class Revisions
+public class BlaterRevisions
 {
-    [JsonIgnore]
-    public int Start { get; private set; }
-
-
     [JsonPropertyName("start")]
-    public int StartOther
-    {
-        set => Start = value;
-    }
-
-
+    public int Start { get; init; }
+    
     [JsonPropertyName("ids")]
-    public List<string> Ids { get; set; } = [];
+    public List<string> Ids { get; init; } = default!;
 }

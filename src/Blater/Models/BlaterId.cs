@@ -1,20 +1,29 @@
+using System.Text.Json.Serialization;
 using Blater.Utilities;
 
 namespace Blater.Models;
 
 public class BlaterId : IEquatable<BlaterId>
 {
-    public BlaterId(string partition, Guid guidValue)
+    internal BlaterId(string partition, Guid guidValue)
     {
         Partition = partition;
         GuidValue = guidValue;
     }
-
-    public BlaterId(string partition, Guid guidValue, string? revision)
+    
+    internal BlaterId(string partition, Guid guidValue, string? revision)
     {
         Partition = partition;
         GuidValue = guidValue;
         Revision = revision;
+    }
+    
+    internal BlaterId(string partition, Guid guidValue, string? revision, BlaterRevisions? revisions)
+    {
+        Partition = partition;
+        GuidValue = guidValue;
+        Revision = revision;
+        Revisions = revisions;
     }
 
     public Guid GuidValue { get; }
@@ -22,6 +31,12 @@ public class BlaterId : IEquatable<BlaterId>
     public string Partition { get; }
 
     public string? Revision { get; }
+    
+    /// <summary>
+    /// Older revisions of the document, only available if the document was updated and if requested.
+    /// </summary>
+    [JsonPropertyName("_revisions")]
+    public BlaterRevisions? Revisions { get; }
 
     public static bool operator ==(BlaterId left, BlaterId right)
     {

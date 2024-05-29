@@ -10,6 +10,7 @@ namespace Blater.JsonUtilities.Converters
             string? guidValue = null;
             string? partition = null;
             string? revision = null;
+            BlaterRevisions? revisions = null;
             
             var readerCopy = reader;
             
@@ -40,11 +41,15 @@ namespace Blater.JsonUtilities.Converters
                         case "_rev":
                             revision = readerCopy.GetString();
                             break;
+                        case "_revisions":
+                            revisions = JsonSerializer.Deserialize<BlaterRevisions>(ref readerCopy, options);
+                            break;
                     }
                 }
             }
             
-            return new BlaterId(partition!, Guid.Parse(guidValue!), revision);
+            
+            return new BlaterId(partition!, Guid.Parse(guidValue!), revision, revisions);
         }
         
         public override void Write(Utf8JsonWriter writer, BlaterId value, JsonSerializerOptions options)
