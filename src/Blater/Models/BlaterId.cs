@@ -55,9 +55,28 @@ public struct BlaterId : IEquatable<BlaterId>
 
     public bool Equals(BlaterId other)
     {
-        return Revision == null || other.Revision == null
-            ? GuidValue.Equals(other.GuidValue) && Partition.Equals(other.Partition, StringComparison.OrdinalIgnoreCase)
-            : GuidValue.Equals(other.GuidValue) && Partition.Equals(other.Partition, StringComparison.OrdinalIgnoreCase) && Revision.Equals(other.Revision, StringComparison.OrdinalIgnoreCase);
+        if (GuidValue == Guid.Empty || other.GuidValue == Guid.Empty)
+        {
+            return false;
+        }
+        
+        if (string.IsNullOrEmpty(Partition) || string.IsNullOrEmpty(other.Partition))
+        {
+            return false;
+        }
+        
+        if (Revision == null || other.Revision == null)
+        {
+            return GuidValue.Equals(other.GuidValue) && Partition.Equals(other.Partition, StringComparison.OrdinalIgnoreCase);
+        }
+        
+        if(string.IsNullOrEmpty(Revision) || string.IsNullOrEmpty(other.Revision))
+        {
+            return GuidValue.Equals(other.GuidValue) && Partition.Equals(other.Partition, StringComparison.OrdinalIgnoreCase);
+        }
+        
+        return GuidValue.Equals(other.GuidValue) && Partition.Equals(other.Partition, StringComparison.OrdinalIgnoreCase) &&
+               Revision.Equals(other.Revision, StringComparison.OrdinalIgnoreCase);
     }
 
     public static implicit operator string(BlaterId blaterId)

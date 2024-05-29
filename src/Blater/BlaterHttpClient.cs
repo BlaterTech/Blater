@@ -34,7 +34,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            var response = await httpClient.PostAsJsonAsync(url, body).ConfigureAwait(false);
+            var response = await httpClient.PostAsJsonAsync(url, body, JsonExtensions.DefaultJsonSerializerOptions).ConfigureAwait(false);
             return await HandleResponse<T>(response);
         }
         catch (Exception e)
@@ -62,7 +62,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            var response = await httpClient.PutAsJsonAsync(url, body).ConfigureAwait(false);
+            var response = await httpClient.PutAsJsonAsync(url, body, JsonExtensions.DefaultJsonSerializerOptions).ConfigureAwait(false);
             return await HandleResponse<T>(response);
         }
         catch (Exception e)
@@ -118,7 +118,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            var response = await httpClient.PatchAsJsonAsync(url, body).ConfigureAwait(false);
+            var response = await httpClient.PatchAsJsonAsync(url, body, JsonExtensions.DefaultJsonSerializerOptions).ConfigureAwait(false);
             return await HandleResponse<T>(response);
         }
         catch (Exception e)
@@ -143,21 +143,28 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
             
             if (LogResponse)
             {
-                var debugStream = await message.Content.ReadAsStreamAsync();
-                var debugObject = await debugStream.FromJson<T>();
+                var debugStream = await message.Content.ReadAsStringAsync();
+                var debugObject = debugStream.FromJson<T>();
+                
+                if (debugObject == null)
+                {
+                    logger.LogDebug("BlaterHttpClient === Response:\n {JsonObject}", debugStream);
+                    throw new Exception("Error while deserializing response");
+                }
+                
                 logger.LogDebug("BlaterHttpClient === Response:\n {@JsonObject}", debugObject);
             }
             #endif
             
-            #if RELEASE
-        if (!message.IsSuccessStatusCode)
-        {
-            logger.LogError("BlaterHttpClient === Request [{Method}] to {Url}, StatusCode: {StatusCode}\n Content:\n{Content} \nHeaders:{Headers}", message.RequestMessage?.Method,
-                            message.RequestMessage?.RequestUri, message.StatusCode, stringContent, message.RequestMessage?.Headers);
-        }
-            #endif
+            if (!message.IsSuccessStatusCode)
+            {
+                logger.LogError("BlaterHttpClient === Request [{Method}] to {Url}, StatusCode: {StatusCode}\n Content:\n{Content} \nHeaders:{Headers}",
+                                message.RequestMessage?.Method,
+                                message.RequestMessage?.RequestUri, message.StatusCode, stringContent, message.RequestMessage?.Headers);
+            }
             
-            var json = await message.Content.ReadFromJsonAsync<T>(JsonExtensions.DefaultJsonSerializerOptions);
+            var stream = await message.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var json = stream.FromJson<T>();
             return json;
         }
         catch (Exception e)

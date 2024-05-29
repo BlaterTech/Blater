@@ -48,8 +48,8 @@ public static class JsonExtensions
         return str == null ? default : JsonSerializer.Deserialize<T>(str, DefaultJsonSerializerOptions);
     }
     
-    public static ValueTask<T?> FromJson<T>(this Stream stream)
+    /*public static async Task<T?> FromJson<T>(this Stream stream)
     {
-        return JsonSerializer.DeserializeAsync<T>(stream, DefaultJsonSerializerOptions);
-    }
+        return await JsonSerializer.DeserializeAsync<T>(stream, DefaultJsonSerializerOptions);
+    }*/
 }
