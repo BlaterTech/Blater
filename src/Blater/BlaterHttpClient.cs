@@ -16,6 +16,34 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     
     public Uri? BaseAddress => httpClient.BaseAddress;
     
+    public async Task<bool> GetBool(string url)
+    {
+        try
+        {
+            var response = await httpClient.GetAsync(url).ConfigureAwait(false);
+            return response.IsSuccessStatusCode;
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "BlaterHttpClient Exception === Error while making GET request to {Url}", url);
+            throw;
+        }
+    }
+    
+    public async Task<string?> GetString(string url)
+    {
+        try
+        {
+            var response = await httpClient.GetAsync(url).ConfigureAwait(false);
+            return await response.Content.ReadAsStringAsync();
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "BlaterHttpClient Exception === Error while making GET request to {Url}", url);
+            throw;
+        }
+    }
+    
     public async Task<T?> Get<T>(string url)
     {
         try
