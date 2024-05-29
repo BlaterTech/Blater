@@ -22,7 +22,7 @@ public abstract class HandlerBase<T> : IHandler<T> where T : Expression
         Handle((T)expression, context);
     }
     
-    protected virtual DynamicDictionary? CreateQuery(Expression? left, DynamicDictionary? right, VisitorContext? context)
+    protected DynamicDictionary? CreateQuery(Expression? left, DynamicDictionary? right, VisitorContext? context)
     {
         var evaluator = new NameEvaluator(context, right);
         evaluator.Visit(left);
