@@ -48,8 +48,8 @@ namespace Blater.JsonUtilities.Converters
                 }
             }
             
-            
-            return new BlaterId(partition!, Guid.Parse(guidValue!), revision, revisions);
+            var blaterId = new BlaterId(partition!, Guid.Parse(guidValue!), revision, revisions);
+            return blaterId;
         }
         
         public override void Write(Utf8JsonWriter writer, BlaterId value, JsonSerializerOptions options)

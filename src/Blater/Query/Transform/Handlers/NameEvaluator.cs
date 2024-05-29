@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Json.Serialization;
 using Blater.Query.Models;
+using Humanizer;
 
 namespace Blater.Query.Transform.Handlers;
 
@@ -59,7 +60,7 @@ internal class NameEvaluator : ExpressionVisitor
     
     protected override Expression VisitMember(MemberExpression node)
     {
-        var name = node.Member.Name;
+        var name = node.Member.Name.Camelize();
         
         //Check if it has JsonPropertyNameAttribute
         var jsonPropertyNameAttribute = node.Member.GetCustomAttribute<JsonPropertyNameAttribute>();

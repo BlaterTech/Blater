@@ -178,6 +178,9 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
             {
                 var debugString = await message.Content.ReadAsStringAsync();
                 
+                logger.LogDebug("BlaterHttpClient === [{Method}] to {Url}, StatusCode: {StatusCode} Response:\n {@JsonObject}",
+                                message.RequestMessage?.Method, message.RequestMessage?.RequestUri, message.StatusCode, debugString);
+                
                 try
                 {
                     var debugObject = debugString.FromJson<T>();
@@ -193,9 +196,6 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
                     Console.WriteLine(e);
                     throw;
                 }
-                
-                logger.LogDebug("BlaterHttpClient === [{Method}] to {Url}, StatusCode: {StatusCode} Response:\n {@JsonObject}",
-                                message.RequestMessage?.Method, message.RequestMessage?.RequestUri, message.StatusCode, debugString);
             }
             #endif
             
