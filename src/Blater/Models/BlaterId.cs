@@ -2,7 +2,7 @@ using Blater.Utilities;
 
 namespace Blater.Models;
 
-public struct BlaterId : IEquatable<BlaterId>
+public class BlaterId : IEquatable<BlaterId>
 {
     public BlaterId(string partition, Guid guidValue)
     {
@@ -17,11 +17,11 @@ public struct BlaterId : IEquatable<BlaterId>
         Revision = revision;
     }
 
-    public Guid GuidValue { get; set; }
+    public Guid GuidValue { get; }
 
-    public string Partition { get; set; }
+    public string Partition { get; }
 
-    public string? Revision { get; set; }
+    public string? Revision { get; }
 
     public static bool operator ==(BlaterId left, BlaterId right)
     {
@@ -53,14 +53,14 @@ public struct BlaterId : IEquatable<BlaterId>
         return !left.Partition.Equals(right, StringComparison.OrdinalIgnoreCase);
     }
 
-    public bool Equals(BlaterId other)
+    public bool Equals(BlaterId? other)
     {
-        if (GuidValue == Guid.Empty || other.GuidValue == Guid.Empty)
+        if (GuidValue == Guid.Empty || other?.GuidValue == Guid.Empty)
         {
             return false;
         }
         
-        if (string.IsNullOrEmpty(Partition) || string.IsNullOrEmpty(other.Partition))
+        if (string.IsNullOrEmpty(Partition) || string.IsNullOrEmpty(other?.Partition))
         {
             return false;
         }

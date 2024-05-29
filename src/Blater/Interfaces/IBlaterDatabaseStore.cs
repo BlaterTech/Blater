@@ -10,7 +10,7 @@ public interface IBlaterDatabaseStore
 
     public Task<BlaterResult<IEnumerable<string>>> FindMany(string partition, BlaterQuery query);
 
-    public Task<BlaterResult<string>> Upsert(string id, string json);
+    public Task<BlaterResult<bool>> Upsert(string id, string json);
 
     public Task<BlaterResult?> DeleteOne(string id);
 

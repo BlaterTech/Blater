@@ -9,7 +9,7 @@ namespace Blater.Models;
 public class BaseDataModel
 {
     [JsonPropertyName("_id")]
-    public BlaterId Id { get; set; }
+    public BlaterId Id { get; set; } = default!;
     
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }

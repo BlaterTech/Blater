@@ -21,6 +21,15 @@ namespace Blater.JsonUtilities.Converters
                     readerCopy.Read();
                     switch (propertyName)
                     {
+                        case "id":
+                            var compostId = readerCopy.GetString();
+                            if (compostId != null)
+                            {
+                                var parts = compostId.Split(':');
+                                partition = parts[0];
+                                guidValue = parts[1];
+                            }
+                            break;
                         case "partition":
                             partition = readerCopy.GetString();
                             break;
