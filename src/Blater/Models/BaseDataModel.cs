@@ -8,7 +8,7 @@ namespace Blater.Models;
 [SuppressMessage("Design", "CA1044:Properties should not be write only")]
 public class BaseDataModel
 {
-    public BaseDataModel()
+    protected BaseDataModel()
     {
         var type = GetType();
         var typeName = type.FullName?.SanitizeString() ?? type.Name;
