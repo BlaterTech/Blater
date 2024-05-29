@@ -14,6 +14,8 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     private const bool LogResponse = true;
     #endif
     
+    public Uri? BaseAddress => httpClient.BaseAddress;
+    
     public async Task<T?> Get<T>(string url)
     {
         try
@@ -126,7 +128,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
         }
     }
     
-    public async Task<T?> HandleResponse<T>(HttpResponseMessage message)
+    private async Task<T?> HandleResponse<T>(HttpResponseMessage message)
     {
         try
         {
