@@ -12,11 +12,13 @@ public partial class BlaterResult<TValue> : BlaterResult
     public BlaterResult(BlaterError error)
     {
         Errors = [error];
+        Success = false;
     }
 
     public BlaterResult(List<BlaterError> errors)
     {
         Errors = errors;
+        Success = false;
     }
 
     public TValue? Value { get; set; }

@@ -6,7 +6,7 @@ namespace Blater.Interfaces;
 public interface IBlaterDatabaseStore
 {
     public Task<BlaterResult<string>> FindOne(string id);
-    public Task<BlaterResult<string>> FindOne(string partition, BlaterQuery query);
+    public Task<BlaterResult<string>> FindOne(BlaterQuery query);
 
     public Task<BlaterResult<IEnumerable<string>>> FindMany(string partition, BlaterQuery query);
 
