@@ -37,9 +37,14 @@ public class BlaterId : IEquatable<BlaterId>
     [JsonPropertyName("_revisions")]
     public BlaterRevisions? Revisions { get; }
 
-    public static bool operator ==(BlaterId left, BlaterId right)
+    public static bool operator ==(BlaterId? left, BlaterId? right)
     {
-        return left.Equals(right);
+        if (left is null && right is null)
+        {
+            return true;
+        }
+        
+        return left?.Equals(right) ?? false;
     }
 
     public static bool operator !=(BlaterId left, BlaterId right)
