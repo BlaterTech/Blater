@@ -25,9 +25,9 @@ public static class JsonExtensions
 #endif
     };
 
-    public static string? ToJson(this object? str)
+    public static string? ToJson(this object? str, JsonSerializerOptions? options = null)
     {
-        return str == null ? null : JsonSerializer.Serialize(str, DefaultJsonSerializerOptions);
+        return str == null ? null : JsonSerializer.Serialize(str, options ?? DefaultJsonSerializerOptions);
     }
     
     public static JsonObject? ToJsonObject(this string? str)
@@ -35,9 +35,9 @@ public static class JsonExtensions
         return str == null ? null : FromJson<JsonObject>(str);
     }
 
-    public static T? FromJson<T>(this string? str)
+    public static T? FromJson<T>(this string? str, JsonSerializerOptions? options = null)
     {
-        return str == null ? default : JsonSerializer.Deserialize<T>(str, DefaultJsonSerializerOptions);
+        return str == null ? default : JsonSerializer.Deserialize<T>(str, options ?? DefaultJsonSerializerOptions);
     }
     
     public static async Task<T?> FromJson<T>(this Stream stream)

@@ -61,6 +61,16 @@ namespace Blater.JsonUtilities.Converters
             {
                 writer.WriteString("_rev", value.Revision);
             }
+            
+            if (value.Revisions != null)
+            {
+                writer.WriteStartObject("_revisions");
+                foreach (var id in value.Revisions.Ids)
+                {
+                    writer.WriteStringValue(id);
+                }
+                writer.WriteEndObject();
+            }
         }
     }
 }

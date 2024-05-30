@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http.Json;
+using System.Text.Json;
 using Blater.JsonUtilities;
 using Microsoft.Extensions.Logging;
 
@@ -58,11 +59,11 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
         }
     }
     
-    public async Task<T?> Post<T>(string url, object body)
+    public async Task<T?> Post<T>(string url, object body, JsonSerializerOptions? options = null)
     {
         try
         {
-            var response = await httpClient.PostAsJsonAsync(url, body, JsonExtensions.DefaultJsonSerializerOptions).ConfigureAwait(false);
+            var response = await httpClient.PostAsJsonAsync(url, body, options ?? JsonExtensions.DefaultJsonSerializerOptions).ConfigureAwait(false);
             return await HandleResponse<T>(response);
         }
         catch (Exception e)
@@ -86,12 +87,12 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
         }
     }
     
-    public async Task<T?> Put<T>(string url, object? body = null)
+    public async Task<T?> Put<T>(string url, object? body = null, JsonSerializerOptions? options = null)
     {
         try
         {
-            var response = await httpClient.PutAsJsonAsync(url, body, JsonExtensions.DefaultJsonSerializerOptions).ConfigureAwait(false);
-            return await HandleResponse<T>(response);
+            var response = await httpClient.PutAsJsonAsync(url, body, options ??JsonExtensions.DefaultJsonSerializerOptions).ConfigureAwait(false);
+            return await HandleResponse<T>(response, options ??JsonExtensions.DefaultJsonSerializerOptions);
         }
         catch (Exception e)
         {
@@ -156,7 +157,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
         }
     }
     
-    private async Task<T?> HandleResponse<T>(HttpResponseMessage message)
+    private async Task<T?> HandleResponse<T>(HttpResponseMessage message, JsonSerializerOptions? options = null)
     {
         try
         {
@@ -183,7 +184,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
                 
                 try
                 {
-                    var debugObject = debugString.FromJson<T>();
+                    var debugObject = debugString.FromJson<T>(options ?? JsonExtensions.DefaultJsonSerializerOptions);
                     
                     if (debugObject == null)
                     {
