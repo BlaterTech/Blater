@@ -123,27 +123,30 @@ public class SimpleFindQueryTest
         //
         var expected = $$$"""
                        {
-                         "$and": [
-                           {
-                             "$and": [
-                               {
-                                 "Id": {
-                                   "$eq": "{{{guid}}}"
+                         "selector": {
+                           "$and": [
+                             {
+                               "$and": [
+                                 {
+                                   "_id": {
+                                     "$eq": "{{{guid}}}"
+                                   }
+                                 },
+                                 {
+                                   "name": {
+                                     "$eq": "Test"
+                                   }
                                  }
-                               },
-                               {
-                                 "Name": {
-                                   "$eq": "Test"
-                                 }
+                               ]
+                             },
+                             {
+                               "description": {
+                                 "$regex": "Test"
                                }
-                             ]
-                           },
-                           {
-                             "Description": {
-                               "$regex": "Test"
                              }
-                           }
-                         ]
+                           ]
+                         },
+                         "execution_stats": true
                        }
                        """;
         
