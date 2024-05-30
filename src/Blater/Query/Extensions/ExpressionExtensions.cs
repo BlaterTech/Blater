@@ -3,6 +3,9 @@ using Blater.Query.Models;
 using Blater.Query.Visitors;
 
 using System.Linq.Expressions;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using Blater.JsonUtilities.Converters;
 
 namespace Blater.Query.Extensions;
 
@@ -28,7 +31,7 @@ public static class ExpressionExtensions
         return json;
     }*/
 
-    public static IDictionary<string, object> ExpressionToMangoQuery(this Expression expression)
+     /*internal static IDictionary<string, object> ExpressionToMangoQuery(this Expression expression)
     {
         //PreProcess
         var expressionEvaluated = PartialEvaluator.Eval(expression);
@@ -41,7 +44,7 @@ public static class ExpressionExtensions
         var query = MongoQueryTransformVisitor.Eval(expressionEvaluated);
 
         return query ?? new Dictionary<string, object>();
-    }
+    }*/
 
     public static BlaterQuery? ExpressionToBlaterQuery(this Expression expression)
     {
@@ -65,8 +68,6 @@ public static class ExpressionExtensions
             //Limit = linqQuery.Paging.Take,
             //Sort = orders.Count == 0 ? null : orders
         };
-
-        _ = mongoQuery.ToJson();
 
         return mongoQuery;
     }

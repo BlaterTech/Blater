@@ -75,28 +75,25 @@ public static class PartialEvaluator
         private static Expression Evaluate(Expression e)
         {
             var type = e.Type;
-            if (e.NodeType == ExpressionType.Convert)
-            {
-                // check for unnecessary convert & strip them
-                var u = (UnaryExpression)e;
-                if (TypeHelper.GetNonNullableType(u.Operand.Type) == TypeHelper.GetNonNullableType(type))
-                {
-                    e = ((UnaryExpression)e).Operand;
-                }
-            }
             
-            if (e.NodeType == ExpressionType.Constant)
+            switch (e.NodeType)
             {
+                case ExpressionType.Convert:
+                {
+                    // check for unnecessary convert & strip them
+                    var u = (UnaryExpression)e;
+                    if (TypeHelper.GetNonNullableType(u.Operand.Type) == TypeHelper.GetNonNullableType(type))
+                    {
+                        e = ((UnaryExpression)e).Operand;
+                    }
+                    
+                    break;
+                }
                 // in case we actually threw out a nullable conversion above, simulate it here
-                if (e.Type == type)
-                {
+                case ExpressionType.Constant when e.Type == type:
                     return e;
-                }
-                
-                if (TypeHelper.GetNonNullableType(e.Type) == TypeHelper.GetNonNullableType(type))
-                {
+                case ExpressionType.Constant when TypeHelper.GetNonNullableType(e.Type) == TypeHelper.GetNonNullableType(type):
                     return Expression.Constant(((ConstantExpression)e).Value, type);
-                }
             }
             
             if (e is MemberExpression { Expression: ConstantExpression ce } me)
@@ -105,6 +102,14 @@ public static class PartialEvaluator
                 // and invoking a lambda
             {
                 var value = ce.Value;
+                var actualValue = me.Member.GetValue(value);
+                
+                //If ce type is BlaterId
+                /*if (actualValue is BlaterId blaterId)
+                {
+                    return Expression.Constant(blaterId.ToString(), typeof(string));
+                }*/
+                
                 return Expression.Constant(me.Member.GetValue(value), type);
             }
             
@@ -114,9 +119,9 @@ public static class PartialEvaluator
             }
             
             var lambda = Expression.Lambda<Func<object>>(e);
-
+            
             var fn = lambda.CompileFast();
-
+            
             return Expression.Constant(fn(), type);
         }
     }

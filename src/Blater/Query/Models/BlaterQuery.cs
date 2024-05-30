@@ -1,6 +1,8 @@
+using System.Text.Json;
 using Blater.Enumerations;
 
 using System.Text.Json.Serialization;
+using Blater.JsonUtilities.Converters;
 
 namespace Blater.Query.Models;
 
@@ -46,4 +48,26 @@ public class BlaterQuery
     
     [JsonPropertyName("execution_stats")]
     public bool ExecutionStats { get; set; } = true;
+    
+    private static readonly JsonSerializerOptions BlaterExpressionJsonOptions = new()
+    {
+        PropertyNameCaseInsensitive = true,
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        AllowTrailingCommas = true,
+        ReadCommentHandling = JsonCommentHandling.Skip,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
+        Converters =
+        {
+            new BlaterIdToStringConverter(),
+            new JsonStringEnumConverter()
+        },
+        #if DEBUG
+        WriteIndented = true,
+        #endif
+    };
+    
+    public string ConvertToJson()
+    {
+        return JsonSerializer.Serialize(this, BlaterExpressionJsonOptions);
+    }
 }

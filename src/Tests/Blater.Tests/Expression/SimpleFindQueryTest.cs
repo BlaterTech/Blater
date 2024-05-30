@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using Blater.JsonUtilities;
+using Blater.Models;
 using Blater.Query.Extensions;
 using Blater.Query.Models;
 using Blater.Query.Visitors;
@@ -119,7 +120,6 @@ public class SimpleFindQueryTest
     {
         var guid = SequentialGuidGenerator.NewGuid().ToString();
         
-        
         //
         var expected = $$$"""
                        {
@@ -151,9 +151,41 @@ public class SimpleFindQueryTest
         
         Expression<Func<TestModel, bool>> predicate = x => x.Id == guid && x.Name == "Test" && x.Description.Contains("Test");
         
-        var queryClauses = predicate.ExpressionToMangoQuery();
+        var query = predicate.ExpressionToBlaterQuery();
         
-        var json = queryClauses.ToJson();
+        Assert.NotNull(query);
+        
+        var json = query.ConvertToJson();
+        
+        Assert.Equal(expected, json);
+    }
+    
+    [Fact]
+    public void BlaterId()
+    {
+        var blaterId = new BlaterId("test", Guid.NewGuid(), "1");
+        
+        //
+        var expected = $$$"""
+                          {
+                            "selector": {
+                              "_id": {
+                                "$eq": "test:{{{blaterId.GuidValue}}}"
+                              }
+                            },
+                            "execution_stats": true
+                          }
+                          """;
+        
+        //
+        
+        Expression<Func<TestModel, bool>> predicate = x => x.Id == blaterId;
+        
+        var query = predicate.ExpressionToBlaterQuery();
+        
+        Assert.NotNull(query);
+        
+        var json =  query.ConvertToJson();
         
         Assert.Equal(expected, json);
     }
