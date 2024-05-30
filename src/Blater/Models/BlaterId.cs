@@ -113,6 +113,19 @@ public class BlaterId : IEquatable<BlaterId>
         return HashCode.Combine(GuidValue, Partition, Revision);
     }
     
+    internal Dictionary<string, List<string>> GetRevisionDictionary()
+    {
+        if (Revisions == null)
+        {
+            return new Dictionary<string, List<string>>();
+        }
+        
+        return new Dictionary<string, List<string>>
+        {
+            {"ids", Revisions.Ids}
+        };
+    }
+    
     public override string ToString()
     {
         return $"{Partition}:{GuidValue}";

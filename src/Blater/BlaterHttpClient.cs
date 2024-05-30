@@ -91,8 +91,8 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            var response = await httpClient.PutAsJsonAsync(url, body, options ??JsonExtensions.DefaultJsonSerializerOptions).ConfigureAwait(false);
-            return await HandleResponse<T>(response, options ??JsonExtensions.DefaultJsonSerializerOptions);
+            var response = await httpClient.PutAsJsonAsync(url, body, options ?? JsonExtensions.DefaultJsonSerializerOptions).ConfigureAwait(false);
+            return await HandleResponse<T>(response, options ?? JsonExtensions.DefaultJsonSerializerOptions);
         }
         catch (Exception e)
         {
@@ -170,7 +170,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
                 {
                     stringContent = await message.RequestMessage?.Content?.ReadAsStringAsync()!;
                 }
-                logger.LogDebug("BlaterHttpClient === Request [{Method}] to {Url}, StatusCode: {StatusCode}\n Content:\n{Content} \nHeaders:{Headers}",
+                logger.LogDebug("BlaterHttpClient === REQUEST [{Method}] to {Url}, StatusCode: {StatusCode}\n Content:\n{Content} \nHeaders:{Headers}",
                                 message.RequestMessage?.Method,
                                 message.RequestMessage?.RequestUri, message.StatusCode, stringContent, message.RequestMessage?.Headers);
             }
@@ -179,7 +179,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
             {
                 var debugString = await message.Content.ReadAsStringAsync();
                 
-                logger.LogDebug("BlaterHttpClient === [{Method}] to {Url}, StatusCode: {StatusCode} Response:\n {@JsonObject}",
+                logger.LogDebug("BlaterHttpClient === RESPONSE [{Method}] to {Url}, StatusCode: {StatusCode} Response:\n {@JsonObject}",
                                 message.RequestMessage?.Method, message.RequestMessage?.RequestUri, message.StatusCode, debugString);
                 
                 try
