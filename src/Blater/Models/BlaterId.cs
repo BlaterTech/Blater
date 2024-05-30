@@ -9,14 +9,14 @@ public class BlaterId : IEquatable<BlaterId>
         Partition = partition;
         GuidValue = guidValue;
     }
-    
+
     internal BlaterId(string partition, Guid guidValue, string? revision)
     {
         Partition = partition;
         GuidValue = guidValue;
         Revision = revision;
     }
-    
+
     internal BlaterId(string partition, Guid guidValue, string? revision, BlaterRevisions? revisions)
     {
         Partition = partition;
@@ -30,7 +30,7 @@ public class BlaterId : IEquatable<BlaterId>
     public string Partition { get; }
 
     public string? Revision { get; }
-    
+
     /// <summary>
     /// Older revisions of the document, only available if the document was updated and if requested.
     /// </summary>
@@ -69,28 +69,14 @@ public class BlaterId : IEquatable<BlaterId>
 
     public bool Equals(BlaterId? other)
     {
-        if (GuidValue == Guid.Empty || other?.GuidValue == Guid.Empty)
-        {
-            return false;
-        }
-        
-        if (string.IsNullOrEmpty(Partition) || string.IsNullOrEmpty(other?.Partition))
-        {
-            return false;
-        }
-        
-        if (Revision == null || other.Revision == null)
-        {
-            return GuidValue.Equals(other.GuidValue) && Partition.Equals(other.Partition, StringComparison.OrdinalIgnoreCase);
-        }
-        
-        if(string.IsNullOrEmpty(Revision) || string.IsNullOrEmpty(other.Revision))
-        {
-            return GuidValue.Equals(other.GuidValue) && Partition.Equals(other.Partition, StringComparison.OrdinalIgnoreCase);
-        }
-        
-        return GuidValue.Equals(other.GuidValue) && Partition.Equals(other.Partition, StringComparison.OrdinalIgnoreCase) &&
-               Revision.Equals(other.Revision, StringComparison.OrdinalIgnoreCase);
+        return GuidValue != Guid.Empty && (other?.GuidValue) != Guid.Empty
+&& !string.IsNullOrEmpty(Partition) && !string.IsNullOrEmpty(other?.Partition)
+&& (Revision == null || other.Revision == null
+            ? GuidValue.Equals(other.GuidValue) && Partition.Equals(other.Partition, StringComparison.OrdinalIgnoreCase)
+            : string.IsNullOrEmpty(Revision) || string.IsNullOrEmpty(other.Revision)
+            ? GuidValue.Equals(other.GuidValue) && Partition.Equals(other.Partition, StringComparison.OrdinalIgnoreCase)
+            : GuidValue.Equals(other.GuidValue) && Partition.Equals(other.Partition, StringComparison.OrdinalIgnoreCase) &&
+               Revision.Equals(other.Revision, StringComparison.OrdinalIgnoreCase));
     }
 
     public static implicit operator string(BlaterId blaterId)
