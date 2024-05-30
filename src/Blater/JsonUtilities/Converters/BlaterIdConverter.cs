@@ -59,7 +59,7 @@ namespace Blater.JsonUtilities.Converters
             writer.WriteString("guidValue", value.GuidValue.ToString());
             if (value.Revision != null)
             {
-                writer.WriteString("rev", value.Revision);
+                writer.WriteString("_rev", value.Revision);
             }
         }
     }
