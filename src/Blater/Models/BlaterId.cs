@@ -120,9 +120,13 @@ public class BlaterId : IEquatable<BlaterId>
             return new Dictionary<string, List<string>>();
         }
         
+        if(string.IsNullOrEmpty(Revision)){
+            throw new ArgumentException("Revision is required to delete a document");
+        }
+        
         return new Dictionary<string, List<string>>
         {
-            {"ids", Revisions.Ids}
+            {ToString(), [Revision]}
         };
     }
     
