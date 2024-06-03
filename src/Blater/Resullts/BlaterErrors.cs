@@ -10,9 +10,10 @@ public static class BlaterErrors
     public static readonly BlaterError QueryError = new("Failed to generate query");
     public static readonly BlaterError TenantNotFound = new("Tenant not found");
     
-    public static readonly BlaterError HttpRequestError = new("Failed to make http request");
-    
-    
+    public static BlaterError HttpRequestError(string error = "Failed to make http request")
+    {
+        return new BlaterError(error);
+    }
     
     public static BlaterError JsonSerializationError(string json)
     {
