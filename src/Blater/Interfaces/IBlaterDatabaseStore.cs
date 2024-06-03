@@ -42,7 +42,7 @@ public interface IBlaterDatabaseStore
     /// </summary>
     /// <param name="query"></param>
     /// <returns></returns>
-    public Task<BlaterResult<IEnumerable<string>>> FindMany(BlaterQuery query);
+    public Task<BlaterResult<IReadOnlyList<string>>> FindMany(BlaterQuery query);
 
     /// <summary>
     /// Finds many documents using query and partition
@@ -50,7 +50,7 @@ public interface IBlaterDatabaseStore
     /// <param name="partition"></param>
     /// <param name="query"></param>
     /// <returns></returns>
-    public Task<BlaterResult<IEnumerable<string>>> FindMany(string partition, BlaterQuery query);
+    public Task<BlaterResult<IReadOnlyList<string>>> FindMany(string partition, BlaterQuery query);
 
     #endregion
 

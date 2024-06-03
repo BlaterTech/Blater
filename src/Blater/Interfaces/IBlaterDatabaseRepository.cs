@@ -1,6 +1,5 @@
 using Blater.Query.Interfaces;
 using System.Linq.Expressions;
-using Blater.Resullts;
 
 namespace Blater.Interfaces;
 
@@ -39,7 +38,7 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// </summary>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public Task<BlaterResult<IReadOnlyList<T>>> FindMany(Expression<Func<T, bool>> predicate);
+    public Task<IReadOnlyList<T?>?> FindMany(Expression<Func<T, bool>> predicate);
 
     /// <summary>
     /// Finds many documents using query and partition
@@ -47,7 +46,7 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// <param name="partition"></param>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public Task<BlaterResult<IReadOnlyList<T>>> FindMany(string partition, Expression<Func<T, bool>> predicate);
+    public Task<IReadOnlyList<T?>?> FindMany(string partition, Expression<Func<T, bool>> predicate);
 
     #endregion
 
@@ -57,21 +56,21 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// </summary>
     /// <param name="entity"></param>
     /// <returns>Returns the same entity but with the revision</returns>
-    public Task<BlaterResult<bool>> Upsert(T entity);
+    public Task<bool> Upsert(T entity);
 
     /// <summary>
     /// Inserts a document, it fails if the document already exists
     /// </summary>
     /// <param name="entity"></param>
     /// <returns></returns>
-    public Task<BlaterResult<bool>> Insert(T entity);
+    public Task<bool> Insert(T entity);
 
     /// <summary>
     /// Updates a document, it fails if the document does not exist
     /// </summary>
     /// <param name="entity"></param>
     /// <returns></returns>
-    public Task<BlaterResult<bool>> Update(T entity);
+    public Task<bool> Update(T entity);
     #endregion
 
     #region Delete
@@ -84,14 +83,14 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public Task<BlaterResult<bool>> Delete(BlaterId id);
+    public Task<bool> Delete(BlaterId id);
 
     /// <summary>
     /// Deletes many documents using a query
     /// </summary>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public Task<BlaterResult<int>> DeleteMany(Expression<Func<T, bool>> predicate);
+    public Task<int> DeleteMany(Expression<Func<T, bool>> predicate);
 
     #endregion
 
@@ -101,21 +100,21 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// Counts all documents
     /// </summary>
     /// <returns></returns>
-    public Task<BlaterResult<int>> Count();
+    public Task<int> Count();
 
     /// <summary>
     /// Counts all documents by partition
     /// </summary>
     /// <param name="partition"></param>
     /// <returns></returns>
-    public Task<BlaterResult<int>> Count(string partition);
+    public Task<int> Count(string partition);
 
     /// <summary>
     /// Counts all documents by query
     /// </summary>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public Task<BlaterResult<int>> Count(Expression<Func<T, bool>> predicate);
+    public Task<int> Count(Expression<Func<T, bool>> predicate);
 
     #endregion
 
