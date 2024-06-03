@@ -24,7 +24,7 @@ public interface IBlaterAuthRepository
 
     Task<BlaterUser?> CreateUserAsync(BlaterUser user, string password);
 
-    Task<BlaterUser> UpdateUserAsync(BlaterUser user);
+    Task<BlaterUser?> UpdateUserAsync(BlaterUser user);
 
     Task<BlaterUser?> DeleteUserAsyncById(Guid userId);
     Task<BlaterUser?> DeleteUserAsync(BlaterUser user);

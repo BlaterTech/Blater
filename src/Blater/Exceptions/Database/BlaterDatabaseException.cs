@@ -1,4 +1,4 @@
-namespace Blater.Exceptions;
+namespace Blater.Exceptions.Database;
 
 public class BlaterDatabaseException : Exception
 {

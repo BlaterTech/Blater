@@ -224,7 +224,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpH
             if (json == null)
             {
                 logger.LogError("BlaterHttpClient === Error while deserializing response");
-                return BlaterErrors.JsonError("Error while deserializing response");
+                return BlaterErrors.JsonSerializationError("Error while deserializing response");
             }
             
             return json;

@@ -2,6 +2,7 @@ using Blater.Query.Models;
 using Blater.Query.Visitors;
 
 using System.Linq.Expressions;
+using Blater.Exceptions.Database;
 
 namespace Blater.Query.Extensions;
 
@@ -42,14 +43,14 @@ public static class ExpressionExtensions
         return query ?? new Dictionary<string, object>();
     }*/
 
-    public static BlaterQuery? ExpressionToBlaterQuery(this Expression expression)
+    public static BlaterQuery ExpressionToBlaterQuery(this Expression expression)
     {
         //PreProcess
         var expressionEvaluated = PartialEvaluator.Eval(expression);
 
         if (expressionEvaluated == null)
         {
-            return null;
+            throw new BlaterQueryException("Failed to partially evaluate the expression.");
         }
 
         //var linqQuery = LinqVisitor.Eval(expressionEvaluated);

@@ -1,6 +1,8 @@
+using Blater.Resullts;
+
 namespace Blater.Interfaces;
 
-public interface IBlaterKeyValue
+public interface IBlaterKeyValueStore
 {
     /// <summary>
     ///     Get a value from the key value store
@@ -8,14 +10,14 @@ public interface IBlaterKeyValue
     /// <param name="key"></param>
     /// <typeparam name="TValue"></typeparam>
     /// <returns>Returns null if not found</returns>
-    Task<TValue?> Get<TValue>(string key);
+    Task<BlaterResult<TValue>> Get<TValue>(string key);
 
     /// <summary>
     ///     Get a value from the key value store
     /// </summary>
     /// <param name="key"></param>
     /// <returns>Returns null if not found</returns>
-    Task<string?> Get(string key);
+    Task<BlaterResult<string>> Get(string key);
 
     /// <summary>
     ///     Set a value in the key value store
@@ -24,12 +26,12 @@ public interface IBlaterKeyValue
     /// <param name="value"></param>
     /// <typeparam name="TValue"></typeparam>
     /// <returns></returns>
-    Task<bool> Set<TValue>(string key, TValue value);
+    Task<BlaterResult> Set<TValue>(string key, TValue value);
 
     /// <summary>
     ///     Remove a value from the key value store
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>
-    Task<bool> Remove(string key);
+    Task<BlaterResult> Remove(string key);
 }
