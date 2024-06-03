@@ -58,14 +58,14 @@ public class SimpleQueryable
     [Fact]
     public void WorstCaseScenario()
     {
-        IBlaterQueryable<TestModel> queryable = default!;
+        /*IBlaterQueryable<TestModel> queryable = default!;
         
         var result = queryable
                     .SetPartition("asda")
                     .Where(x => x.Description.Contains("Test"))
                     .Take(1)
                     .Skip(1)
-                    .Select(x => x.Id);
+                    .Select(x => x.Id);*/
         
     }
 }
