@@ -1,18 +1,16 @@
+using OneOf;
+using OneOf.Types;
+
 namespace Blater.Resullts;
 
-public partial class BlaterResult
+
+[GenerateOneOf]
+public partial class BlaterResult<TValue> : OneOfBase<TValue, BlaterError>
 {
-    public BlaterResult() => Errors = [];
-
-    public BlaterResult(BlaterError error) => Errors = [error];
-
-    public BlaterResult(IEnumerable<BlaterError> errors) => Errors = errors.ToList();
-
-    public bool Success { get; set; }
-
-    public bool Failure => !Success;
-
-    public bool HasErrors => Errors.Count > 0;
-
-    public List<BlaterError> Errors { get; set; }
+    public bool HasError(out BlaterError error, out TValue value)
+    {
+        return TryPickT1(out error, out value);
+    }
+    
+    public bool IsError => IsT1;
 }

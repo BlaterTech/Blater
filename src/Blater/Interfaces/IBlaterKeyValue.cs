@@ -1,4 +1,5 @@
 using Blater.Resullts;
+using OneOf.Types;
 
 namespace Blater.Interfaces;
 
@@ -26,12 +27,12 @@ public interface IBlaterKeyValue
     /// <param name="value"></param>
     /// <typeparam name="TValue"></typeparam>
     /// <returns></returns>
-    Task<BlaterResult> Set<TValue>(string key, TValue value);
+    Task<BlaterResult<Success>> Set<TValue>(string key, TValue value);
 
     /// <summary>
     ///     Remove a value from the key value store
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>
-    Task<BlaterResult> Remove(string key);
+    Task<BlaterResult<Success>> Remove(string key);
 }

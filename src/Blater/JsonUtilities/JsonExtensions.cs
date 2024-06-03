@@ -1,8 +1,11 @@
+using System.Diagnostics.CodeAnalysis;
 using Blater.JsonUtilities.Converters;
 
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
+using Blater.Resullts;
+using Serilog;
 
 namespace Blater.JsonUtilities;
 
@@ -44,5 +47,21 @@ public static class JsonExtensions
     {
         stream.Position = 0;
         return await JsonSerializer.DeserializeAsync<T>(stream, DefaultJsonSerializerOptions);
+    }
+    
+    [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
+    public static BlaterResult<T> TryParseJson<T>(this string json)
+    {
+        try
+        {
+            var entity = json.FromJson<T>();
+            
+            return entity == null ? BlaterErrors.SerializationError<T>() : entity;
+        }
+        catch (Exception e)
+        {
+            Log.Error(e, "Failed to deserialize the entity");
+            return BlaterErrors.SerializationError<T>(e);
+        }
     }
 }

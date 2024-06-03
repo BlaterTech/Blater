@@ -2,7 +2,11 @@ using Blater.Resullts;
 
 namespace Blater.Interfaces;
 
-public interface IBlaterAuth
+
+/// <summary>
+/// This is the same as the IBlaterDatabaseRepository but returns a BlaterResult instead
+/// </summary>
+public interface IBlaterAuthStore
 {
     /// <summary>
     /// </summary>
@@ -22,12 +26,12 @@ public interface IBlaterAuth
     /// <param name="login">Can be either login or email</param>
     /// <param name="password"></param>
     /// <returns>Returns null if not found</returns>
-    Task<BlaterResult<BlaterUser>?> GetUserAsync(string login, string password);
+    Task<BlaterResult<BlaterUser>> GetUserAsync(string login, string password);
 
-    Task<BlaterResult?> CreateUserAsync(BlaterUser user, string password);
+    Task<BlaterResult<BlaterUser>> CreateUserAsync(BlaterUser user, string password);
 
-    Task<BlaterResult?> UpdateUserAsync(BlaterUser user);
+    Task<BlaterResult<BlaterUser>> UpdateUserAsync(BlaterUser user);
 
-    Task<BlaterResult?> DeleteUserAsyncById(Guid userId);
-    Task<BlaterResult?> DeleteUserAsync(BlaterUser user);
+    Task<BlaterResult<BlaterUser>> DeleteUserAsyncById(Guid userId);
+    Task<BlaterResult<BlaterUser>> DeleteUserAsync(BlaterUser user);
 }

@@ -3,6 +3,10 @@ using Blater.Resullts;
 
 namespace Blater.Interfaces;
 
+/// <summary>
+/// Lower level implementation of the Blater database store, used by the repository
+/// You can use this to get the raw data from the database without any processing or validation
+/// </summary>
 public interface IBlaterDatabaseStore
 {
     #region FindOne

@@ -2,6 +2,7 @@ using Blater.Query.Interfaces;
 using Blater.Resullts;
 
 using System.Linq.Expressions;
+using OneOf.Types;
 
 namespace Blater.Interfaces;
 
@@ -14,14 +15,14 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public Task<BlaterResult<T>> FindOne(BlaterId id);
+    public Task<T?> FindOne(BlaterId id);
 
     /// <summary>
     /// Finds a single document using query.
     /// </summary>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public Task<BlaterResult<T>> FindOne(Expression<Func<T, bool>> predicate);
+    public Task<T?> FindOne(Expression<Func<T, bool>> predicate);
 
     /// <summary>
     /// Finds many documents using query and partition
@@ -58,38 +59,34 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// </summary>
     /// <param name="entity"></param>
     /// <returns>Returns the same entity but with the revision</returns>
-    public Task<BlaterResult<bool>> Upsert(T entity);
+    public Task<BlaterResult<T>> Upsert(T entity);
 
     /// <summary>
     /// Inserts a document, it fails if the document already exists
     /// </summary>
     /// <param name="entity"></param>
     /// <returns></returns>
-    public Task<BlaterResult<bool>> Insert(T entity);
+    public Task<BlaterResult<T>> Insert(T entity);
 
     /// <summary>
     /// Updates a document, it fails if the document does not exist
     /// </summary>
     /// <param name="entity"></param>
     /// <returns></returns>
-    public Task<BlaterResult<bool>> Update(T entity);
+    public Task<BlaterResult<T>> Update(T entity);
     #endregion
 
     #region Delete
 
-    /// <summary>
-    /// Deletes a document
-    /// </summary>
-    /// <param name="obj"></param>
-    /// <returns></returns>
-    public Task<BlaterResult<bool>> Delete(T entity);
+
+    public Task<BlaterResult<Success>> Delete(T entity);
 
     /// <summary>
     /// Deletes a document by its id
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public Task<BlaterResult<bool>> Delete(BlaterId id);
+    public Task<BlaterResult<Success>> Delete(BlaterId id);
 
     /// <summary>
     /// Deletes many documents using a query
