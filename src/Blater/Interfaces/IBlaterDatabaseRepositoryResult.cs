@@ -6,7 +6,7 @@ using OneOf.Types;
 
 namespace Blater.Interfaces;
 
-public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
+public interface IBlaterDatabaseRepositoryResult<T> where T : BaseDataModel
 {
     #region FindOne
 
@@ -15,14 +15,14 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public Task<T?> FindOne(BlaterId id);
+    public Task<BlaterResult<T>> FindOne(BlaterId id);
 
     /// <summary>
     /// Finds a single document using query.
     /// </summary>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public Task<T?> FindOne(Expression<Func<T, bool>> predicate);
+    public Task<BlaterResult<T>> FindOne(Expression<Func<T, bool>> predicate);
 
     /// <summary>
     /// Finds many documents using query and partition
@@ -30,7 +30,7 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// <param name="partition"></param>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public Task<T?> FindOne(string partition, Expression<Func<T, bool>> predicate);
+    public Task<BlaterResult<T>> FindOne(string partition, Expression<Func<T, bool>> predicate);
 
     #endregion
 
@@ -41,7 +41,7 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// </summary>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public Task<IReadOnlyList<T>> FindMany(Expression<Func<T, bool>> predicate);
+    public Task<BlaterResult<IReadOnlyList<T>>> FindMany(Expression<Func<T, bool>> predicate);
 
     /// <summary>
     /// Finds many documents using query and partition
@@ -49,7 +49,7 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// <param name="partition"></param>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public Task<IReadOnlyList<T>> FindMany(string partition, Expression<Func<T, bool>> predicate);
+    public Task<BlaterResult<IReadOnlyList<T>>> FindMany(string partition, Expression<Func<T, bool>> predicate);
 
     #endregion
 
@@ -59,41 +59,41 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// </summary>
     /// <param name="entity"></param>
     /// <returns>Returns the same entity but with the revision</returns>
-    public Task<T> Upsert(T entity);
+    public Task<BlaterResult<T>> Upsert(T entity);
 
     /// <summary>
     /// Inserts a document, it fails if the document already exists
     /// </summary>
     /// <param name="entity"></param>
     /// <returns></returns>
-    public Task<T> Insert(T entity);
+    public Task<BlaterResult<T>> Insert(T entity);
 
     /// <summary>
     /// Updates a document, it fails if the document does not exist
     /// </summary>
     /// <param name="entity"></param>
     /// <returns></returns>
-    public Task<T> Update(T entity);
+    public Task<BlaterResult<T>> Update(T entity);
     #endregion
 
     #region Delete
 
 
-    public Task<bool> Delete(T entity);
+    public Task<BlaterResult<Success>> Delete(T entity);
 
     /// <summary>
     /// Deletes a document by its id
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public Task<bool> Delete(BlaterId id);
+    public Task<BlaterResult<Success>> Delete(BlaterId id);
 
     /// <summary>
     /// Deletes many documents using a query
     /// </summary>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public Task<int> DeleteMany(Expression<Func<T, bool>> predicate);
+    public Task<BlaterResult<int>> DeleteMany(Expression<Func<T, bool>> predicate);
 
     #endregion
 
@@ -103,21 +103,21 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// Counts all documents
     /// </summary>
     /// <returns></returns>
-    public Task<int> Count();
+    public Task<BlaterResult<int>> Count();
 
     /// <summary>
     /// Counts all documents by partition
     /// </summary>
     /// <param name="partition"></param>
     /// <returns></returns>
-    public Task<int> Count(string partition);
+    public Task<BlaterResult<int>> Count(string partition);
 
     /// <summary>
     /// Counts all documents by query
     /// </summary>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public Task<int> Count(Expression<Func<T, bool>> predicate);
+    public Task<BlaterResult<int>> Count(Expression<Func<T, bool>> predicate);
 
     #endregion
 
