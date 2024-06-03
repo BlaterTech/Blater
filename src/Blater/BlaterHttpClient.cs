@@ -57,6 +57,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpH
                 logger.LogError("BlaterHttpClient === ERROR [{Method}] to {Url}, StatusCode: {StatusCode}\n ResponseContent:\n{Content} \nHeaders:{@Headers}",
                                 response.RequestMessage?.Method,
                                 response.RequestMessage?.RequestUri, response.StatusCode, stringContent, response.RequestMessage?.Headers);
+                
                 return BlaterErrors.HttpRequestError($"BlaterHttpClient Error: {response.StatusCode} - {stringContent}");
             }
             
