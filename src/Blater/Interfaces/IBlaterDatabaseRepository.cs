@@ -38,7 +38,7 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// </summary>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public Task<IReadOnlyList<T?>?> FindMany(Expression<Func<T, bool>> predicate);
+    public Task<IReadOnlyList<T?>> FindMany(Expression<Func<T, bool>> predicate);
 
     /// <summary>
     /// Finds many documents using query and partition
@@ -46,7 +46,7 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// <param name="partition"></param>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public Task<IReadOnlyList<T?>?> FindMany(string partition, Expression<Func<T, bool>> predicate);
+    public Task<IReadOnlyList<T?>> FindMany(string partition, Expression<Func<T, bool>> predicate);
 
     #endregion
 

@@ -1,3 +1,5 @@
+using Blater.Resullts;
+
 namespace Blater.Exceptions;
 
 public class BlaterException : Exception
@@ -12,5 +14,9 @@ public class BlaterException : Exception
 
     public BlaterException()
     {
+    }
+    public BlaterException(List<BlaterError> errors)
+    {
+        
     }
 }
