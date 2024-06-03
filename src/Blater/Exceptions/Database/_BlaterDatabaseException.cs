@@ -1,6 +1,6 @@
 namespace Blater.Exceptions.Database;
 
-public class BlaterDatabaseException : Exception
+public class BlaterDatabaseException : BlaterException
 {
     public BlaterDatabaseException(string message) : base(message)
     {
