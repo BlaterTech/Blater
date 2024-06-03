@@ -1,6 +1,4 @@
 using Blater.Query.Interfaces;
-
-using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using Blater.Resullts;

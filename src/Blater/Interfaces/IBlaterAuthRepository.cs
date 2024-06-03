@@ -1,5 +1,3 @@
-using Blater.Resullts;
-
 namespace Blater.Interfaces;
 
 public interface IBlaterAuthRepository
