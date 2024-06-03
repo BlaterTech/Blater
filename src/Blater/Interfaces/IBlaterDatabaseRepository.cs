@@ -28,7 +28,7 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// <param name="partition"></param>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public Task<BlaterResult<T>> FindOne(string partition, Expression<Func<T, bool>> predicate);
+    public Task<T?> FindOne(string partition, Expression<Func<T, bool>> predicate);
 
     #endregion
 
