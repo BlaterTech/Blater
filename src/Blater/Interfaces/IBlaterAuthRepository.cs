@@ -2,30 +2,26 @@ namespace Blater.Interfaces;
 
 public interface IBlaterAuthRepository
 {
-    /// <summary>
-    /// </summary>
-    /// <param name="userId">The id of the user</param>
-    /// <returns>Returns null if not found</returns>
-    Task<BlaterUser?> GetUserAsyncById(Guid userId);
-
+    Task<BlaterUserInternal> GetUserAsyncById(string userId);
+    
     /// <summary>
     /// </summary>
     /// <param name="login">Can be either login or email</param>
     /// <returns>Returns null if not found</returns>
-    Task<BlaterUser?> GetUserAsyncByLogin(string login);
-
+    Task<BlaterUserInternal> GetUserAsyncByLogin(string loginProvider, string loginKey);
+    
     /// <summary>
     ///     Authenticate a user with email and password
     /// </summary>
     /// <param name="login">Can be either login or email</param>
     /// <param name="password"></param>
     /// <returns>Returns null if not found</returns>
-    Task<BlaterUser?> GetUserAsync(string login, string password);
-
-    Task<BlaterUser?> CreateUserAsync(BlaterUser user, string password);
-
-    Task<BlaterUser?> UpdateUserAsync(BlaterUser user);
-
-    Task<BlaterUser?> DeleteUserAsyncById(Guid userId);
-    Task<BlaterUser?> DeleteUserAsync(BlaterUser user);
+    Task<BlaterUserInternal> GetUserAsync(string loginProvider, string loginKey, string password);
+    
+    Task<bool> CreateUserAsync(BlaterUserInternal user, string password);
+    
+    Task<bool> UpdateUserAsync(BlaterUserInternal user);
+    
+    Task<bool> DeleteUserAsyncById(string userId);
+    Task<bool> DeleteUserAsync(BlaterUserInternal user);
 }
