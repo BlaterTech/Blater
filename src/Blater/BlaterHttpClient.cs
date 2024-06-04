@@ -70,6 +70,31 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpH
         }
     }
     
+    public async Task<BlaterResult> Post(string url, object body, JsonSerializerOptions? options = null)
+    {
+        try
+        {
+            var response = await httpHttpClient.PostAsJsonAsync(url, body, options ?? DefaultJsonSerializerOptions).ConfigureAwait(false);
+            
+            if (!response.IsSuccessStatusCode)
+            {
+                var stringContent = await response.Content.ReadAsStringAsync()!;
+                logger.LogError("BlaterHttpClient === ERROR [{Method}] to {Url}, StatusCode: {StatusCode}\n ResponseContent:\n{Content} \nHeaders:{@Headers}",
+                                response.RequestMessage?.Method,
+                                response.RequestMessage?.RequestUri, response.StatusCode, stringContent, response.RequestMessage?.Headers);
+                
+                return BlaterErrors.HttpRequestError($"BlaterHttpClient Error: {response.StatusCode} - {stringContent}");
+            }
+            
+            return new BlaterResult { Success = true };
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "BlaterHttpClient Exception === Error while making POST request to {Url}", url);
+            throw;
+        }
+    }
+    
     #endregion
     
     #region JSON
