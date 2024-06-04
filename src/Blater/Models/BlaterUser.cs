@@ -18,7 +18,7 @@ public class BlaterUser : BaseDataModel
     
     public string PhoneNumber { get; set; } = string.Empty;
     
-    public bool PhoneNumberConfirmed { get; set; }
+    public bool PhoneNumberConfirmed { get; private set; }
     
     public bool Verified { get; set; }
 }
