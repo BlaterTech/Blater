@@ -68,9 +68,15 @@ public enum BlaterCodes
     [Description("Invalid type")]
     General_InvalidType,
     
-    [Description("Invalid value")]
-    General_InvalidValue,
+    [Description("Invalid provider information")]
+    General_InvalidProviderInformation,
+    
+    [Description("Invalid provider information")]
+    General_InvalidAuthenticateProvider,
+    
+    [Description("Conflict")]
+    General_Conflict,
     
     [Description("Success")]
-    Auth_Success,
+    General_Success,
 }

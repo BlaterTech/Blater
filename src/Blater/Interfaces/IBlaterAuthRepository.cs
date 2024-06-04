@@ -8,7 +8,7 @@ public interface IBlaterAuthRepository
     /// </summary>
     /// <param name="login">Can be either login or email</param>
     /// <returns>Returns null if not found</returns>
-    Task<BlaterUser> GetUserAsyncByLogin(string loginProvider, string loginKey);
+    Task<BlaterUser> GetUserAsyncByLogin(string login);
     
     /// <summary>
     ///     Authenticate a user with email and password
