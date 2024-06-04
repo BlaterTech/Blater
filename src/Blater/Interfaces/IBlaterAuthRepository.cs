@@ -16,7 +16,7 @@ public interface IBlaterAuthRepository
     /// <param name="login">Can be either login or email</param>
     /// <param name="password"></param>
     /// <returns>Returns null if not found</returns>
-    Task<BlaterUser> GetUserAsync(string loginProvider, string loginKey, string password);
+    Task<BlaterUser> GetUserAsync(string login, string password);
     
     Task<bool> CreateUserAsync(BlaterUser user, string password);
     

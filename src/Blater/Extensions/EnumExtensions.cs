@@ -1,7 +1,6 @@
 using System.ComponentModel;
 using System.Globalization;
-
-using static Blater.Constants.BlaterErrorCodes;
+using Blater.Constants;
 
 namespace Blater.Extensions;
 public static class EnumExtensions
@@ -34,7 +33,7 @@ public static class EnumExtensions
         return $"{enumName}{enumValueCode}";
     }
 
-    public static string GetEnumErrorCodeDescription(this BlaterErrorCode enumValue)
+    public static string GetEnumErrorCodeDescription(this BlaterCodes enumValue)
     {
         var enumName = enumValue.GetType().Name;
 

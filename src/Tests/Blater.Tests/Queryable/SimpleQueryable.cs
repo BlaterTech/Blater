@@ -1,5 +1,3 @@
-using Blater.Query.Interfaces;
-
 namespace Blater.Tests.Queryable;
 
 public class SimpleQueryable

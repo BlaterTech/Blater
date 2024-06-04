@@ -19,14 +19,14 @@ public interface IBlaterAuthStore
     /// <param name="login">Can be either login or email</param>
     /// <returns>Returns null if not found</returns>
     Task<BlaterResult<BlaterUser>> GetUserAsyncByLogin(string loginProvider, string loginKey);
-
+    
     /// <summary>
     ///     Authenticate a user with email and password
     /// </summary>
     /// <param name="login">Can be either login or email</param>
     /// <param name="password"></param>
     /// <returns>Returns null if not found</returns>
-    Task<BlaterResult<BlaterUser>> GetUserAsync(string loginProvider, string loginKey, string password);
+    Task<BlaterResult<BlaterUser>> GetUserAsync(string login, string password);
     
     Task<BlaterResult<bool>> CreateUserAsync(BlaterUser user, string password);
 
