@@ -6,7 +6,19 @@ public class BlaterUser : BaseDataModel
     
     public string Email { get; set; } = string.Empty;
     
+    public bool EmailConfirmed { get; set; }
+    
+    public string? PasswordHash { get; set; }
+    
+    public bool TwoFactorEnabled { get; set; }
+    
+    public int AccessFailedCount { get; set; }
+    
+    public DateTimeOffset LastLoginDate { get; set; }
+    
     public string PhoneNumber { get; set; } = string.Empty;
+    
+    public bool PhoneNumberConfirmed { get; set; }
     
     public bool Verified { get; set; }
 }
