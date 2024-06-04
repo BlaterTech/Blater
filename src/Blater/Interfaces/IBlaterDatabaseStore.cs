@@ -9,6 +9,8 @@ namespace Blater.Interfaces;
 /// </summary>
 public interface IBlaterDatabaseStore
 {
+    public string Partition { get; set; }
+    
     #region FindOne
 
     /// <summary>

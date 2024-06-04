@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace Blater.Models;
 
 public class BlaterUser : BaseDataModel
@@ -7,8 +9,6 @@ public class BlaterUser : BaseDataModel
     public string Email { get; set; } = string.Empty;
     
     public bool EmailConfirmed { get; set; }
-    
-    public string? PasswordHash { get; set; }
     
     public bool TwoFactorEnabled { get; set; }
     
