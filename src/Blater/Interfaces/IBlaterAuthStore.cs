@@ -12,13 +12,13 @@ public interface IBlaterAuthStore
     /// </summary>
     /// <param name="userId">The id of the user</param>
     /// <returns>Returns null if not found</returns>
-    Task<BlaterResult<BlaterUserInternal>> GetUserAsyncById(string userId);
+    Task<BlaterResult<BlaterUser>> GetUserAsyncById(string userId);
 
     /// <summary>
     /// </summary>
     /// <param name="login">Can be either login or email</param>
     /// <returns>Returns null if not found</returns>
-    Task<BlaterResult<BlaterUserInternal>> GetUserAsyncByLogin(string loginProvider, string loginKey);
+    Task<BlaterResult<BlaterUser>> GetUserAsyncByLogin(string loginProvider, string loginKey);
 
     /// <summary>
     ///     Authenticate a user with email and password
@@ -26,12 +26,12 @@ public interface IBlaterAuthStore
     /// <param name="login">Can be either login or email</param>
     /// <param name="password"></param>
     /// <returns>Returns null if not found</returns>
-    Task<BlaterResult<BlaterUserInternal>> GetUserAsync(string loginProvider, string loginKey, string password);
+    Task<BlaterResult<BlaterUser>> GetUserAsync(string loginProvider, string loginKey, string password);
     
-    Task<BlaterResult<bool>> CreateUserAsync(BlaterUserInternal user, string password);
+    Task<BlaterResult<bool>> CreateUserAsync(BlaterUser user, string password);
 
-    Task<BlaterResult<bool>> UpdateUserAsync(BlaterUserInternal user);
+    Task<BlaterResult<bool>> UpdateUserAsync(BlaterUser user);
 
     Task<BlaterResult<bool>> DeleteUserAsyncById(string userId);
-    Task<BlaterResult<bool>> DeleteUserAsync(BlaterUserInternal user);
+    Task<BlaterResult<bool>> DeleteUserAsync(BlaterUser user);
 }
