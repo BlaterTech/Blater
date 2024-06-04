@@ -8,7 +8,7 @@ public interface IBlaterKeyValue
     /// <param name="key"></param>
     /// <typeparam name="TValue"></typeparam>
     /// <returns>Returns null if not found</returns>
-    Task<TValue?> Get<TValue>(string key);
+    Task<TValue?> Get<TValue>(string key) where TValue : BaseDataModel;
 
     /// <summary>
     ///     Get a value from the key value store
@@ -24,7 +24,9 @@ public interface IBlaterKeyValue
     /// <param name="value"></param>
     /// <typeparam name="TValue"></typeparam>
     /// <returns></returns>
-    Task<bool> Set<TValue>(string key, TValue value);
+    Task<bool> Set<TValue>(string key, TValue value) where TValue : BaseDataModel;
+    
+    Task<bool> Set(string key, object value);
 
     /// <summary>
     ///     Remove a value from the key value store
