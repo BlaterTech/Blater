@@ -2,6 +2,6 @@ using Blater.Interfaces;
 
 namespace Blater.Hubs;
 
-public interface IBlaterAuthHub : IBlaterAuthStore
+public interface IBlaterAuthHub : IBlaterAuthStore<BlaterUser>
 {
 }

@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 namespace Blater.Models;
 
 public class BlaterUser : BaseDataModel
