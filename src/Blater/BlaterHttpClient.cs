@@ -29,7 +29,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpH
             
             if (!response.IsSuccessStatusCode)
             {
-                var stringContent = await response.Content.ReadAsStringAsync()!;
+                var stringContent = await response.Content.ReadAsStringAsync();
                 logger.LogError("BlaterHttpClient === ERROR [{Method}] to {Url}, StatusCode: {StatusCode}\n ResponseContent:\n{Content} \nHeaders:{@Headers}",
                                 response.RequestMessage?.Method,
                                 response.RequestMessage?.RequestUri, response.StatusCode, stringContent, response.RequestMessage?.Headers);
@@ -53,7 +53,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpH
             
             if (!response.IsSuccessStatusCode)
             {
-                var stringContent = await response.Content.ReadAsStringAsync()!;
+                var stringContent = await response.Content.ReadAsStringAsync();
                 logger.LogError("BlaterHttpClient === ERROR [{Method}] to {Url}, StatusCode: {StatusCode}\n ResponseContent:\n{Content} \nHeaders:{@Headers}",
                                 response.RequestMessage?.Method,
                                 response.RequestMessage?.RequestUri, response.StatusCode, stringContent, response.RequestMessage?.Headers);
@@ -78,7 +78,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpH
             
             if (!response.IsSuccessStatusCode)
             {
-                var stringContent = await response.Content.ReadAsStringAsync()!;
+                var stringContent = await response.Content.ReadAsStringAsync();
                 logger.LogError("BlaterHttpClient === ERROR [{Method}] to {Url}, StatusCode: {StatusCode}\n ResponseContent:\n{Content} \nHeaders:{@Headers}",
                                 response.RequestMessage?.Method,
                                 response.RequestMessage?.RequestUri, response.StatusCode, stringContent, response.RequestMessage?.Headers);
@@ -235,7 +235,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpH
             
             if (!message.IsSuccessStatusCode)
             {
-                var stringContent = await message.Content.ReadAsStringAsync()!;
+                var stringContent = await message.Content.ReadAsStringAsync();
                 logger.LogError("BlaterHttpClient === ERROR [{Method}] to {Url}, StatusCode: {StatusCode}\n ResponseContent:\n{Content} \nHeaders:{@Headers}",
                                 message.RequestMessage?.Method,
                                 message.RequestMessage?.RequestUri, message.StatusCode, stringContent, message.RequestMessage?.Headers);
