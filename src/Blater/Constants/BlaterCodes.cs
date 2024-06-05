@@ -77,6 +77,9 @@ public enum BlaterCodes
     [Description("Conflict")]
     General_Conflict,
     
+    [Description("Bad request")]
+    General_BadRquest,
+    
     [Description("Success")]
     General_Success,
 }
