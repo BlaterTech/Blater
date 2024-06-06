@@ -10,10 +10,6 @@ public interface IBlaterUserStore<TUser> : IDisposable where TUser : class
 
     Task SetUserNameAsync(TUser user, string? userName);
     
-    Task<BlaterResult<string?>> GetNormalizedUserNameAsync(TUser user);
-
-    Task SetNormalizedUserNameAsync(TUser user, string? normalizedName);
-    
     Task<BlaterResult<bool>> CreateAsync(TUser user);
     
     Task<BlaterResult<bool>> UpdateAsync(TUser user);
@@ -23,5 +19,5 @@ public interface IBlaterUserStore<TUser> : IDisposable where TUser : class
     
     Task<BlaterResult<TUser?>> FindByIdAsync(string userId);
     
-    Task<BlaterResult<TUser?>> FindByNameAsync(string normalizedUserName);
+    Task<BlaterResult<TUser?>> FindByNameAsync(string userName);
 }

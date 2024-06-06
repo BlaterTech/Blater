@@ -27,6 +27,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, token);
     }
     
+    
     #region SpecialCases
     
     public async Task<BlaterResult<string>> GetString(string url)
@@ -47,7 +48,12 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
                 return BlaterErrors.HttpRequestError($"BlaterHttpClient Error: {response.StatusCode} - {stringContent}");
             }
             
-            return await response.Content.ReadAsStringAsync();
+            var valueString = await response.Content.ReadAsStringAsync();
+            
+            logger.LogDebug("BlaterHttpClient === RESPONSE [{Method}] to {Url}, StatusCode: {StatusCode} Response:\n {@JsonObject}",
+                            response.RequestMessage?.Method, response.RequestMessage?.RequestUri, response.StatusCode, valueString);
+            
+            return valueString;
         }
         catch (Exception e)
         {

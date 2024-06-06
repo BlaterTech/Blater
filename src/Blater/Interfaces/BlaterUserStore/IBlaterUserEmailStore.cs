@@ -13,8 +13,4 @@ public interface IBlaterUserEmailStore<TUser> : IBlaterUserStore<TUser> where TU
     Task SetEmailConfirmedAsync(TUser user, bool confirmed);
     
     Task<BlaterResult<TUser?>> FindByEmailAsync(string normalizedEmail);
-    
-    Task<BlaterResult<string?>> GetNormalizedEmailAsync(TUser user);
-    
-    Task SetNormalizedEmailAsync(TUser user, string? normalizedEmail);
 }
