@@ -5,6 +5,7 @@ public static class BlaterErrors
     public static readonly BlaterError InternalError = new("Internal error");
     public static readonly BlaterError Success = new("Success");
     public static readonly BlaterError NotFound = new("Not found");
+    public static readonly BlaterError BadRequest = new("Bad Request");
     
     public static readonly BlaterError DatabaseError = new("Database error");
     public static readonly BlaterError QueryError = new("Failed to generate query");
