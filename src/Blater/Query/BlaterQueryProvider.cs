@@ -74,7 +74,7 @@ public class BlaterQueryProvider<T> : IQueryProvider, IQueryText where T : class
         
         //Add the clauses to the query, if more than one we add an $and
         IDictionary<string, object> query;
-        if (clauses.Count == 1 && !linqQuery.Ordering.Any())
+        if (clauses.Counts == 1 && !linqQuery.Ordering.Any())
         {
             query = clauses.First();
         }
@@ -106,7 +106,7 @@ public class BlaterQueryProvider<T> : IQueryProvider, IQueryText where T : class
         //object index = null;
         //if (_index != null && _index.Any())
         //{
-        //    index = _index.Count() == 1 ? (object)_index.First() : (object)_index;
+        //    index = _index.Counts() == 1 ? (object)_index.First() : (object)_index;
         //}
         
         //Construct the final query object
@@ -116,7 +116,7 @@ public class BlaterQueryProvider<T> : IQueryProvider, IQueryText where T : class
             Selector = query,
             Skip = linqQuery.Paging.Skip,
             Limit = linqQuery.Paging.Take,
-            Sort = orders.Count == 0 ? null : orders
+            Sort = orders.Counts == 0 ? null : orders
         };
         
         //TODO: Add PostProcess here

@@ -11,7 +11,7 @@ public interface IBlaterDatabaseStore
 {
     public string Partition { get; set; }
     
-    #region FindOne
+    #region FindOnes
 
     /// <summary>
     /// Finds a single document by its id
@@ -37,7 +37,7 @@ public interface IBlaterDatabaseStore
 
     #endregion
 
-    #region FindMany
+    #region FindManys
 
     /// <summary>
     /// Finds many documents using query
@@ -56,7 +56,7 @@ public interface IBlaterDatabaseStore
 
     #endregion
 
-    #region Update/Insert/Upsert
+    #region Update/Insert/Upserts
 
     /// <summary>
     /// Upserts a document, it replaces the document if it exists
@@ -84,7 +84,7 @@ public interface IBlaterDatabaseStore
 
     #endregion
 
-    #region Delete
+    #region Deletes
 
     /// <summary>
     /// Deletes a document by its id
@@ -109,7 +109,7 @@ public interface IBlaterDatabaseStore
 
     #endregion
 
-    #region Count
+    #region Counts
 
     /// <summary>
     /// Gets the count of all documents inside the database

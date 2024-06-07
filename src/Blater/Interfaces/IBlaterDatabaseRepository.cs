@@ -5,7 +5,7 @@ namespace Blater.Interfaces;
 
 public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
 {
-    #region FindOne
+    #region FindOnes
 
     /// <summary>
     /// Finds a single document by its id
@@ -31,7 +31,7 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
 
     #endregion
 
-    #region FindMany
+    #region FindManys
 
     /// <summary>
     /// Finds many documents using query
@@ -73,7 +73,7 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     public Task<bool> Update(T entity);
     #endregion
 
-    #region Delete
+    #region Deletes
 
 
     public Task<bool> Delete(T entity);
@@ -94,7 +94,7 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
 
     #endregion
 
-    #region Count
+    #region Counts
 
     /// <summary>
     /// Counts all documents

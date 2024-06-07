@@ -106,7 +106,7 @@ public class SimpleFindQueryTest
             Selector = query,
             Skip = linqQuery.Paging.Skip,
             Limit = linqQuery.Paging.Take,
-            //Sort = orders.Count == 0 ? null : orders
+            //Sort = orders.Counts == 0 ? null : orders
         };
         
         var json = mongoQuery.ToJson();

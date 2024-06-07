@@ -6,7 +6,7 @@ namespace Blater.Interfaces;
 
 public interface IBlaterDatabaseStoreT<T> where T : BaseDataModel
 {
-    #region FindOne
+    #region FindOnes
 
     /// <summary>
     /// Finds a single document by its id
@@ -34,7 +34,7 @@ public interface IBlaterDatabaseStoreT<T> where T : BaseDataModel
 
     #endregion
 
-    #region FindMany
+    #region FindManys
 
     /// <summary>
     /// Finds many documents using query
@@ -53,7 +53,7 @@ public interface IBlaterDatabaseStoreT<T> where T : BaseDataModel
 
     #endregion
 
-    #region Update/Insert/Upsert
+    #region Update/Insert/Upserts
 
     /// <summary>
     /// Upserts a document, it replaces the document if it exists
@@ -81,7 +81,7 @@ public interface IBlaterDatabaseStoreT<T> where T : BaseDataModel
 
     #endregion
 
-    #region Delete
+    #region Deletes
 
     /// <summary>
     /// Deletes a document by its id
@@ -106,7 +106,7 @@ public interface IBlaterDatabaseStoreT<T> where T : BaseDataModel
 
     #endregion
 
-    #region Count
+    #region Counts
 
     /// <summary>
     /// Gets the count of all documents inside the database
