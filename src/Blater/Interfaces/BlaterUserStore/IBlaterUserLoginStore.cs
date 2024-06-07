@@ -10,5 +10,5 @@ public interface IBlaterUserLoginStore<TUser> : IBlaterUserStore<TUser> where TU
     
     Task<BlaterResult<IEnumerable<BlaterLoginInfo>>> GetLoginsAsync(TUser user);
     
-    Task<BlaterResult<TUser?>> FindByLoginAsync(string loginProvider, string providerKey);
+    Task<BlaterResult<TUser>> FindByLoginAsync(string loginProvider, string providerKey);
 }

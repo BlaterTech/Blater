@@ -6,7 +6,7 @@ public interface IBlaterUserPasswordStore<TUser> : IBlaterUserStore<TUser> where
 {
     Task SetPasswordHashAsync(TUser user, string? passwordHash);
     
-    Task<BlaterResult<string?>> GetPasswordHashAsync(TUser user);
+    Task<BlaterResult<string>> GetPasswordHashAsync(TUser user);
     
     Task<BlaterResult<bool>> HasPasswordAsync(TUser user); 
 }

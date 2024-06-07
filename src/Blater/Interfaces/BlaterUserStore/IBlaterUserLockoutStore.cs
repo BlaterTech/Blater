@@ -4,7 +4,7 @@ namespace Blater.Interfaces.BlaterUserStore;
 
 public interface IBlaterUserLockoutStore<TUser> : IBlaterUserStore<TUser> where TUser : class
 {
-    Task<BlaterResult<DateTimeOffset?>> GetLockoutEndDateAsync(TUser user);
+    Task<BlaterResult<DateTimeOffset>> GetLockoutEndDateAsync(TUser user);
     
     Task SetLockoutEndDateAsync(TUser user, DateTimeOffset? lockoutEnd);
     

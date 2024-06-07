@@ -6,5 +6,5 @@ public interface IBlaterUserSecurityStampStore<TUser> : IBlaterUserStore<TUser> 
 {
     Task SetSecurityStampAsync(TUser user, string stamp);
 
-    Task<BlaterResult<string?>> GetSecurityStampAsync(TUser user);
+    Task<BlaterResult<string>> GetSecurityStampAsync(TUser user);
 }

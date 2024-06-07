@@ -9,6 +9,7 @@ namespace Blater.Interfaces;
 public interface IBlaterAuthStore<in TUser> where TUser : BlaterUser
 {
     Task<BlaterResult<bool>> CreateUserAsync(TUser user, string password);
+    Task<BlaterResult<bool>> UpsertUserAsync(TUser user, string password);
 
     Task<BlaterResult<bool>> UpdateUserAsync(TUser user);
 
