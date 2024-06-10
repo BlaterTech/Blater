@@ -32,7 +32,7 @@ public static class EnumExtensions
         return $"{enumName}{enumValueCode}";
     }
 
-    public static string GetEnumErrorCodeDescription(this BlaterErrorCodes enumValue)
+    /*public static string GetEnumErrorCodeDescription(this BlaterErrorCodes enumValue)
     {
         var enumName = enumValue.GetType().Name;
 
@@ -41,5 +41,5 @@ public static class EnumExtensions
         .ToInt32(enumValue, CultureInfo.InvariantCulture)
         .ToString("D4", CultureInfo.InvariantCulture);
         return $"{desc}: {enumName}{enumValueCode}";
-    }
+    }*/
 }
