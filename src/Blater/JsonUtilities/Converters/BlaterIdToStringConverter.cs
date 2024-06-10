@@ -7,50 +7,16 @@ namespace Blater.JsonUtilities.Converters
     {
         public override BlaterId Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            throw new NotImplementedException();
-            /*string? guidValue = null;
-            string? partition = null;
-            string? revision = null;
-            BlaterRevisions? revisions = null;
+            var propertyValue = reader.GetString();
             
-            var readerCopy = reader;
-            
-            while (readerCopy.Read())
+            if (propertyValue == null)
             {
-                if (readerCopy.TokenType == JsonTokenType.PropertyName)
-                {
-                    var propertyName = readerCopy.GetString();
-                    readerCopy.Read();
-                    switch (propertyName)
-                    {
-                        case "id":
-                            var compostId = readerCopy.GetString();
-                            if (compostId != null)
-                            {
-                                var parts = compostId.Split(':');
-                                partition = parts[0];
-                                guidValue = parts[1];
-                            }
-                            break;
-                        case "partition":
-                            partition = readerCopy.GetString();
-                            break;
-                        case "guidValue":
-                            guidValue = readerCopy.GetString();
-                            break;
-                        case "rev":
-                        case "_rev":
-                            revision = readerCopy.GetString();
-                            break;
-                        case "_revisions":
-                            revisions = JsonSerializer.Deserialize<BlaterRevisions>(ref readerCopy, options);
-                            break;
-                    }
-                }
+                throw new JsonException("Property value is null");
             }
             
-            var blaterId = new BlaterId(partition!, Guid.Parse(guidValue!), revision, revisions);
-            return blaterId;*/
+            var parts = propertyValue.Split(':');
+            
+            return new BlaterId(parts[0], Guid.Parse(parts[1]));
         }
         
         public override void Write(Utf8JsonWriter writer, BlaterId value, JsonSerializerOptions options)

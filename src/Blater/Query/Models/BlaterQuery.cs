@@ -47,7 +47,10 @@ public class BlaterQuery
     public string? Bookmark { get; set; }
     
     [JsonPropertyName("execution_stats")]
-    public bool ExecutionStats { get; set; } = true;
+    public bool ExecutionStats { get; set; }
+    #if DEBUG
+        = true;
+    #endif
     
     private static readonly JsonSerializerOptions BlaterExpressionJsonOptions = new()
     {
