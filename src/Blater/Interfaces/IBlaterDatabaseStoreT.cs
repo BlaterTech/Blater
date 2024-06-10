@@ -54,28 +54,28 @@ public interface IBlaterDatabaseStoreT<T> where T : BaseDataModel
     #endregion
 
     #region Update/Insert/Upserts
-
+    
     /// <summary>
     /// Upserts a document, it replaces the document if it exists
     /// </summary>
     /// <param name="id"></param>
-    /// <param name="json"></param>
+    /// <param name="obj"></param>
     /// <returns>Returns the same document but with the new revision</returns>
     public Task<BlaterResult<bool>> Upsert(BlaterId id, T obj);
-
+    
     /// <summary>
     /// Updates a document by its id
     /// </summary>
     /// <param name="id"></param>
-    /// <param name="json"></param>
+    /// <param name="obj"></param>
     /// <returns>Returns true if the document was updated</returns>
     public Task<BlaterResult<bool>> Update(BlaterId id, T obj);
-
+    
     /// <summary>
     /// Updates a document by its id and query
     /// </summary>
     /// <param name="id"></param>
-    /// <param name="json"></param>
+    /// <param name="obj"></param>
     /// <returns></returns>
     public Task<BlaterResult<bool>> Insert(BlaterId id, T obj);
 

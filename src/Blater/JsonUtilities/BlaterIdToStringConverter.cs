@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Blater.JsonUtilities.Converters
+namespace Blater.JsonUtilities
 {
     public class BlaterIdToStringConverter : JsonConverter<BlaterId>
     {

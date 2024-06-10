@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Blater.JsonUtilities.Converters
+namespace Blater.JsonUtilities
 {
     public class BlaterIdConverter : JsonConverter<BlaterId>
     {
@@ -10,7 +10,7 @@ namespace Blater.JsonUtilities.Converters
             string? guidValue = null;
             string? partition = null;
             string? revision = null;
-            BlaterRevisions? revisions = null;
+            BlaterRevisionInfo? revisions = null;
             
             var readerCopy = reader;
             
@@ -41,8 +41,8 @@ namespace Blater.JsonUtilities.Converters
                         case "_rev":
                             revision = readerCopy.GetString();
                             break;
-                        case "_revisions":
-                            revisions = JsonSerializer.Deserialize<BlaterRevisions>(ref readerCopy, options);
+                        case "_revs_info":
+                            revisions = JsonSerializer.Deserialize<BlaterRevisionInfo>(ref readerCopy, options);
                             break;
                     }
                 }

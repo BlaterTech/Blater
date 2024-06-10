@@ -3,6 +3,10 @@ using System.Linq.Expressions;
 
 namespace Blater.Interfaces;
 
+/// <summary>
+/// This the highest abstraction of the database
+/// </summary>
+/// <typeparam name="T"></typeparam>
 public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
 {
     #region FindOnes

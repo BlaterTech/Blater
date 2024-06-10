@@ -1,4 +1,4 @@
-using NetEscapades.EnumGenerators;
+/*using NetEscapades.EnumGenerators;
 
 namespace Blater.Enumerations;
 
@@ -7,4 +7,4 @@ public enum BlaterQueueType
 {
     Queue,
     Topic,
-}
+}*/

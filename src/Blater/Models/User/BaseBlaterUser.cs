@@ -1,6 +1,6 @@
-namespace Blater.Models;
+namespace Blater.Models.User;
 
-public class BlaterUser : BaseDataModel
+public abstract class BaseBlaterUser : BaseDataModel
 {
     public string Name { get; set; } = string.Empty;
     

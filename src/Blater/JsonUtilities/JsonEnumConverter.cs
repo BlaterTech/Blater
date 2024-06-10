@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Blater.JsonUtilities.Converters;
+namespace Blater.JsonUtilities;
 
 public class JsonEnumConverter<T> : JsonConverter<T> where T : struct, Enum
 {

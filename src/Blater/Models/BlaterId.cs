@@ -3,7 +3,7 @@ using Blater.Utilities;
 
 namespace Blater.Models;
 
-public class BlaterId(string partition, Guid guidValue, string? revision = null, BlaterRevisions? revisions = null)
+public class BlaterId(string partition, Guid guidValue, string? revision = null, BlaterRevisionInfo? revisions = null)
     : IEquatable<BlaterId>
 {
     public Guid GuidValue { get; } = guidValue;
@@ -16,7 +16,7 @@ public class BlaterId(string partition, Guid guidValue, string? revision = null,
     /// Older revisions of the document, only available if the document was updated and if requested.
     /// </summary>
     [JsonPropertyName("_revisions")]
-    public BlaterRevisions? Revisions { get; } = revisions;
+    public BlaterRevisionInfo? Revisions { get; } = revisions;
     
     public static BlaterId New(string partition)
     {

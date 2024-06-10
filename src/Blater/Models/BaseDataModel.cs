@@ -1,11 +1,8 @@
-using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
-// ReSharper disable UnusedMember.Global
 
 namespace Blater.Models;
 
-[SuppressMessage("Design", "CA1044:Properties should not be write only")]
 public class BaseDataModel
 {
     [JsonPropertyName("_id")]
