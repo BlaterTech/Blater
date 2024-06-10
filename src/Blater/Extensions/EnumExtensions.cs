@@ -2,7 +2,7 @@ using System.ComponentModel;
 using System.Globalization;
 
 namespace Blater.Extensions;
-public static class EnumExtensions
+public static class EnumGenerator
 {
     public static string? GetDescription(this Enum value)
     {

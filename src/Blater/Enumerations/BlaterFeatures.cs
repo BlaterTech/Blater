@@ -1,10 +1,10 @@
 
 
-using NetEscapades.EnumGenerators;
+using EnumFastToStringGenerated;
 
 namespace Blater.Enumerations;
 
-[EnumExtensions]
+[EnumGenerator]
 public enum BlaterFeatures
 {
     Database,

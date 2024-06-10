@@ -1,9 +1,9 @@
 using System.ComponentModel;
-using NetEscapades.EnumGenerators;
+using EnumFastToStringGenerated;
 
 namespace Blater.Enumerations;
 
-[EnumExtensions]
+[EnumGenerator]
 public enum BlaterRevisionStatus
 {
     [Description("available")]

@@ -1,10 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using NetEscapades.EnumGenerators;
+using EnumFastToStringGenerated;
 
 namespace Blater.Enumerations;
 
-[EnumExtensions]
+[EnumGenerator]
 public enum OrderDirection
 {
     /// <summary>
