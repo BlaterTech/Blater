@@ -1,8 +1,9 @@
-﻿using Blater.Resullts;
+﻿using Blater.Models.User;
+using Blater.Resullts;
 
-namespace Blater.Interfaces.BlaterUserStore;
+namespace Blater.Interfaces.BlaterAuthentication;
 
-public interface IBlaterUserEmailStore<TUser> : IBlaterUserStore<TUser> where TUser : class
+public interface IBlaterUserEmailStore<TUser> where TUser : BaseBlaterUser
 {
     Task SetEmailAsync(TUser user, string? email);
     

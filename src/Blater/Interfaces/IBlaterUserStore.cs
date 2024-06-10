@@ -8,8 +8,8 @@ namespace Blater.Interfaces;
 /// </summary>
 public interface IBlaterUserStore<TUser> where TUser : BaseBlaterUser
 {
-    Task<BlaterResult<TUser>> GetUserInfo(string email);
-    Task<BlaterResult<TUser>> GetUserInfo(TUser user);
+    Task<BlaterResult<TUser>> Get(string email);
+    Task<BlaterResult<TUser>> Get(TUser user);
     
     Task<BlaterResult<TUser>> CreateUserAsync(TUser user, string password);
 

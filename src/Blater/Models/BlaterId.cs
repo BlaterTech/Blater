@@ -1,9 +1,9 @@
 using System.Text.Json.Serialization;
-using Blater.Utilities;
 
 namespace Blater.Models;
 
-public class BlaterId(string partition, Guid guidValue, string? revision = null, BlaterRevisionInfo? revisions = null)
+[JsonConverter(typeof(BlaterIdConverter))]
+public class BlaterId(string partition, Guid guidValue, string? revision = null, BlaterRevisionInfos? revisions = null)
     : IEquatable<BlaterId>
 {
     public Guid GuidValue { get; } = guidValue;
@@ -15,8 +15,8 @@ public class BlaterId(string partition, Guid guidValue, string? revision = null,
     /// <summary>
     /// Older revisions of the document, only available if the document was updated and if requested.
     /// </summary>
-    [JsonPropertyName("_revisions")]
-    public BlaterRevisionInfo? Revisions { get; } = revisions;
+    [JsonPropertyName("_revs_info")]
+    public BlaterRevisionInfos? Revisions { get; } = revisions;
     
     public static BlaterId New(string partition)
     {
@@ -101,6 +101,12 @@ public class BlaterId(string partition, Guid guidValue, string? revision = null,
     public static implicit operator BlaterId(string value)
     {
         var parts = value.Split(':');
+        
+        if (parts.Length != 2)
+        {
+            return Empty;
+        }
+        
         return new BlaterId(parts[0], Guid.Parse(parts[1]));
     }
     
@@ -125,6 +131,11 @@ public class BlaterId(string partition, Guid guidValue, string? revision = null,
         {
             { blaterId, [blaterId.Revision] }
         };
+    }
+    
+    public BlaterRevisionDictionary ToRevisionDictionary()
+    {
+        return this;
     }
     
     #endregion

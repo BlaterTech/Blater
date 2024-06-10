@@ -1,4 +1,4 @@
-﻿using Blater.Interfaces.BlaterUserStore;
+﻿using Blater.Interfaces.BlaterAuthentication;
 using Blater.Models.User;
 
 namespace Blater.Hubs;

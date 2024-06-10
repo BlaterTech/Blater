@@ -1,8 +1,12 @@
 ﻿using Blater.Resullts;
 
-namespace Blater.Interfaces.BlaterUserStore;
+namespace Blater.Interfaces.BlaterAuthentication;
 
-public interface IBlaterUserLoginStore<TUser> : IBlaterUserStore<TUser> where TUser : class
+// Login History
+// Device login
+// Provider login
+
+public interface IBlaterUserLoginStore<TUser> where TUser : class
 {
     Task AddLoginAsync(TUser user, BlaterLoginInfo login);
     

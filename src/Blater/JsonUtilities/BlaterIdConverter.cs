@@ -10,7 +10,7 @@ namespace Blater.JsonUtilities
             string? guidValue = null;
             string? partition = null;
             string? revision = null;
-            BlaterRevisionInfo? revisions = null;
+            BlaterRevisionInfos? revisions = null;
             
             var readerCopy = reader;
             
@@ -42,7 +42,7 @@ namespace Blater.JsonUtilities
                             revision = readerCopy.GetString();
                             break;
                         case "_revs_info":
-                            revisions = JsonSerializer.Deserialize<BlaterRevisionInfo>(ref readerCopy, options);
+                            revisions = JsonSerializer.Deserialize<BlaterRevisionInfos>(ref readerCopy, options);
                             break;
                     }
                 }

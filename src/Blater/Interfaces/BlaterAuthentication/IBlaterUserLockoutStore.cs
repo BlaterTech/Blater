@@ -1,8 +1,11 @@
-﻿using Blater.Resullts;
+﻿using Blater.Models.User;
+using Blater.Resullts;
 
-namespace Blater.Interfaces.BlaterUserStore;
+namespace Blater.Interfaces.BlaterAuthentication;
 
-public interface IBlaterUserLockoutStore<TUser> : IBlaterUserStore<TUser> where TUser : class
+//TODO ban* user
+
+public interface IBlaterUserLockoutStore<in TUser> where TUser : BaseBlaterUser
 {
     Task<BlaterResult<DateTimeOffset>> GetLockoutEndDateAsync(TUser user);
     
