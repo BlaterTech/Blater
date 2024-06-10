@@ -2,7 +2,7 @@
 
 namespace Blater.Enumerations;
 
-[EnumGenerator]
+[EnumExtensions]
 public enum BlaterQueueType
 {
     Queue,

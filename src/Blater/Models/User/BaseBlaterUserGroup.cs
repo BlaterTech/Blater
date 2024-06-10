@@ -1,7 +1,3 @@
-using System.ComponentModel;
-using Blater.Models.User.Permissions;
-using EnumFastToStringGenerated;
-
 namespace Blater.Models.User;
 
 public abstract class BaseBlaterUserGroup<TUser, TFeature, TPermission> where TUser : BaseBlaterUser where TPermission : notnull where TFeature : notnull
@@ -25,7 +21,7 @@ public enum TestFeature
     NotaFiscal
 }
 
-[EnumGenerator]
+[EnumExtensions]
 public enum TestEnum
 {
     [Description("")]
