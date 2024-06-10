@@ -14,6 +14,15 @@ public static class BlaterErrors
         return new BlaterError(message);
     }
     
+    public static BlaterError Error(List<BlaterError> errors, HttpStatusCode statusCode)
+    {
+        var message = $"""
+                       "Status: {statusCode}
+                       """;
+        
+        return new BlaterError(message);
+    }
+    
     public static readonly BlaterError GenericInternalError = new("Internal error");
     public static BlaterError InternalError(string error) => new("Internal error: "                                                  + error);
     
