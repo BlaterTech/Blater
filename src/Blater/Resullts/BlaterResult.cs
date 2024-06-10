@@ -2,13 +2,24 @@ namespace Blater.Resullts;
 
 public partial class BlaterResult
 {
-    public BlaterResult() => Errors = [];
-
-    public BlaterResult(BlaterError error) => Errors = [error];
-
-    public BlaterResult(IEnumerable<BlaterError> errors) => Errors = errors.ToList();
+    public BlaterResult()
+    {
+        Errors = [];
+    }
+    
+    public BlaterResult(BlaterError error)
+    {
+        Errors = [error];
+    }
+    
+    public BlaterResult(IEnumerable<BlaterError> errors)
+    {
+        Errors = errors.ToList();
+    }
 
     public bool Success { get; set; }
+    
+    public List<string> Messages { get; set; } = [];
 
     public bool Failure => !Success;
 
