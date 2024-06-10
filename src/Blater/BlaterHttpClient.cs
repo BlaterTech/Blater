@@ -4,7 +4,6 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using Blater.JsonUtilities;
 using Blater.Resullts;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Logging;
 
 namespace Blater;
@@ -24,7 +23,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     
     public void SetToken(string token)
     {
-        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, token);
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
     }
     
     
@@ -140,8 +139,6 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     
     #endregion
     
-    #region JSON
-    
     public async Task<BlaterResult<T>> Get<T>(string url)
     {
         try
@@ -155,8 +152,6 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
             throw;
         }
     }
-    
-    #endregion
     
     public async Task<BlaterResult<T>> Post<T>(string url, object body, JsonSerializerOptions? options = null)
     {
@@ -315,13 +310,14 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
             var stream = await message.Content.ReadAsStringAsync().ConfigureAwait(false);
             var json = stream.FromJson<T>();
             
-            if (json == null)
+            if (json != null)
             {
-                logger.LogError("BlaterHttpClient === Error while deserializing response");
-                return BlaterErrors.JsonSerializationError("Error while deserializing response");
+                return json;
             }
             
-            return json;
+            logger.LogError("BlaterHttpClient === Error while deserializing response");
+            return BlaterErrors.JsonSerializationError("Error while deserializing response");
+            
         }
         catch (Exception e)
         {

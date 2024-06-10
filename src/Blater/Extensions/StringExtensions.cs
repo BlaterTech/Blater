@@ -22,5 +22,26 @@ public static class StringExtensions
     {
         return Task.Run<string>(() => Convert.ToBase64String(Encoding.UTF8.GetBytes(str)));
     }
+    
+    public static string ToCamelCase(this string str)
+    {
+        if (string.IsNullOrEmpty(str))
+        {
+            return str;
+        }
+        
+        return char.ToLowerInvariant(str[0]) + str[1..];
+    }
+    
+    public static Span<char> ToCamelCase(this Span<char> str)
+    {
+        if (str.Length == 0)
+        {
+            return str;
+        }
+        
+        str[0] = char.ToLowerInvariant(str[0]);
+        return str;
+    }
 
 }
