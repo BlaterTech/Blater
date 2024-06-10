@@ -19,4 +19,14 @@ public abstract class BaseBlaterUser : BaseDataModel
     public bool PhoneNumberConfirmed { get; set; }
     
     public bool Verified { get; set; }
+    
+    public DateTimeOffset? LockoutEnd { get; set; }
+    
+    public bool LockoutEnabled { get; set; }
+    
+    public List<BlaterLoginInfo> Logins { get; set; } = [];
+    
+    public string? UserName { get; set; }
+    
+    public string? PasswordHash { get; set; }
 }

@@ -1,13 +1,6 @@
 namespace Blater.Resullts;
 
-public class BlaterError
+public class BlaterError(string message)
 {
-    public BlaterError(string message)
-    {
-        Message = message;
-    }
-    
-    public string Message { get; set; }
-    
-    public BlaterErrorCodes ErrorCode { get; set; }
+    public string Message { get; set; } = message;
 }
