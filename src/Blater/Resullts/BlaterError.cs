@@ -8,4 +8,6 @@ public class BlaterError
     }
     
     public string Message { get; set; }
+    
+    public BlaterErrorCodes ErrorCode { get; set; }
 }

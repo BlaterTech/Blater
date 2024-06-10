@@ -1,5 +1,4 @@
 using Blater.Resullts;
-using System.Linq;
 
 namespace Blater.Exceptions;
 

@@ -2,7 +2,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
-using Blater.JsonUtilities;
 using Blater.Resullts;
 using Microsoft.Extensions.Logging;
 
@@ -322,7 +321,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
         catch (Exception e)
         {
             logger.LogError(e, "BlaterHttpClient Exception === Error while handling response");
-            return BlaterErrors.InternalError;
+            return BlaterErrors.GenericInternalError;
         }
     }
 }
