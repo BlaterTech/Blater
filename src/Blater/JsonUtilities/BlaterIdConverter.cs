@@ -48,7 +48,12 @@ namespace Blater.JsonUtilities
                 }
             }
             
-            var blaterId = new BlaterId(partition!, Guid.Parse(guidValue!), revision, revisions);
+            if (partition == null || guidValue == null)
+            {
+                throw new JsonException("BlaterId must have a partition and a guidValue, could not find them in the JSON.");
+            }
+            
+            var blaterId = new BlaterId(partition, Guid.Parse(guidValue), revision, revisions);
             return blaterId;
         }
         
