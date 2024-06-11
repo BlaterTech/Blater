@@ -8,14 +8,17 @@ public static class HttpClientExtensions
 {
     public static async Task<Stream> PostStreamAsync(this HttpClient httpClient, string url, object body)
     {
-        var json = body.ToJson();
-        
-        if (string.IsNullOrWhiteSpace(json))
+        var content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
+        if (body is not string)
         {
-            throw new Exception("Failed to serialize object to json");
-        }
+            var json = body.ToJson();
+            if (string.IsNullOrWhiteSpace(json))
+            {
+                throw new Exception("Failed to serialize object to json");
+            }
         
-        var content = new StringContent(json, Encoding.UTF8, "application/json");
+            content = new StringContent(json, Encoding.UTF8, "application/json");
+        }
 
         using var request = new HttpRequestMessage(HttpMethod.Post, url);
         request.Content = content;
