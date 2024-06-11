@@ -35,7 +35,7 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
 
     #endregion
 
-    #region FindManys
+    #region Query
 
     /// <summary>
     /// Finds many documents using query
