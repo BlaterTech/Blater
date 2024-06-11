@@ -16,21 +16,22 @@
     </PropertyGroup>
     
     <ItemGroup>
-        <InternalsVisibleTo Include="Blater.SDK"/>
-        <InternalsVisibleTo Include="Blater.Backend"/>
-        <InternalsVisibleTo Include="Blater.Database"/>
-        <InternalsVisibleTo Include="Blater.Internal"/>
-        <InternalsVisibleTo Include="Blater.Tests"/>
-        <InternalsVisibleTo Include="Blater.Database.Tests"/>
-        <InternalsVisibleTo Include="Blater.Backend.Tests"/>
+        <InternalsVisibleTo Include="Blater.SDK" />
+        <InternalsVisibleTo Include="Blater.Backend" />
+        <InternalsVisibleTo Include="Blater.Database" />
+        <InternalsVisibleTo Include="Blater.Internal" />
+        <InternalsVisibleTo Include="Blater.Tests" />
+        <InternalsVisibleTo Include="Blater.Database.Tests" />
+        <InternalsVisibleTo Include="Blater.Backend.Tests" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="FastExpressionCompiler" Version="4.2.0"/>
+        <PackageReference Include="FastExpressionCompiler" Version="4.2.0" />
         <PackageReference Include="FastGenericNew.SourceGenerator" Version="3.1.0-preview1">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
         <PackageReference Include="Microsoft.Extensions.ObjectPool" Version="8.0.6" />
         <PackageReference Include="NetEscapades.EnumGenerators" Version="1.0.0-beta09" PrivateAssets="all" ExcludeAssets="runtime" />
     </ItemGroup>
