@@ -250,6 +250,31 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
         }
     }
     
+    #region Stream
+    
+    public async IAsyncEnumerable<T> GetStream<T>(string url)
+    {
+        var response = await httpClient.GetStreamAsync(url).ConfigureAwait(false);
+        using var streamReader = new StreamReader(response);
+            
+        while (!streamReader.EndOfStream)
+        {
+            var line = await streamReader.ReadLineAsync();
+            var json = line.FromJson<T>();
+            
+            #if DEBUG
+            logger.LogDebug("BlaterHttpClient === STREAM RESPONSE: {@JsonObject}", json);
+            #endif
+                
+            if (json != null)
+            {
+                yield return json;
+            }
+        }
+    }
+    
+    #endregion
+    
     private async Task<BlaterResult<T>> HandleResponse<T>(HttpResponseMessage message, JsonSerializerOptions? options = null)
     {
         try
@@ -258,7 +283,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
             
             if (LogRequests)
             {
-                string stringContent = string.Empty;
+                var stringContent = string.Empty;
                 if (message.RequestMessage?.Content != null)
                 {
                     stringContent = await message.RequestMessage?.Content?.ReadAsStringAsync()!;
