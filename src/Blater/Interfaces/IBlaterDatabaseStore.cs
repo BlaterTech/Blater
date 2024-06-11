@@ -11,21 +11,21 @@ public interface IBlaterDatabaseStore
 {
     public string Partition { get; set; }
     
-    #region FindOnes
-
     /// <summary>
     /// Finds a single document by its id
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public Task<BlaterResult<string>> FindOne(BlaterId id);
+    public Task<BlaterResult<string>> Get(BlaterId id);
+    
+    #region QueryOne
 
     /// <summary>
     /// Finds a single document using query.
     /// </summary>
     /// <param name="query"></param>
     /// <returns></returns>
-    public Task<BlaterResult<string>> FindOne(BlaterQuery query);
+    public Task<BlaterResult<string>> QueryOne(BlaterQuery query);
 
     /// <summary>
     /// Finds a single document using query and partition
@@ -33,18 +33,18 @@ public interface IBlaterDatabaseStore
     /// <param name="partition"></param>
     /// <param name="query"></param>
     /// <returns></returns>
-    public Task<BlaterResult<string>> FindOne(string partition, BlaterQuery query);
+    public Task<BlaterResult<string>> QueryOne(string partition, BlaterQuery query);
 
     #endregion
 
-    #region FindManys
+    #region Query
 
     /// <summary>
     /// Finds many documents using query
     /// </summary>
     /// <param name="query"></param>
     /// <returns></returns>
-    public Task<BlaterResult<IReadOnlyList<string>>> FindMany(BlaterQuery query);
+    public Task<BlaterResult<IReadOnlyList<string>>> Query(BlaterQuery query);
 
     /// <summary>
     /// Finds many documents using query and partition
@@ -52,7 +52,7 @@ public interface IBlaterDatabaseStore
     /// <param name="partition"></param>
     /// <param name="query"></param>
     /// <returns></returns>
-    public Task<BlaterResult<IReadOnlyList<string>>> FindMany(string partition, BlaterQuery query);
+    public Task<BlaterResult<IReadOnlyList<string>>> Query(string partition, BlaterQuery query);
 
     #endregion
 

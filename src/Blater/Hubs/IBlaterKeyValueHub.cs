@@ -5,7 +5,7 @@ namespace Blater.Hubs;
 public interface IBlaterKeyValueHub
 {
     /// <summary>
-    ///     Get a value from the key value store
+    ///     QueryOne a value from the key value store
     /// </summary>
     /// <param name="key"></param>
     /// <returns>Returns null if not found</returns>

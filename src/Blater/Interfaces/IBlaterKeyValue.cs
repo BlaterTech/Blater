@@ -3,7 +3,7 @@ namespace Blater.Interfaces;
 public interface IBlaterKeyValue
 {
     /// <summary>
-    ///     Get a value from the key value store
+    ///     QueryOne a value from the key value store
     /// </summary>
     /// <param name="key"></param>
     /// <typeparam name="TValue"></typeparam>
@@ -11,7 +11,7 @@ public interface IBlaterKeyValue
     Task<TValue?> Get<TValue>(string key) where TValue : BaseDataModel;
 
     /// <summary>
-    ///     Get a value from the key value store
+    ///     QueryOne a value from the key value store
     /// </summary>
     /// <param name="key"></param>
     /// <returns>Returns null if not found</returns>
