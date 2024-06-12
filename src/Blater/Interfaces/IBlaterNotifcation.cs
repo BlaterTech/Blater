@@ -1,6 +1,3 @@
 namespace Blater.Interfaces;
 
-public interface IBlaterNotifcation
-{
-    
-}
+public interface IBlaterNotifcation;

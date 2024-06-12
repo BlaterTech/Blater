@@ -1,6 +1,3 @@
 namespace Blater.Resullts;
 
-public class BlaterMetrics
-{
-    
-}
+public class BlaterMetrics;

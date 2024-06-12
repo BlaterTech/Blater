@@ -1,6 +1,3 @@
 namespace Blater.Resullts;
 
-public class BlaterMessage
-{
-    
-}
+public class BlaterMessage;
