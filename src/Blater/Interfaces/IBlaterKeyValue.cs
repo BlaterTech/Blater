@@ -16,6 +16,12 @@ public interface IBlaterKeyValue
     /// <param name="key"></param>
     /// <returns>Returns null if not found</returns>
     Task<string?> Get(string key);
+    
+    /// <summary>
+    /// All keys
+    /// </summary>
+    /// <returns></returns>
+    Task<IReadOnlyList<string>?> Get();
 
     /// <summary>
     ///     Set a value in the key value store
