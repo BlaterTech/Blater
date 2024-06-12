@@ -50,6 +50,8 @@ public interface IBlaterDatabaseStoreT<T> where T : BaseDataModel
     /// <param name="query"></param>
     /// <returns></returns>
     public Task<BlaterResult<IReadOnlyList<T>>> FindMany(string partition, BlaterQuery query);
+    
+    public Task<BlaterResult<IReadOnlyList<T>>> FindMany(Expression<Func<T, bool>> predicate);
 
     #endregion
 

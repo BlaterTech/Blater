@@ -35,8 +35,4 @@
         <PackageReference Include="Microsoft.Extensions.ObjectPool" Version="9.0.0-preview.5.24306.11" />
         <PackageReference Include="NetEscapades.EnumGenerators" Version="1.0.0-beta09" PrivateAssets="all" ExcludeAssets="runtime" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Models\User\Permissions\" />
-    </ItemGroup>
 </Project>

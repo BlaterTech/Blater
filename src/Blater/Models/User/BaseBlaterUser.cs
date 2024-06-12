@@ -25,6 +25,8 @@ public abstract class BaseBlaterUser : BaseDataModel
     public bool LockoutEnabled { get; set; }
 
     public List<BlaterLoginInfo> Logins { get; set; } = [];
+    
+    public List<string> Roles { get; set; } = [];
 
     public string? UserName { get; set; }
 
