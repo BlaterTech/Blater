@@ -1,6 +1,6 @@
 namespace Blater.Resullts;
 
-public static class BlaterResultResponses
+public static class BlaterResults
 {
     public static readonly BlaterResult Success = new(BlaterErrors.Success);
     public static readonly BlaterResult Failed = new(BlaterErrors.GenericInternalError);

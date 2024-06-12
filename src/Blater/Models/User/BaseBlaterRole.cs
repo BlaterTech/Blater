@@ -1,10 +1,11 @@
 namespace Blater.Models.User;
 
-public abstract class BaseBlaterRole<TFeature, TPermission>
+public abstract class BaseBlaterRole<TFeature, TPermission> 
+    : BaseDataModel
     where TPermission : IConvertible
     where TFeature : IConvertible
 {
-    public  abstract string Name { get; set; }
+    public abstract string Name { get; set; }
     
     public List<BlaterId> UsersIds { get; set; } = [];
     

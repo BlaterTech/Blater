@@ -16,4 +16,5 @@ public interface IBlaterAuthRoleStore
     
     Task<BlaterResult<BaseBlaterRole>> Get(BlaterId id);
     Task<BlaterResult<BaseBlaterRole>> GetByName(string roleName);
+    Task<BlaterResult<IReadOnlyList<BaseBlaterRole>>> GetPermissions(string permissionName);
 }

@@ -4,7 +4,7 @@ using Blater.Resullts;
 
 namespace Blater.Interfaces;
 
-public interface IBlaterDatabaseStoreT<T> where T : BaseDataModel
+public interface IBlaterDatabaseStoreT<T>
 {
     #region FindOnes
 

@@ -3,7 +3,9 @@ using Blater.Resullts;
 
 namespace Blater.Interfaces.BlaterAuthentication;
 
-public interface IBlaterAuthPermissionRoleStore<TRole, in TPermission> where TRole : BaseBlaterRole where TPermission : IConvertible
+public interface IBlaterAuthPermissionRoleStore<TRole, in TPermission> 
+    where TRole : BaseBlaterRole 
+    where TPermission : IConvertible
 {
     Task<BlaterResult<TRole>> AddToRole(TRole role, TPermission permission);
     Task<BlaterResult<TRole>> AddToRole(string roleName, TPermission permission);
