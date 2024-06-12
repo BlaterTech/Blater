@@ -1,9 +1,7 @@
 using Blater.Extensions;
 using Blater.JsonUtilities;
 using Blater.Resullts;
-
 using Microsoft.Extensions.Logging;
-
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
@@ -16,10 +14,10 @@ namespace Blater;
 [SuppressMessage("Design", "CA1031:Não capturar exceptions de tipos genéricos")]
 public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpClient)
 {
-#if DEBUG
+    #if DEBUG
     private const bool LogRequests = true;
     private const bool LogResponse = true;
-#endif
+    #endif
 
     public JsonSerializerOptions DefaultJsonSerializerOptions { get; set; } = JsonExtensions.DefaultJsonSerializerOptions;
     public string BaseAddress { get; } = httpClient.BaseAddress?.ToString() ?? string.Empty;
@@ -263,11 +261,17 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
         while (!streamReader.EndOfStream)
         {
             var line = await streamReader.ReadLineAsync();
-            var json = line.FromJson<T>();
 
-#if DEBUG
-            logger.LogDebug("BlaterHttpClient === STREAM RESPONSE: {@JsonObject}", json);
-#endif
+            if (string.IsNullOrWhiteSpace(line))
+            {
+                yield break;
+            }
+
+            #if DEBUG
+            logger.LogDebug("BlaterHttpClient === STREAM RESPONSE: {@JsonObject}", line);
+            #endif
+
+            var json = line.FromJson<T>();
 
             if (json != null)
             {
@@ -284,11 +288,17 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
         while (!streamReader.EndOfStream)
         {
             var line = await streamReader.ReadLineAsync();
-            var json = line.FromJson<T>();
 
-#if DEBUG
-            logger.LogDebug("BlaterHttpClient === STREAM RESPONSE: {@JsonObject}", json);
-#endif
+            if (string.IsNullOrWhiteSpace(line))
+            {
+                yield break;
+            }
+
+            #if DEBUG
+            logger.LogDebug("BlaterHttpClient === STREAM RESPONSE: {@JsonObject}", line);
+            #endif
+
+            var json = line.FromJson<T>();
 
             if (json != null)
             {
@@ -303,7 +313,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-#if DEBUG
+            #if DEBUG
 
             if (LogRequests)
             {
@@ -318,7 +328,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
                                 message.RequestMessage?.RequestUri, message.StatusCode, stringContent, message.RequestMessage?.Headers);
             }
 
-#endif
+            #endif
 
             if (!message.IsSuccessStatusCode)
             {
@@ -329,7 +339,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
                 return new BlaterError(stringContent);
             }
 
-#if DEBUG
+            #if DEBUG
 
             if (LogResponse)
             {
@@ -354,7 +364,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
                     throw;
                 }
             }
-#endif
+            #endif
 
             var stream = await message.Content.ReadAsStringAsync().ConfigureAwait(false);
             var json = stream.FromJson<T>();
@@ -366,7 +376,6 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
 
             logger.LogError("BlaterHttpClient === Error while deserializing response");
             return BlaterErrors.JsonSerializationError("Error while deserializing response");
-
         }
         catch (Exception e)
         {
