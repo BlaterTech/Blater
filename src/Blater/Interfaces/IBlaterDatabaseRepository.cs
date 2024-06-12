@@ -121,6 +121,13 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     public Task<int> Count(Expression<Func<T, bool>> predicate);
 
     #endregion
+    
+    #region Changes
+
+    IAsyncEnumerable<string> GetChanges();
+    IAsyncEnumerable<string> GetChangesQuery(Expression<Func<T, bool>> predicate);
+
+    #endregion
 
     public IBlaterQueryable<T> Queryable { get; }
 }

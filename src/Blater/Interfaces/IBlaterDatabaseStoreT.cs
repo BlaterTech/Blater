@@ -80,6 +80,13 @@ public interface IBlaterDatabaseStoreT<T> where T : BaseDataModel
     public Task<BlaterResult<bool>> Insert(BlaterId id, T obj);
 
     #endregion
+    
+    #region Changes
+
+    IAsyncEnumerable<BlaterResult<string>> GetChanges();
+    IAsyncEnumerable<BlaterResult<string>> GetChangesQuery(BlaterQuery query);
+
+    #endregion
 
     #region Deletes
 
