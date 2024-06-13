@@ -10,7 +10,7 @@ namespace Blater;
 [SuppressMessage("Design", "CA1054:URI-like parameters should not be strings")]
 [SuppressMessage("Usage", "CA2234:Pass system uri objects instead of strings")]
 [SuppressMessage("Design", "CA1031:Não capturar exceptions de tipos genéricos")]
-public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpClient)
+public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpClient) : IAsyncDisposable
 {
     #if DEBUG
     private const bool LogRequests = true;
@@ -380,5 +380,12 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
             logger.LogError(e, "BlaterHttpClient Exception === Error while handling response");
             return BlaterErrors.GenericInternalError;
         }
+    }
+
+    public ValueTask DisposeAsync()
+    {
+        httpClient.Dispose();
+        GC.SuppressFinalize(this);
+        return ValueTask.CompletedTask;
     }
 }
