@@ -10,7 +10,7 @@ public interface IBlaterKeyValueStore
     /// <param name="key"></param>
     /// <typeparam name="TValue"></typeparam>
     /// <returns>Returns null if not found</returns>
-    Task<BlaterResult<TValue>> Get<TValue>(string key) where TValue : BaseDataModel;
+    Task<BlaterResult<TValue>> Get<TValue>(string key);
 
     /// <summary>
     ///     QueryOne a value from the key value store
@@ -32,7 +32,7 @@ public interface IBlaterKeyValueStore
     /// <param name="value"></param>
     /// <typeparam name="TValue"></typeparam>
     /// <returns></returns>
-    Task<BlaterResult<bool>> Set<TValue>(string key, TValue value) where TValue : BaseDataModel;
+    Task<BlaterResult<bool>> Set<TValue>(string key, TValue value);
     
     Task<BlaterResult<bool>> Set(string key, object value);
 
