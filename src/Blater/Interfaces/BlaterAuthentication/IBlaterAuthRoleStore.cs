@@ -6,9 +6,9 @@ namespace Blater.Interfaces.BlaterAuthentication;
 
 public interface IBlaterAuthRoleStore
 {
-    Task<BlaterResult<bool>> Create(BaseBlaterRole role);
+    Task<BlaterResult<BaseBlaterRole>> Create(BaseBlaterRole role);
     
-    Task<BlaterResult<bool>> Update(BaseBlaterRole role);
+    Task<BlaterResult<BaseBlaterRole>> Update(BaseBlaterRole role);
     
     Task<BlaterResult<bool>> Delete(BlaterId id);
     Task<BlaterResult<bool>> Delete(BlaterQuery query);
