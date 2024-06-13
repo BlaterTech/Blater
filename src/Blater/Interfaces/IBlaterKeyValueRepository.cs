@@ -1,7 +1,10 @@
 namespace Blater.Interfaces;
 
-public interface IBlaterKeyValue
+public interface IBlaterKeyValueRepository
 {
+    //TODO
+    //public string? Partition { get; set; }
+    
     /// <summary>
     ///     QueryOne a value from the key value store
     /// </summary>

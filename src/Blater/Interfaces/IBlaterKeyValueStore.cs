@@ -4,6 +4,9 @@ namespace Blater.Interfaces;
 
 public interface IBlaterKeyValueStore
 {
+    //TODO
+    //public string? Partition { get; set; }
+    
     /// <summary>
     ///     QueryOne a value from the key value store
     /// </summary>
