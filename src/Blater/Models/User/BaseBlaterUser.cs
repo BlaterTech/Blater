@@ -26,6 +26,9 @@ public abstract class BaseBlaterUser : BaseDataModel
 
     public List<BlaterLoginInfo> Logins { get; set; } = [];
     
+    /// <summary>
+    /// Nota:Criar, Admin
+    /// </summary>
     public List<string> Roles { get; set; } = [];
 
     public string? UserName { get; set; }
