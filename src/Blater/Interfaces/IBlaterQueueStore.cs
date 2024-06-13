@@ -1,7 +1,7 @@
 
 
 using Blater.Options;
-using Blater.Resullts;
+using Blater.Results;
 
 namespace Blater.Interfaces;
 

@@ -1,5 +1,5 @@
 using Blater.Query.Models;
-using Blater.Resullts;
+using Blater.Results;
 
 namespace Blater.Interfaces;
 

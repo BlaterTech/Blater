@@ -1,4 +1,4 @@
-using Blater.Resullts;
+using Blater.Results;
 
 namespace Blater.Exceptions.Database;
 

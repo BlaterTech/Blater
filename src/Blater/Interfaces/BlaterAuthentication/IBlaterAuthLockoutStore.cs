@@ -1,5 +1,5 @@
 ﻿using Blater.Models.User;
-using Blater.Resullts;
+using Blater.Results;
 
 namespace Blater.Interfaces.BlaterAuthentication;
 

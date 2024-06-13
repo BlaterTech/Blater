@@ -1,4 +1,4 @@
-namespace Blater.Resullts;
+namespace Blater.Results;
 
 public class BlaterError(string message, List<string>? errors = null)
 {

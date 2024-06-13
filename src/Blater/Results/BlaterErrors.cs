@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace Blater.Resullts;
+namespace Blater.Results;
 
 public static class BlaterErrors
 {

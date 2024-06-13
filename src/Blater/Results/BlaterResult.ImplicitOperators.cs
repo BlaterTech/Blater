@@ -1,4 +1,4 @@
-namespace Blater.Resullts;
+namespace Blater.Results;
 
 public partial class BlaterResult
 {
