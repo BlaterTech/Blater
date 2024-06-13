@@ -16,7 +16,7 @@ public class BlaterQuery
     /// <summary>
     /// Maximum number of results returned. Default is 25. Optional
     /// </summary>
-    public long? Limit { get; set; }
+    public long? Limit { get; set; } = 25;
 
     /// <summary>
     /// Skip the first n results, where n is the value specified. Optional
