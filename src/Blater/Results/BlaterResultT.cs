@@ -2,6 +2,12 @@ namespace Blater.Results;
 
 public partial class BlaterResult<TValue> : BlaterResult
 {
+    public BlaterResult()
+    {
+        Success = false;
+        Errors = [];
+    }
+    
     public BlaterResult(TValue value)
     {
         Success = true;

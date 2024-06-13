@@ -27,9 +27,14 @@ public sealed class BlaterUser : BaseDataModel
     public List<BlaterLoginInfo> Logins { get; set; } = [];
     
     /// <summary>
-    /// Nota:Criar, Admin
+    /// CreateDatabase, CreateUser
     /// </summary>
-    public List<string> Roles { get; set; } = [];
+    public List<string> Permissions { get; set; } = [];
+    
+    /// <summary>
+    /// Admin, Support, Owner
+    /// </summary>
+    public List<string> RoleNames { get; set; } = [];
 
     public string? UserName { get; set; }
 
