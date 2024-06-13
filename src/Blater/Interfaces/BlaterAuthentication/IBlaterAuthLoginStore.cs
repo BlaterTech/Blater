@@ -7,13 +7,13 @@ namespace Blater.Interfaces.BlaterAuthentication;
 // Device login
 // Provider login
 
-public interface IBlaterAuthLoginStore<TUser> where TUser : BaseBlaterUser
+public interface IBlaterAuthLoginStore
 {
-    Task AddLogin(TUser user, BlaterLoginInfo login);
+    Task AddLogin(BlaterUser user, BlaterLoginInfo login);
     
-    Task RemoveLogin(TUser user, string loginProvider, string providerKey);
+    Task RemoveLogin(BlaterUser user, string loginProvider, string providerKey);
     
-    Task<BlaterResult<IEnumerable<BlaterLoginInfo>>> GetLogins(TUser user);
+    Task<BlaterResult<IEnumerable<BlaterLoginInfo>>> GetLogins(BlaterUser user);
     
-    Task<BlaterResult<TUser>> FindByLogin(string loginProvider, string providerKey);
+    Task<BlaterResult<BlaterUser>> FindByLogin(string loginProvider, string providerKey);
 }

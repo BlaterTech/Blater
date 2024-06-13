@@ -5,19 +5,19 @@ namespace Blater.Interfaces.BlaterAuthentication;
 
 //TODO ban* user
 
-public interface IBlaterAuthLockoutStore<in TUser> where TUser : BaseBlaterUser
+public interface IBlaterAuthLockoutStore
 {
-    Task<BlaterResult<DateTimeOffset>> GetLockoutEndDate(TUser user);
+    Task<BlaterResult<DateTimeOffset>> GetLockoutEndDate(BlaterUser user);
     
-    Task SetLockoutEndDate(TUser user, DateTimeOffset? lockoutEnd);
+    Task SetLockoutEndDate(BlaterUser user, DateTimeOffset? lockoutEnd);
     
-    Task<BlaterResult<int>> IncrementAccessFailedCount(TUser user);
+    Task<BlaterResult<int>> IncrementAccessFailedCount(BlaterUser user);
     
-    Task ResetAccessFailedCount(TUser user);
+    Task ResetAccessFailedCount(BlaterUser user);
     
-    Task<BlaterResult<int>> GetAccessFailedCount(TUser user);
+    Task<BlaterResult<int>> GetAccessFailedCount(BlaterUser user);
     
-    Task<BlaterResult<bool>> GetLockoutEnabled(TUser user);
+    Task<BlaterResult<bool>> GetLockoutEnabled(BlaterUser user);
     
-    Task SetLockoutEnabled(TUser user, bool enabled);
+    Task SetLockoutEnabled(BlaterUser user, bool enabled);
 }

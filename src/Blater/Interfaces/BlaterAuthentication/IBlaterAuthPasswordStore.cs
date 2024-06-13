@@ -3,9 +3,9 @@ using Blater.Results;
 
 namespace Blater.Interfaces.BlaterAuthentication;
 
-public interface IBlaterAuthPasswordStore<in TUser> where TUser : BaseBlaterUser
+public interface IBlaterAuthPasswordStore
 {
-    Task SetPasswordHash(TUser user, string? passwordHash);
+    Task SetPasswordHash(BlaterUser user, string? passwordHash);
     
-    Task<BlaterResult<bool>> HasPassword(TUser user); 
+    Task<BlaterResult<bool>> HasPassword(BlaterUser user); 
 }

@@ -3,22 +3,21 @@ using Blater.Results;
 
 namespace Blater.Interfaces.BlaterAuthentication;
 
-public interface IBlaterAuthUserRoleStore<TUser, TRole>
-    where TUser : BaseBlaterUser
+public interface IBlaterAuthUserRoleStore<TRole>
     where TRole : BaseBlaterRole
 {
-    Task<BlaterResult<TUser>> AddToRole(TUser user, string roleName);
-    Task<BlaterResult<TUser>> AddToRole(TUser user, TRole role);
+    Task<BlaterResult<BlaterUser>> AddToRole(BlaterUser user, string roleName);
+    Task<BlaterResult<BlaterUser>> AddToRole(BlaterUser user, TRole role);
 
-    Task<BlaterResult> RemoveFromRole(TUser user, string roleName);
-    Task<BlaterResult> RemoveFromRole(TUser user, TRole role);
+    Task<BlaterResult> RemoveFromRole(BlaterUser user, string roleName);
+    Task<BlaterResult> RemoveFromRole(BlaterUser user, TRole role);
 
-    Task<BlaterResult<bool>> IsInRole(TUser user, string roleName);
-    Task<BlaterResult<bool>> IsInRole(TUser user, TRole role);
+    Task<BlaterResult<bool>> IsInRole(BlaterUser user, string roleName);
+    Task<BlaterResult<bool>> IsInRole(BlaterUser user, TRole role);
 
-    Task<BlaterResult<IReadOnlyList<TRole>>> GetRoles(TUser user);
-    Task<BlaterResult<IReadOnlyList<string>>> GetRoleNames(TUser user);
+    Task<BlaterResult<IReadOnlyList<TRole>>> GetRoles(BlaterUser user);
+    Task<BlaterResult<IReadOnlyList<string>>> GetRoleNames(BlaterUser user);
 
-    Task<BlaterResult<IReadOnlyList<TUser>>> GetUsersInRole(string roleName);
-    Task<BlaterResult<IReadOnlyList<TUser>>> GetUsersInRole(TRole role);
+    Task<BlaterResult<IReadOnlyList<BlaterUser>>> GetUsersInRole(string roleName);
+    Task<BlaterResult<IReadOnlyList<BlaterUser>>> GetUsersInRole(TRole role);
 }

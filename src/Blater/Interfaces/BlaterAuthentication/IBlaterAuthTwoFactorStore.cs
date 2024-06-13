@@ -3,9 +3,9 @@ using Blater.Results;
 
 namespace Blater.Interfaces.BlaterAuthentication;
 
-public interface IBlaterAuthTwoFactorStore<in TUser>  where TUser : BaseBlaterUser
+public interface IBlaterAuthTwoFactorStore
 {
-    Task EnableTwoFactor(TUser user, string id, string secret);
-    Task DisableTwoFactor(TUser user, string code);
+    Task EnableTwoFactor(BlaterUser user, string id, string secret);
+    Task DisableTwoFactor(BlaterUser user, string code);
     Task<BlaterResult<bool>> VerifyOtpCode(string code);
 }
