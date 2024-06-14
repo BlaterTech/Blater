@@ -22,7 +22,6 @@ public class LessAndGreaterThanHandler : BinaryHandler
         };
         
         var nameValue = GetNameValue(expression);
-        //var name = GetMemberName(nameValue.Member, context);
         
         if (@operator == null)
         {

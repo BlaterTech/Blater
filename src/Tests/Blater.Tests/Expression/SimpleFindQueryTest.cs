@@ -118,7 +118,7 @@ public class SimpleFindQueryTest
     [Fact]
     public void BestCaseScenario()
     {
-        var guid = SequentialGuidGenerator.NewGuid().ToString();
+        var id = Models.BlaterId.New("test");
         
         //
         var expected = $$$"""
@@ -129,7 +129,7 @@ public class SimpleFindQueryTest
                                "$and": [
                                  {
                                    "_id": {
-                                     "$eq": "{{{guid}}}"
+                                     "$eq": "{{{id}}}"
                                    }
                                  },
                                  {
@@ -146,13 +146,14 @@ public class SimpleFindQueryTest
                              }
                            ]
                          },
+                         "limit": 25,
                          "execution_stats": true
                        }
                        """;
         
         //
         
-        Expression<Func<TestModel, bool>> predicate = x => x.Id == guid && x.Name == "Test" && x.Description.Contains("Test");
+        Expression<Func<TestModel, bool>> predicate = x => x.Id == id && x.Name == "Test" && x.Description.Contains("Test");
         
         var query = predicate.ExpressionToBlaterQuery();
         
@@ -176,6 +177,7 @@ public class SimpleFindQueryTest
                                 "$eq": "test:{{{blaterId.GuidValue}}}"
                               }
                             },
+                            "limit": 25,
                             "execution_stats": true
                           }
                           """;
