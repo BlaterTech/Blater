@@ -6,7 +6,7 @@ namespace Blater.Extensions;
 [SuppressMessage("Design", "CA1054:URI-like parameters should not be strings")]
 public static class HttpClientExtensions
 {
-    public static async Task<(Stream stream, HttpResponseMessage response)> PostStreamAsync(this HttpClient httpClient, string url, object body)
+    public static async Task<Stream> PostStreamAsync(this HttpClient httpClient, string url, object body)
     {
         StringContent content;
         
@@ -31,6 +31,6 @@ public static class HttpClientExtensions
         var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
         response.EnsureSuccessStatusCode();
 
-        return (await response.Content.ReadAsStreamAsync().ConfigureAwait(false), response);
+        return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
     }
 }
