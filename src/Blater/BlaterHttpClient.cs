@@ -251,7 +251,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
 
     #region Stream
 
-    public async IAsyncEnumerable<T> GetStream<T>(string url)
+    public async IAsyncEnumerable<BlaterResult<T>> GetStream<T>(string url)
     {
         var response = await httpClient.GetStreamAsync(url).ConfigureAwait(false);
         using var streamReader = new StreamReader(response);
@@ -278,10 +278,10 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
         }
     }
 
-    public async IAsyncEnumerable<T> PostStream<T>(string url, object body)
+    public async IAsyncEnumerable<BlaterResult<T>> PostStream<T>(string url, object body)
     {
-        var response = await httpClient.PostStreamAsync(url, body).ConfigureAwait(false);
-        using var streamReader = new StreamReader(response);
+        var (stream, response) = await httpClient.PostStreamAsync(url, body).ConfigureAwait(false);
+        using var streamReader = new StreamReader(stream);
 
         while (!streamReader.EndOfStream)
         {
@@ -296,12 +296,9 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
             logger.LogDebug("BlaterHttpClient === STREAM RESPONSE: {@JsonObject}", line);
             #endif
 
-            var json = line.FromJson<T>();
-
-            if (json != null)
-            {
-                yield return json;
-            }
+            var blaterResult = await HandleResponse<T>(response);
+            
+            yield return blaterResult;
         }
     }
 
