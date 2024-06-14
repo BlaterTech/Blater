@@ -8,8 +8,8 @@ public interface IBlaterAuthPermissionRoleStore
     Task<BlaterResult<BlaterRole>> AddToRole(BlaterRole role, BlaterPermission<string> permission);
     Task<BlaterResult<BlaterRole>> AddToRole(string roleName, BlaterPermission<string> permission);
 
-    Task<BlaterResult> RemoveFromRole(BlaterRole role, BlaterPermission<string> permission);
-    Task<BlaterResult> RemoveFromRole(string roleName, BlaterPermission<string> permission);
+    Task<BlaterResult<BlaterRole>> RemoveFromRole(BlaterRole role, BlaterPermission<string> permission);
+    Task<BlaterResult<BlaterRole>> RemoveFromRole(string roleName, BlaterPermission<string> permission);
 
     Task<BlaterResult<IReadOnlyList<BlaterRole>>> GetRoles(BlaterPermission<string> permission);
 }
