@@ -64,14 +64,14 @@ public interface IBlaterDatabaseStore
     #endregion
 
     #region Update/Insert/Upserts
-
+    
     /// <summary>
     /// Upserts a document, it replaces the document if it exists
     /// </summary>
     /// <param name="id"></param>
     /// <param name="json"></param>
     /// <returns>Returns the same document but with the new revision</returns>
-    public Task<BlaterResult<bool>> Upsert(BlaterId id, string json);
+    public Task<BlaterResult<BlaterId>> Upsert(BlaterId id, string json);
 
     /// <summary>
     /// Updates a document by its id
@@ -79,7 +79,7 @@ public interface IBlaterDatabaseStore
     /// <param name="id"></param>
     /// <param name="json"></param>
     /// <returns>Returns true if the document was updated</returns>
-    public Task<BlaterResult<bool>> Update(BlaterId id, string json);
+    public Task<BlaterResult<BlaterId>> Update(BlaterId id, string json);
 
     /// <summary>
     /// Updates a document by its id and query
@@ -87,7 +87,7 @@ public interface IBlaterDatabaseStore
     /// <param name="id"></param>
     /// <param name="json"></param>
     /// <returns></returns>
-    public Task<BlaterResult<bool>> Insert(BlaterId id, string json);
+    public Task<BlaterResult<BlaterId>> Insert(BlaterId id, string json);
 
     #endregion
 

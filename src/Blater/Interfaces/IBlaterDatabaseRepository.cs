@@ -60,21 +60,21 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// </summary>
     /// <param name="entity"></param>
     /// <returns>Returns the same entity but with the revision</returns>
-    public Task<bool> Upsert(T entity);
+    public Task<BlaterId> Upsert(T entity);
 
     /// <summary>
     /// Inserts a document, it fails if the document already exists
     /// </summary>
     /// <param name="entity"></param>
     /// <returns></returns>
-    public Task<bool> Insert(T entity);
+    public Task<BlaterId> Insert(T entity);
 
     /// <summary>
     /// Updates a document, it fails if the document does not exist
     /// </summary>
     /// <param name="entity"></param>
     /// <returns></returns>
-    public Task<bool> Update(T entity);
+    public Task<BlaterId> Update(T entity);
     #endregion
 
     #region Deletes
