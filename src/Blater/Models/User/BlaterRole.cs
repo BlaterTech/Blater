@@ -15,7 +15,7 @@ public class BlaterRole<TFeature, TPermission>
     ///     Feature:Permission
     ///     Feature:SubFeature:Permission
     /// </summary>
-    public Dictionary<TFeature, List<BlaterId>> Permissions { get; set; } = [];
+    public Dictionary<TFeature, List<TPermission>> Permissions { get; set; } = [];
 }
 
 public class BlaterRole : BlaterRole<string, string>;
