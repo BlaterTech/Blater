@@ -63,7 +63,7 @@ public interface IBlaterDatabaseStoreT<T>
     /// <param name="id"></param>
     /// <param name="obj"></param>
     /// <returns>Returns the same document but with the new revision</returns>
-    public Task<BlaterResult<bool>> Upsert(BlaterId id, T obj);
+    public Task<BlaterResult<T>> Upsert(BlaterId id, T obj);
     
     /// <summary>
     /// Updates a document by its id
@@ -71,7 +71,7 @@ public interface IBlaterDatabaseStoreT<T>
     /// <param name="id"></param>
     /// <param name="obj"></param>
     /// <returns>Returns true if the document was updated</returns>
-    public Task<BlaterResult<bool>> Update(BlaterId id, T obj);
+    public Task<BlaterResult<T>> Update(BlaterId id, T obj);
     
     /// <summary>
     /// Updates a document by its id and query
@@ -79,7 +79,7 @@ public interface IBlaterDatabaseStoreT<T>
     /// <param name="id"></param>
     /// <param name="obj"></param>
     /// <returns></returns>
-    public Task<BlaterResult<bool>> Insert(BlaterId id, T obj);
+    public Task<BlaterResult<T>> Insert(BlaterId id, T obj);
 
     #endregion
     
