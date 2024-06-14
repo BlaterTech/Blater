@@ -157,8 +157,8 @@ public class SimpleFindQueryTest
         var query = predicate.ExpressionToBlaterQuery();
         
         Assert.NotNull(query);
-        
-        var json = query.ConvertToJson();
+
+        var json = query.ToJson();
         
         Assert.Equal(expected, json);
     }
@@ -187,8 +187,8 @@ public class SimpleFindQueryTest
         var query = predicate.ExpressionToBlaterQuery();
         
         Assert.NotNull(query);
-        
-        var json =  query.ConvertToJson();
+
+        var json = query.ToJson();
         
         Assert.Equal(expected, json);
     }

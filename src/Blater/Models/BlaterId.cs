@@ -10,6 +10,9 @@ public class BlaterId(string partition, Guid guidValue, string? revision = null,
     
     public string Partition { get; } = partition;
     
+    /// <summary>
+    /// Current revision of the document, only available if the document was updated and if requested.
+    /// </summary>
     public string? Revision { get; } = revision;
     
     /// <summary>

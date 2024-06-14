@@ -50,26 +50,4 @@ public class BlaterQuery
     #if DEBUG
         = true;
     #endif
-    
-    private static readonly JsonSerializerOptions BlaterExpressionJsonOptions = new()
-    {
-        PropertyNameCaseInsensitive = true,
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        AllowTrailingCommas = true,
-        ReadCommentHandling = JsonCommentHandling.Skip,
-        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
-        Converters =
-        {
-            new BlaterIdToStringConverter(),
-            new JsonStringEnumConverter()
-        },
-        #if DEBUG
-        WriteIndented = true,
-        #endif
-    };
-    
-    public string ConvertToJson()
-    {
-        return JsonSerializer.Serialize(this, BlaterExpressionJsonOptions);
-    }
 }

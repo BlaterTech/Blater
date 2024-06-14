@@ -17,9 +17,17 @@ public class EqualityHandler : BinaryHandler
             ? "$eq"
             : "$ne";
         
+        //Handle custom cases like BlaterId here
+        var value = nameValue.Constant?.Value;
+        
+        if (value is BlaterId blaterId)
+        {
+            value = blaterId.ToString();
+        }
+        
         var equal = new DynamicDictionary
         {
-            { @operator, nameValue.Constant?.Value }
+            { @operator,  value}
         };
         var result = CreateQuery(nameValue.Member, equal, context);
         
