@@ -7,7 +7,7 @@ public class BlaterRole<TFeature, TPermission>
 {
     public required string Name { get; set; }
     
-    public List<BlaterId> UsersIds { get; set; } = [];
+    public List<string> UsersIds { get; set; } = [];
 
     /// <summary>
     ///
