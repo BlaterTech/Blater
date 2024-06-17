@@ -6,6 +6,8 @@ namespace Blater.Interfaces;
 
 public interface IBlaterDatabaseStoreT<T>
 {
+    public string Partition { get; }
+    
     #region FindOnes
 
     /// <summary>
@@ -24,14 +26,6 @@ public interface IBlaterDatabaseStoreT<T>
     
     public Task<BlaterResult<T>> FindOne(Expression<Func<T, bool>> predicate);
 
-    /// <summary>
-    /// Finds a single document using query and partition
-    /// </summary>
-    /// <param name="partition"></param>
-    /// <param name="query"></param>
-    /// <returns></returns>
-    public Task<BlaterResult<T>> FindOne(string partition, BlaterQuery query);
-
     #endregion
 
     #region Query
@@ -42,14 +36,6 @@ public interface IBlaterDatabaseStoreT<T>
     /// <param name="query"></param>
     /// <returns></returns>
     public Task<BlaterResult<IReadOnlyList<T>>> FindMany(BlaterQuery query);
-
-    /// <summary>
-    /// Finds many documents using query and partition
-    /// </summary>
-    /// <param name="partition"></param>
-    /// <param name="query"></param>
-    /// <returns></returns>
-    public Task<BlaterResult<IReadOnlyList<T>>> FindMany(string partition, BlaterQuery query);
     
     public Task<BlaterResult<IReadOnlyList<T>>> FindMany(Expression<Func<T, bool>> predicate);
 
@@ -122,21 +108,6 @@ public interface IBlaterDatabaseStoreT<T>
     /// </summary>
     /// <returns></returns>
     public Task<BlaterResult<int>> Count();
-
-    /// <summary>
-    /// Gets the count of all documents inside the database by partition
-    /// </summary>
-    /// <param name="partition"></param>
-    /// <returns></returns>
-    public Task<BlaterResult<int>> Count(string partition);
-
-    /// <summary>
-    /// Gets the count of all documents inside the database by query
-    /// </summary>
-    /// <param name="partition"></param>
-    /// <param name="query"></param>
-    /// <returns></returns>
-    public Task<BlaterResult<int>> Count(string partition, BlaterQuery query);
 
     #endregion
 }
