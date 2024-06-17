@@ -14,8 +14,7 @@ public static class StringExtensions
                   .Replace(".", "_", StringComparison.OrdinalIgnoreCase)
                   .Replace("\\", "_", StringComparison.OrdinalIgnoreCase)
                   .Replace("//", "_", StringComparison.OrdinalIgnoreCase)
-                  .Replace("?", "_", StringComparison.OrdinalIgnoreCase)
-                   ;
+                  .Replace("?", "_", StringComparison.OrdinalIgnoreCase);
     }
     
     public static Task<string> ToBase64(this string str)
