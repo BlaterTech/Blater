@@ -21,10 +21,10 @@ public interface IBlaterAuthUserRoleStore
     Task<BlaterResult<IReadOnlyList<BlaterUser>>> GetUsersInRole(BlaterRole role);
     
     Task<BlaterResult<bool>> IsInPermission(BlaterUser user, string permissionName);
-    Task<BlaterResult<bool>> IsInPermission(BlaterUser user, BlaterPermission<string> permission);
+    Task<BlaterResult<bool>> IsInPermission(BlaterUser user, BlaterPermission permission);
     
     Task<BlaterResult<IReadOnlyList<string>>> GetPermissions(BlaterUser user);
     
     Task<BlaterResult<IReadOnlyList<BlaterUser>>> GetUsersInPermission(string permissionName);
-    Task<BlaterResult<IReadOnlyList<BlaterUser>>> GetUsersInPermission(BlaterPermission<string> permission);
+    Task<BlaterResult<IReadOnlyList<BlaterUser>>> GetUsersInPermission(BlaterPermission permission);
 }

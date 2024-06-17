@@ -4,3 +4,5 @@ public class BlaterPermission<TPermission> : BaseDataModel where TPermission : I
 {
     public required TPermission Name { get; set; }
 }
+
+public class BlaterPermission : BlaterPermission<string>;

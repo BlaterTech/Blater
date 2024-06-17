@@ -38,6 +38,25 @@ public static class JsonExtensions
         return str == null ? default : JsonSerializer.Deserialize<T>(str, options ?? DefaultJsonSerializerOptions);
     }
     
+    public static bool TryParseJson<T>(this string? str, out T? result)
+    {
+        result = default;
+        try
+        {
+            if (string.IsNullOrWhiteSpace(str))
+            {
+                return false;
+            }
+
+            result = JsonSerializer.Deserialize<T>(str, DefaultJsonSerializerOptions);
+            return result != null;
+        }
+        catch (JsonException)
+        {
+            return false;
+        }
+    }
+    
     public static async Task<T?> FromJson<T>(this Stream stream)
     {
         stream.Position = 0;
