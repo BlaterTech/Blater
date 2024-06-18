@@ -383,30 +383,33 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
 
                 try
                 {
-                    var debugObject = debugString.FromJson<T>(options ?? DefaultJsonSerializerOptions);
-
-                    if (debugObject == null)
+                    if (debugString.TryParseJson<T>(out var debugValue))
                     {
-                        logger.LogDebug("BlaterHttpClient === Response Null:\n {@JsonObject}", debugString);
-                        throw new Exception("Error while deserializing response");
+                        if (debugValue == null)
+                        {
+                            logger.LogDebug("BlaterHttpClient === Response Null:\n {@JsonObject}", debugString);
+                            throw new Exception("Error while deserializing response");
+                        }
                     }
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
-                    throw;
+                    logger.LogError(e, "BlaterHttpClient Exception === Error while handling response");
+                    return BlaterErrors.Error("Internal server error");
                 }
             }
             #endif
 
             var stream = await message.Content.ReadAsStringAsync().ConfigureAwait(false);
-            var json = stream.FromJson<T>();
-
-            if (json != null)
+            
+            if (stream.TryParseJson<T>(out var value))
             {
-                return json;
+                if (value != null)
+                {
+                    return value;
+                }
             }
-
+            
             logger.LogError("BlaterHttpClient === Error while deserializing response");
             return BlaterErrors.JsonSerializationError("Error while deserializing response");
         }
