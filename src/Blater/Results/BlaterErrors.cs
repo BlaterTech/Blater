@@ -11,30 +11,11 @@ public static class BlaterErrors
         return new BlaterError(message);
     }
     
-    public static BlaterError Error(string error, HttpStatusCode statusCode)
-    {
-        var message = $"""
-                       "Status: {statusCode}
-                       Error: {error}
-                       """;
-        
-        return new BlaterError(message);
-    }
-    
     public static BlaterError Error(List<BlaterError> errors)
     {
-        var message = $"""
-                       "Errors: {errors}
-                       """;
-        
-        return new BlaterError(message);
-    }
-    
-    public static BlaterError Error(List<BlaterError> errors, HttpStatusCode statusCode)
-    {
-        var message = $"""
-                       "Status: {statusCode}
-                       """;
+        var message = errors
+           .Aggregate("", (current, error) 
+                          => current + $"{error.Message}, {string.Join(",", error.Errors)}");
         
         return new BlaterError(message);
     }
