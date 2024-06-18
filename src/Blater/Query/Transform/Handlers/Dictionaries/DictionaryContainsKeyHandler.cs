@@ -17,7 +17,7 @@ public class DictionaryContainsKeyHandler : MethodHandler
             return;
         }
         
-        if (expression?.Arguments[0] is not ConstantExpression cValue)
+        if (expression?.Arguments[0] is not ConstantExpression)
         {
             throw new NotSupportedException("requires a parameter");
         }
@@ -49,7 +49,7 @@ public class IndexHandler : MethodHandler
             return;
         }
         
-        if (expression?.Arguments[0] is not ConstantExpression cValue)
+        if (expression?.Arguments[0] is not ConstantExpression)
         {
             throw new NotSupportedException("requires a parameter");
         }

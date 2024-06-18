@@ -171,7 +171,7 @@ public static class TypeHelper
     public static bool IsInteger(Type? type)
     {
         //TODO does this work?
-        var nnType = GetNonNullableType(type);
+        GetNonNullableType(type);
         switch (Type.GetTypeCode(type))
         {
             case TypeCode.SByte:

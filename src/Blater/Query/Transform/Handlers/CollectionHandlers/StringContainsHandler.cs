@@ -33,7 +33,7 @@ public class AnyHandler : MethodHandler
             return false;
         }
         
-        if (expression.Arguments[0] is not MemberExpression val0 || expression.Arguments[1] is not LambdaExpression val1)
+        if (expression.Arguments[0] is not MemberExpression val0 || expression.Arguments[1] is not LambdaExpression)
         {
             return false;
         }

@@ -102,7 +102,7 @@ public static class PartialEvaluator
                 // and invoking a lambda
             {
                 var value = ce.Value;
-                var actualValue = me.Member.GetValue(value);
+                me.Member.GetValue(value);
                 
                 //If ce type is BlaterId
                 /*if (actualValue is BlaterId blaterId)
