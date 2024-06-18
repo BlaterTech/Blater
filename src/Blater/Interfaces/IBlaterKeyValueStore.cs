@@ -38,7 +38,7 @@ public interface IBlaterKeyValueStore
     Task<BlaterResult<bool>> Set<TValue>(string key, TValue value);
     
     Task<BlaterResult<bool>> Set(string key, object value);
-
+    
     /// <summary>
     ///     Remove a value from the key value store
     /// </summary>
