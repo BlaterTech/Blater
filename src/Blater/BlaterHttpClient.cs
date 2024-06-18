@@ -378,7 +378,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
         catch (Exception e)
         {
             logger.LogError(e, "BlaterHttpClient Exception === Error while handling response");
-            return BlaterErrors.GenericInternalError;
+            return BlaterErrors.Error("Internal server error");
         }
     }
     
