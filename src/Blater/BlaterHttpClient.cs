@@ -134,6 +134,41 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
             throw;
         }
     }
+    
+    public async Task<BlaterResult<T>> Post<T>(string url)
+    {
+        try
+        {
+            using var stringEmpty = new StringContent(string.Empty);
+            var response = await httpClient.PostAsync(url, stringEmpty).ConfigureAwait(false);
+
+            var stringContent = await response.Content.ReadAsStringAsync();
+            if (!response.IsSuccessStatusCode)
+            {
+                logger.LogError("BlaterHttpClient === ERROR [{Method}] to {Url}, StatusCode: {StatusCode}\n ResponseContent:\n{Content} \nHeaders:{@Headers}",
+                                response.RequestMessage?.Method,
+                                response.RequestMessage?.RequestUri, response.StatusCode, stringContent, response.RequestMessage?.Headers);
+
+                return BlaterErrors.HttpRequestError($"BlaterHttpClient Error: {response.StatusCode} - {stringContent}");
+            }
+            
+            logger.LogDebug("BlaterHttpClient === RESPONSE [{Method}] to {Url}, StatusCode: {StatusCode} Response:\n {@JsonObject}",
+                            response.RequestMessage?.Method, response.RequestMessage?.RequestUri, response.StatusCode, stringContent);
+
+
+            if (!stringContent.TryParseJson<T>(out var value))
+            {
+                return BlaterErrors.JsonSerializationError("Error in deserialize json");
+            }
+            
+            return value!;
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "BlaterHttpClient Exception === Error while making POST request to {Url}", url);
+            throw;
+        }
+    }
 
     #endregion
 

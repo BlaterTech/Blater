@@ -15,7 +15,7 @@ public static class BlaterErrors
     {
         var message = errors
            .Aggregate("", (current, error) 
-                          => current + $"{error.Message}, {string.Join(",", error.Errors)}");
+                          => current + $"{error.Message}, {string.Join(", ", error.Errors)}");
         
         return new BlaterError(message);
     }

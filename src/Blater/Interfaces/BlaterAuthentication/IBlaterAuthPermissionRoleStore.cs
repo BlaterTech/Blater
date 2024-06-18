@@ -11,5 +11,5 @@ public interface IBlaterAuthPermissionRoleStore
     Task<BlaterResult<BlaterRole>> RemoveFromRole(BlaterRole role, BlaterPermission permission);
     Task<BlaterResult<BlaterRole>> RemoveFromRole(string roleName, string permissionName);
 
-    Task<BlaterResult<IReadOnlyList<BlaterRole>>> GetRoles(BlaterPermission permission);
+    Task<BlaterResult<IReadOnlyList<BlaterRole>>> GetRoles(string permissionName);
 }
