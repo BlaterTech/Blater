@@ -1,5 +1,3 @@
-using System.Net;
-
 namespace Blater.Results;
 
 public static class BlaterErrors
