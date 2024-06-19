@@ -65,17 +65,23 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
         {
             var response = await httpClient.DeleteAsync(url).ConfigureAwait(false);
 
+            var valueString = await response.Content.ReadAsStringAsync();
             if (!response.IsSuccessStatusCode)
             {
-                var stringContent = await response.Content.ReadAsStringAsync();
                 logger.LogError("BlaterHttpClient === ERROR [{Method}] to {Url}, StatusCode: {StatusCode}\n ResponseContent:\n{Content} \nHeaders:{@Headers}",
                                 response.RequestMessage?.Method,
-                                response.RequestMessage?.RequestUri, response.StatusCode, stringContent, response.RequestMessage?.Headers);
+                                response.RequestMessage?.RequestUri, response.StatusCode, valueString, response.RequestMessage?.Headers);
 
-                return BlaterErrors.HttpRequestError($"BlaterHttpClient Error: {response.StatusCode} - {stringContent}");
+                return BlaterErrors.HttpRequestError($"BlaterHttpClient Error: {response.StatusCode} - {valueString}");
             }
 
-            return new BlaterResult { Success = true };
+            logger.LogDebug("BlaterHttpClient === RESPONSE [{Method}] to {Url}, StatusCode: {StatusCode} Response:\n {@JsonObject}",
+                            response.RequestMessage?.Method, response.RequestMessage?.RequestUri, response.StatusCode, valueString);
+
+            return new BlaterResult
+            {
+                Success = true
+            };
         }
         catch (Exception e)
         {
@@ -204,6 +210,20 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
         try
         {
             var response = await httpClient.PostAsJsonAsync(url, body, options ?? DefaultJsonSerializerOptions).ConfigureAwait(false);
+            return await HandleResponse<T>(response);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "BlaterHttpClient Exception === Error while making POST request to {Url}", url);
+            throw;
+        }
+    }
+    
+    public async Task<BlaterResult<T>> Post<T>(string url, object body, CancellationToken ct, JsonSerializerOptions? options = null)
+    {
+        try
+        {
+            var response = await httpClient.PostAsJsonAsync(url, body, options ?? DefaultJsonSerializerOptions, cancellationToken: ct).ConfigureAwait(false);
             return await HandleResponse<T>(response);
         }
         catch (Exception e)

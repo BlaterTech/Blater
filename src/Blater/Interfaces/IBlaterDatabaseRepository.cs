@@ -123,8 +123,7 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     #endregion
     
     #region Changes
-
-    IAsyncEnumerable<string> GetChanges();
+    
     IAsyncEnumerable<string> GetChangesQuery(Expression<Func<T, bool>> predicate);
 
     #endregion

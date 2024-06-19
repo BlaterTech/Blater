@@ -57,8 +57,7 @@ public interface IBlaterDatabaseStore
     #endregion
 
     #region Changes
-
-    IAsyncEnumerable<BlaterResult<string>> GetChanges();
+    
     IAsyncEnumerable<BlaterResult<string>> GetChangesQuery(BlaterQuery query);
 
     #endregion
