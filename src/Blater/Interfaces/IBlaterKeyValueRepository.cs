@@ -1,3 +1,5 @@
+using Blater.Results;
+
 namespace Blater.Interfaces;
 
 public interface IBlaterKeyValueRepository
@@ -11,21 +13,21 @@ public interface IBlaterKeyValueRepository
     /// <param name="key"></param>
     /// <typeparam name="TValue"></typeparam>
     /// <returns>Returns null if not found</returns>
-    Task<TValue?> Get<TValue>(string key);
-
+    Task<BlaterResult<TValue?>> Get<TValue>(string key);
+    
     /// <summary>
     ///     QueryOne a value from the key value store
     /// </summary>
     /// <param name="key"></param>
     /// <returns>Returns null if not found</returns>
-    Task<string?> Get(string key);
+    Task<BlaterResult<string?>> Get(string key);
     
     /// <summary>
     /// All keys
     /// </summary>
     /// <returns></returns>
-    Task<IReadOnlyList<string>?> Get();
-
+    Task<BlaterResult<IReadOnlyList<string>>> Get();
+    
     /// <summary>
     ///     Set a value in the key value store
     /// </summary>
@@ -33,14 +35,14 @@ public interface IBlaterKeyValueRepository
     /// <param name="value"></param>
     /// <typeparam name="TValue"></typeparam>
     /// <returns></returns>
-    Task<bool> Set<TValue>(string key, TValue value);
+    Task<BlaterResult<bool>> Set<TValue>(string key, TValue value);
     
-    Task<bool> Set(string key, object value);
-
+    Task<BlaterResult<bool>> Set(string key, object value);
+    
     /// <summary>
     ///     Remove a value from the key value store
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>
-    Task<bool> Remove(string key);
+    Task<BlaterResult<bool>> Remove(string key);
 }

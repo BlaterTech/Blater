@@ -9,7 +9,7 @@ namespace Blater.Interfaces;
 /// </summary>
 public interface IBlaterDatabaseStore
 {
-    public string Partition { get; set; }
+    public string? Partition { get; set; }
     
     /// <summary>
     /// Finds a single document by its id
