@@ -11,9 +11,9 @@ namespace Blater.JsonUtilities
             string? partition = null;
             string? revision = null;
             BlaterRevisionInfos? revisions = null;
-            
+
             var readerCopy = reader;
-            
+
             while (readerCopy.Read())
             {
                 if (readerCopy.TokenType == JsonTokenType.PropertyName)
@@ -23,6 +23,7 @@ namespace Blater.JsonUtilities
                     switch (propertyName)
                     {
                         case "id":
+                        case "_id":
                             var compostId = readerCopy.GetString();
                             if (compostId != null)
                             {
@@ -30,6 +31,11 @@ namespace Blater.JsonUtilities
                                 partition = parts[0];
                                 guidValue = parts[1];
                             }
+                            else
+                            {
+                                throw new JsonException("Invalid id format in JSON.");
+                            }
+
                             break;
                         case "partition":
                             partition = readerCopy.GetString();
@@ -47,16 +53,16 @@ namespace Blater.JsonUtilities
                     }
                 }
             }
-            
+
             if (partition == null || guidValue == null)
             {
                 throw new JsonException("BlaterId must have a partition and a guidValue, could not find them in the JSON.");
             }
-            
+
             var blaterId = new BlaterId(partition, Guid.Parse(guidValue), revision, revisions);
             return blaterId;
         }
-        
+
         public override void Write(Utf8JsonWriter writer, BlaterId value, JsonSerializerOptions options)
         {
             writer.WriteStringValue($"{value.Partition}:{value.GuidValue.ToString()}");
