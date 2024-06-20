@@ -1,6 +1,5 @@
 ﻿using System.Linq.Expressions;
 using Blater.Models.User;
-using Blater.Query.Models;
 
 namespace Blater.Interfaces.BlaterAuthentication.Repositories;
 
