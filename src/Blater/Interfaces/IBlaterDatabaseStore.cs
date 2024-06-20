@@ -15,50 +15,35 @@ public interface IBlaterDatabaseStore
     /// Finds a single document by its id
     /// </summary>
     /// <param name="id"></param>
-    /// <returns></returns>
+    /// <returns>Returns the JSON object in string format</returns>
     public Task<BlaterResult<string>> Get(BlaterId id);
     
-    #region QueryOne
-
-    /// <summary>
-    /// Finds a single document using query.
-    /// </summary>
-    /// <param name="query"></param>
-    /// <returns></returns>
-    public Task<BlaterResult<string>> QueryOne(BlaterQuery query);
 
     /// <summary>
     /// Finds a single document using query and partition
     /// </summary>
     /// <param name="partition"></param>
     /// <param name="query"></param>
-    /// <returns></returns>
+    /// <returns>Returns the JSON object in string format</returns>
     public Task<BlaterResult<string>> QueryOne(string partition, BlaterQuery query);
-
-    #endregion
-
-    #region Query
-
-    /// <summary>
-    /// Finds many documents using query
-    /// </summary>
-    /// <param name="query"></param>
-    /// <returns></returns>
-    public Task<BlaterResult<IReadOnlyList<string>>> Query(BlaterQuery query);
-
+    
     /// <summary>
     /// Finds many documents using query and partition
     /// </summary>
     /// <param name="partition"></param>
     /// <param name="query"></param>
-    /// <returns></returns>
+    /// <returns>Returns the JSON object in string format</returns>
     public Task<BlaterResult<IReadOnlyList<string>>> Query(string partition, BlaterQuery query);
-
-    #endregion
 
     #region Changes
     
-    IAsyncEnumerable<BlaterResult<string>> GetChangesQuery(BlaterQuery query);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="partition"></param>
+    /// <param name="query"></param>
+    /// <returns>Returns the JSON object in string format</returns>
+    IAsyncEnumerable<BlaterResult<string>> GetChangesQuery(string partition, BlaterQuery query);
 
     #endregion
 
@@ -116,12 +101,6 @@ public interface IBlaterDatabaseStore
     #endregion
 
     #region Counts
-
-    /// <summary>
-    /// Gets the count of all documents inside the database
-    /// </summary>
-    /// <returns></returns>
-    public Task<BlaterResult<int>> Count();
 
     /// <summary>
     /// Gets the count of all documents inside the database by partition

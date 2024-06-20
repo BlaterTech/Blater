@@ -2,7 +2,7 @@
 using Blater.Query.Models;
 using Blater.Results;
 
-namespace Blater.Interfaces.BlaterAuthentication;
+namespace Blater.Interfaces.BlaterAuthentication.Stores;
 
 public interface IBlaterAuthRoleStore
 {
