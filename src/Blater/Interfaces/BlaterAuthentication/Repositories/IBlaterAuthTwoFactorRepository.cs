@@ -2,7 +2,7 @@
 
 namespace Blater.Interfaces.BlaterAuthentication.Repositories;
 
-public interface IBlaterAuthTwoFactorStore
+public interface IBlaterAuthTwoFactorRepository
 {
     Task<BlaterUser> EnableTwoFactor(BlaterUser user, string id, string secret);
     Task<BlaterUser> DisableTwoFactor(BlaterUser user, string code);

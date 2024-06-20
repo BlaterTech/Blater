@@ -2,7 +2,7 @@
 
 namespace Blater.Interfaces.BlaterAuthentication.Repositories;
 
-public interface IBlaterAuthEmailStore
+public interface IBlaterAuthEmailRepository
 {
     Task<BlaterUser> SetEmailConfirmed(BlaterUser user, bool confirmed);
     

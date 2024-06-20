@@ -3,7 +3,7 @@ using Blater.Query.Models;
 
 namespace Blater.Interfaces.BlaterAuthentication.Repositories;
 
-public interface IBlaterAuthPermissionStore
+public interface IBlaterAuthPermissionRepository
 {
     Task<BlaterPermission> Create(BlaterPermission permission);
     

@@ -2,7 +2,7 @@
 
 namespace Blater.Interfaces.BlaterAuthentication.Repositories;
 
-public interface IBlaterAuthUserPermissionStore
+public interface IBlaterAuthUserPermissionRepository
 {
     Task<bool> IsInPermission(string userId, string permissionName);
     Task<bool> IsInPermission(BlaterUser user, BlaterPermission permission);

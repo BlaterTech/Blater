@@ -3,7 +3,7 @@ using Blater.Query.Models;
 
 namespace Blater.Interfaces.BlaterAuthentication.Repositories;
 
-public interface IBlaterAuthRoleStore
+public interface IBlaterAuthRoleRepository
 {
     Task<BlaterRole> Create(BlaterRole role);
     

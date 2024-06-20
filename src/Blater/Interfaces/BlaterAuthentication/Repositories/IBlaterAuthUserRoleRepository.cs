@@ -2,7 +2,7 @@
 
 namespace Blater.Interfaces.BlaterAuthentication.Repositories;
 
-public interface IBlaterAuthUserRoleStore
+public interface IBlaterAuthUserRoleRepository
 {
     Task<BlaterUser> AddToRole(string userId, string roleName);
     Task<BlaterUser> AddToRole(BlaterUser user, BlaterRole role);

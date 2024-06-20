@@ -4,7 +4,7 @@ namespace Blater.Interfaces.BlaterAuthentication.Repositories;
 
 //TODO ban* user
 
-public interface IBlaterAuthLockoutStore
+public interface IBlaterAuthLockoutRepository
 {
     Task<BlaterUser> SetLockoutEndDate(BlaterUser user, DateTimeOffset? lockoutEnd);
     

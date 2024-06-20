@@ -2,7 +2,7 @@
 
 namespace Blater.Interfaces.BlaterAuthentication.Repositories;
 
-public interface IBlaterAuthPasswordStore
+public interface IBlaterAuthPasswordRepository
 {
     Task<BlaterUser> SetPasswordHash(BlaterUser user, string? passwordHash);
 }
