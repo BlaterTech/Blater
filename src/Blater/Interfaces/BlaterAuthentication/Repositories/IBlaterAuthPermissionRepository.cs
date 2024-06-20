@@ -1,4 +1,5 @@
-﻿using Blater.Models.User;
+﻿using System.Linq.Expressions;
+using Blater.Models.User;
 using Blater.Query.Models;
 
 namespace Blater.Interfaces.BlaterAuthentication.Repositories;
@@ -11,7 +12,7 @@ public interface IBlaterAuthPermissionRepository
     
     Task<bool> Delete(BlaterPermission permission);
     Task<bool> Delete(BlaterId id);
-    Task<bool> Delete(BlaterQuery query);
+    Task<bool> Delete(Expression<Func<BlaterPermission, bool>> predicate);
     
     Task<IReadOnlyList<BlaterPermission>> GetAll();
     
