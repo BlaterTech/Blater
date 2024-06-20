@@ -5,5 +5,5 @@ namespace Blater.Interfaces.BlaterAuthentication.Stores;
 
 public interface IBlaterAuthPasswordStore
 {
-    Task SetPasswordHash(BlaterUser user, string? passwordHash);
+    Task<BlaterResult<BlaterUser>> SetPasswordHash(BlaterUser user, string? passwordHash);
 }

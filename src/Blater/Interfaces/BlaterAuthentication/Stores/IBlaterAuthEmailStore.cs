@@ -5,9 +5,9 @@ namespace Blater.Interfaces.BlaterAuthentication.Stores;
 
 public interface IBlaterAuthEmailStore
 {
-    Task SetEmail(BlaterUser user, string? email);
+    Task<BlaterResult<BlaterUser>> SetEmail(BlaterUser user, string? email);
     
-    Task SetEmailConfirmed(BlaterUser user, bool confirmed);
+    Task<BlaterResult<BlaterUser>> SetEmailConfirmed(BlaterUser user, bool confirmed);
     
     Task<BlaterResult<BlaterUser?>> FindByEmail(string email);
 }

@@ -1,7 +1,7 @@
 ﻿using Blater.Models.User;
 using Blater.Results;
 
-namespace Blater.Interfaces.BlaterAuthentication.Stores;
+namespace Blater.Interfaces.BlaterAuthentication.Repositories;
 
 // Login History
 // Device login
@@ -9,9 +9,9 @@ namespace Blater.Interfaces.BlaterAuthentication.Stores;
 
 public interface IBlaterAuthLoginStore
 {
-    Task<BlaterResult<BlaterUser>> AddLogin(BlaterUser user, BlaterLoginInfo login);
+    Task AddLogin(BlaterUser user, BlaterLoginInfo login);
     
-    Task<BlaterResult<BlaterUser>> RemoveLogin(BlaterUser user, string loginProvider, string providerKey);
+    Task RemoveLogin(BlaterUser user, string loginProvider, string providerKey);
     
     Task<BlaterResult<IEnumerable<BlaterLoginInfo>>> GetLogins(BlaterUser user);
     
