@@ -7,5 +7,5 @@ public interface IBlaterAuthEmailStore
 {
     Task<BlaterResult<BlaterUser?>> FindByEmail(string email);
     
-    Task<BlaterResult<BlaterUser?>> SetConfirmEmail(string email);
+    Task<BlaterResult<BlaterUser>> SetEmailConfirmed(BlaterUser user);
 }

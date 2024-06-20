@@ -12,7 +12,7 @@ public interface IBlaterAuthLoginRepository
     
     Task<BlaterUser> RemoveLogin(BlaterUser user, string loginProvider, string providerKey);
     
-    Task<IEnumerable<BlaterLoginInfo>> GetLogins(BlaterId id);
+    Task<IReadOnlyList<BlaterLoginInfo>> GetLogins(BlaterId id);
     
     Task<BlaterUser> FindByLogin(string loginProvider, string providerKey);
 }
