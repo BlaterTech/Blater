@@ -13,7 +13,9 @@ public interface IBlaterAuthPermissionStore
     Task<BlaterResult<bool>> Delete(BlaterPermission permission);
     Task<BlaterResult<bool>> Delete(BlaterId id);
     Task<BlaterResult<bool>> Delete(BlaterQuery query);
+    
     Task<BlaterResult<IReadOnlyList<BlaterPermission>>> GetAll();
+    
     Task<BlaterResult<BlaterPermission>> GetById(BlaterId id);
     Task<BlaterResult<BlaterPermission>> GetPermission(string permissionName);
 }
