@@ -70,8 +70,7 @@ public interface IBlaterDatabaseStoreT<T>
     #endregion
     
     #region Changes
-
-    IAsyncEnumerable<BlaterResult<T>> GetChanges();
+    
     IAsyncEnumerable<BlaterResult<T>> GetChangesQuery(BlaterQuery query);
 
     #endregion
