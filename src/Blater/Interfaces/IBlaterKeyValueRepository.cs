@@ -11,14 +11,14 @@ public interface IBlaterKeyValueRepository
     /// <param name="key"></param>
     /// <typeparam name="TValue"></typeparam>
     /// <returns>Returns null if not found</returns>
-    Task<TValue?> Get<TValue>(string key);
+    Task<TValue> Get<TValue>(string key);
     
     /// <summary>
     ///     QueryOne a value from the key value store
     /// </summary>
     /// <param name="key"></param>
     /// <returns>Returns null if not found</returns>
-    Task<string?> Get(string key);
+    Task<string> Get(string key);
     
     /// <summary>
     /// All keys
