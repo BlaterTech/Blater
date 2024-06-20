@@ -6,4 +6,6 @@ namespace Blater.Interfaces.BlaterAuthentication.Stores;
 public interface IBlaterAuthEmailStore
 {
     Task<BlaterResult<BlaterUser?>> FindByEmail(string email);
+    
+    Task<BlaterResult<BlaterUser?>> SetConfirmEmail(string email);
 }
