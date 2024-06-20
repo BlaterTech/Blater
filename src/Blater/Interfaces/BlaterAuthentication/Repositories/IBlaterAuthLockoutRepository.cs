@@ -7,11 +7,11 @@ namespace Blater.Interfaces.BlaterAuthentication.Repositories;
 
 public interface IBlaterAuthLockoutStore
 {
-    Task SetLockoutEndDate(BlaterUser user, DateTimeOffset? lockoutEnd);
+    Task<BlaterUser> SetLockoutEndDate(BlaterUser user, DateTimeOffset? lockoutEnd);
     
-    Task<BlaterResult<int>> IncrementAccessFailedCount(BlaterUser user);
+    Task<int> IncrementAccessFailedCount(BlaterUser user);
     
-    Task ResetAccessFailedCount(BlaterUser user);
+    Task<BlaterUser> ResetAccessFailedCount(BlaterUser user);
     
-    Task SetLockoutEnabled(BlaterUser user, bool enabled);
+    Task<BlaterUser> SetLockoutEnabled(BlaterUser user, bool enabled);
 }

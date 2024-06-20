@@ -6,16 +6,16 @@ namespace Blater.Interfaces.BlaterAuthentication.Repositories;
 
 public interface IBlaterAuthPermissionStore
 {
-    Task<BlaterResult<BlaterPermission>> Create(BlaterPermission permission);
+    Task<BlaterPermission> Create(BlaterPermission permission);
     
-    Task<BlaterResult<BlaterPermission>> Update(BlaterPermission permission);
+    Task<BlaterPermission> Update(BlaterPermission permission);
     
-    Task<BlaterResult<bool>> Delete(BlaterPermission permission);
-    Task<BlaterResult<bool>> Delete(BlaterId id);
-    Task<BlaterResult<bool>> Delete(BlaterQuery query);
+    Task<bool> Delete(BlaterPermission permission);
+    Task<bool> Delete(BlaterId id);
+    Task<bool> Delete(BlaterQuery query);
     
-    Task<BlaterResult<IReadOnlyList<BlaterPermission>>> GetAll();
+    Task<IReadOnlyList<BlaterPermission>> GetAll();
     
-    Task<BlaterResult<BlaterPermission>> GetById(BlaterId id);
-    Task<BlaterResult<BlaterPermission>> GetPermission(string permissionName);
+    Task<BlaterPermission> GetById(BlaterId id);
+    Task<BlaterPermission> GetPermission(string permissionName);
 }

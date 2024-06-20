@@ -6,15 +6,15 @@ namespace Blater.Interfaces.BlaterAuthentication.Repositories;
 
 public interface IBlaterAuthRoleStore
 {
-    Task<BlaterResult<BlaterRole>> Create(BlaterRole role);
+    Task<BlaterRole> Create(BlaterRole role);
     
-    Task<BlaterResult<BlaterRole>> Update(BlaterRole role);
+    Task<BlaterRole> Update(BlaterRole role);
     
-    Task<BlaterResult<bool>> Delete(BlaterId id);
-    Task<BlaterResult<bool>> Delete(BlaterQuery query);
-    Task<BlaterResult<bool>> Delete(BlaterRole role);
+    Task<bool> Delete(BlaterId id);
+    Task<bool> Delete(BlaterQuery query);
+    Task<bool> Delete(BlaterRole role);
     
-    Task<BlaterResult<BlaterRole>> GetById(BlaterId id);
-    Task<BlaterResult<BlaterRole>> GetByName(string roleName);
-    Task<BlaterResult<IReadOnlyList<BlaterRole>>> GetPermissions(string permissionName);
+    Task<BlaterRole> GetById(BlaterId id);
+    Task<BlaterRole> GetByName(string roleName);
+    Task<IReadOnlyList<BlaterRole>> GetPermissions(string permissionName);
 }
