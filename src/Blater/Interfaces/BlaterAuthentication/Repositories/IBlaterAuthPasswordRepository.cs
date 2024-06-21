@@ -1,6 +1,4 @@
-﻿using Blater.Results;
-
-namespace Blater.Interfaces.BlaterAuthentication.Repositories;
+﻿namespace Blater.Interfaces.BlaterAuthentication.Repositories;
 
 public interface IBlaterAuthPasswordRepository
 {

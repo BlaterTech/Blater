@@ -18,7 +18,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     #endif
 
     public JsonSerializerOptions DefaultJsonSerializerOptions { get; set; } = JsonExtensions.DefaultJsonSerializerOptions;
-    public string BaseAddress { get; } = httpClient.BaseAddress?.ToString() ?? string.Empty;
+    public string BaseAddress => httpClient.BaseAddress?.ToString() ?? string.Empty;
 
     public void SetToken(string token)
     {
