@@ -9,7 +9,7 @@ namespace Blater.Interfaces.BlaterAuthentication.Stores;
 
 public interface IBlaterAuthLoginStore
 {
-    Task<BlaterResult<string>> LoginLocal(string email, string password);
+    Task<BlaterResult<BlaterUser>> LoginLocal(string email, string password);
     
     Task<BlaterResult<BlaterUser>> Register(string email, string password, string name);
     
