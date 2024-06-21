@@ -8,6 +8,9 @@ namespace Blater.Interfaces.BlaterAuthentication.Repositories;
 
 public interface IBlaterAuthLoginRepository
 {
+    Task<string> LoginLocal(string email, string password);
+    Task<BlaterUser> Register(string email, string password, string name);
+    
     Task<BlaterUser> AddLogin(BlaterUser user, BlaterLoginInfo login);
     
     Task<BlaterUser> RemoveLogin(BlaterUser user, string loginProvider, string providerKey);
