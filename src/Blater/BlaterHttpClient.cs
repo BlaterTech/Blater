@@ -453,13 +453,6 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
             
             logger.LogError("BlaterHttpClient === Error while deserializing response");
             return BlaterErrors.JsonSerializationError("Error while deserializing response");
-            /*if (stream.TryParseJson<T>(out var value))
-            {
-                if (value != null)
-                {
-                    return value;
-                }
-            }*/
         }
         catch (Exception e)
         {
