@@ -43,4 +43,12 @@ public static class StringExtensions
         return str;
     }
 
+    public static BlaterId ToBlaterId(this string value)
+    {
+        var parts = value.Split(':');
+
+        return parts.Length != 2
+            ? throw new FormatException("The value is not in the correct format")
+            : new BlaterId(parts[0], Guid.Parse(parts[1]));
+    }
 }
