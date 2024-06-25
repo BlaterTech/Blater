@@ -191,11 +191,21 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
 
     #endregion
 
-    public async Task<BlaterResult<T>> Get<T>(string url)
+    public async Task<BlaterResult<T>> Get<T>(string url, Dictionary<string,string>? extraHeaders = null)
     {
         try
         {
-            var response = await httpClient.GetAsync(url).ConfigureAwait(false);
+            using var getRequest = new HttpRequestMessage(HttpMethod.Get, url);
+            
+            if (extraHeaders != null)
+            {
+                foreach (var header in extraHeaders)
+                {
+                    getRequest.Headers.Add(header.Key, header.Value);
+                }
+            }
+
+            var response = await httpClient.SendAsync(getRequest).ConfigureAwait(false);
             return await HandleResponse<T>(response);
         }
         catch (Exception e)
