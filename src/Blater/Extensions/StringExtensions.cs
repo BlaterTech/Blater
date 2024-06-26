@@ -19,7 +19,12 @@ public static class StringExtensions
     
     public static Task<string> ToBase64(this string str)
     {
-        return Task.Run<string>(() => Convert.ToBase64String(Encoding.UTF8.GetBytes(str)));
+        return Task.Run(() => Convert.ToBase64String(Encoding.UTF8.GetBytes(str)));
+    }
+    
+    public static Task<string> FromBase64ToString(this string toDecode)
+    {
+        return Task.Run((Func<string>) (() => Encoding.UTF8.GetString(Convert.FromBase64String(toDecode))));
     }
     
     public static string ToCamelCase(this string str)
