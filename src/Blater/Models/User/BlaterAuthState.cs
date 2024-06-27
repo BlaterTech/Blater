@@ -1,10 +1,16 @@
 ﻿namespace Blater.Models.User;
 
-public class BlaterUserToken
+public class BlaterAuthState
 {
     public string UserId { get; set; } = null!;
     public string Name { get; set; } = null!;
     public string Email { get; set; } = null!;
-    public List<string> Roles { get; set; } = [];
+    
+    public bool LockoutEnabled { get; set; }
+    
+    public bool LoggedIn { get; set; }
+    
+    public List<string> RoleNames { get; set; } = [];
+    
     public List<string> Permissions { get; set; } = [];
 }
