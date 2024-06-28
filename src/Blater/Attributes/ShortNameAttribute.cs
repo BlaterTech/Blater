@@ -10,7 +10,7 @@ public sealed class ShortNameAttribute(string shortName) : Attribute
 
 public static class ShortNameAttributeExtensions
 {
-    public static string GetShortName(this Enum value)
+    public static string? GetShortName(this Enum value)
     {
         var type = value.GetType();
         var name = Enum.GetName(type, value);

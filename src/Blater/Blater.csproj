@@ -18,6 +18,8 @@
     <ItemGroup>
         <InternalsVisibleTo Include="Blater.SDK" />
         <InternalsVisibleTo Include="Blater.Frontend" />
+        <InternalsVisibleTo Include="Blater.Portal" />
+        <InternalsVisibleTo Include="Blater.Portal.Client" />
         <InternalsVisibleTo Include="Blater.Backend" />
         <InternalsVisibleTo Include="Blater.Database" />
         <InternalsVisibleTo Include="Blater.Internal" />
