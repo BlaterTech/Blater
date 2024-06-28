@@ -1,6 +1,7 @@
 ﻿// ReSharper disable InconsistentNaming
 
 using System.Text.Json.Serialization;
+using Blater.Attributes;
 
 namespace Blater.Enumerations;
 
@@ -8,4 +9,7 @@ namespace Blater.Enumerations;
 public enum BlaterProjects
 {
     None = 0,
+    
+    [ShortName("bl")]
+    Blater = 1
 }
