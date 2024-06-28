@@ -1,5 +1,6 @@
 using Blater.Query.Interfaces;
 using System.Linq.Expressions;
+using Blater.Models.Bases;
 
 namespace Blater.Interfaces;
 

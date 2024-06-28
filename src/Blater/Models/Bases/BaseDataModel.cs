@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Blater.Models;
+namespace Blater.Models.Bases;
 
 public class BaseDataModel
 {
@@ -17,4 +17,6 @@ public class BaseDataModel
 
     [JsonIgnore]
     public bool Deleted { get; private set; }
+    
+    public bool Enabled { get; set; }
 }

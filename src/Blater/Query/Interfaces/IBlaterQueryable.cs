@@ -1,3 +1,4 @@
+using Blater.Models.Bases;
 using Blater.Results;
 
 namespace Blater.Query.Interfaces;

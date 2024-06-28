@@ -1,6 +1,7 @@
 using Blater.Query.Interfaces;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
+using Blater.Models.Bases;
 using Blater.Results;
 
 // ReSharper disable UnusedType.Global

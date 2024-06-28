@@ -1,3 +1,5 @@
+using Blater.Models.Bases;
+
 namespace Blater.Interfaces;
 
 public interface IBlaterCache

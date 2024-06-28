@@ -17,6 +17,7 @@
     
     <ItemGroup>
         <InternalsVisibleTo Include="Blater.SDK" />
+        <InternalsVisibleTo Include="Blater.Frontend" />
         <InternalsVisibleTo Include="Blater.Backend" />
         <InternalsVisibleTo Include="Blater.Database" />
         <InternalsVisibleTo Include="Blater.Internal" />
@@ -26,13 +27,27 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Ardalis.SmartEnum" Version="8.0.0"/>
+        
         <PackageReference Include="FastExpressionCompiler" Version="4.2.0" />
         <PackageReference Include="FastGenericNew.SourceGenerator" Version="3.1.0-preview1">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.0-preview.5.24306.7" />
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.0-preview.5.24306.7" />
         <PackageReference Include="Microsoft.Extensions.ObjectPool" Version="9.0.0-preview.5.24306.11" />
+
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.0-preview.5.24306.11"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.0-preview.5.24306.11"/>
+        
         <PackageReference Include="NetEscapades.EnumGenerators" Version="1.0.0-beta09" PrivateAssets="all" ExcludeAssets="runtime" />
+
+        <PackageReference Include="Serilog" Version="4.0.0" />
+        <PackageReference Include="Serilog.Enrichers.CorrelationId" Version="3.0.1"/>
+        <PackageReference Include="Serilog.Exceptions" Version="8.4.0"/>
+        <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.1-dev-10391" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+        <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
     </ItemGroup>
 </Project>

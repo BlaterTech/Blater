@@ -93,6 +93,48 @@ internal static class TypeExtensions
         }
     }
     
+    public static object? GetDefaultValue(this Type type)
+    {
+        ArgumentNullException.ThrowIfNull(type);
+        
+        if (type.IsValueType)
+        {
+            return Activator.CreateInstance(type);
+        }
+        
+        if (type == typeof(string))
+        {
+            return string.Empty;
+        }
+        
+        if (type == typeof(int))
+        {
+            return 0;
+        }
+        
+        if (type == typeof(double))
+        {
+            return 0.0;
+        }
+        
+        if (type == typeof(float))
+        {
+            return 0.0f;
+        }
+        
+        if (type == typeof(decimal))
+        {
+            return 0.0m;
+        }
+        
+        if (type == typeof(Guid))
+        {
+            return Guid.Empty;
+        }
+        
+        return default;
+    }
+    
     public static bool IsEnumerable(this Type type)
     {
         return type.IsArray || typeof(IEnumerable).IsAssignableFrom(type);

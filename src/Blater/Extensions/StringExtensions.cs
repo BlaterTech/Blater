@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 
 namespace Blater.Extensions;
@@ -15,6 +16,19 @@ public static class StringExtensions
                   .Replace("\\", "_", StringComparison.OrdinalIgnoreCase)
                   .Replace("//", "_", StringComparison.OrdinalIgnoreCase)
                   .Replace("?", "_", StringComparison.OrdinalIgnoreCase);
+    }
+    
+    public static string ReplaceDiacritics(this string text)
+    {
+        var normalizedString = text.Normalize(NormalizationForm.FormD);
+        var stringBuilder = new StringBuilder();
+        
+        foreach (var c in normalizedString.Where(c => CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark))
+        {
+            stringBuilder.Append(c);
+        }
+        
+        return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
     }
     
     public static Task<string> ToBase64(this string str)
