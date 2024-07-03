@@ -8,4 +8,9 @@ public static class DatetimeExtensions
     {
         return dateTime.ToString("yyyy-MM-ddTHH:mm:ss.fffZ", CultureInfo.InvariantCulture);
     }
+    
+    public static DateTime SetKindToUtc(this DateTime data)
+    {
+        return DateTime.SpecifyKind(data, DateTimeKind.Utc);
+    }
 }

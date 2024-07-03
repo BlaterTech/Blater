@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 
 namespace Blater.Extensions;
@@ -17,9 +18,27 @@ public static class StringExtensions
                   .Replace("?", "_", StringComparison.OrdinalIgnoreCase);
     }
     
+    public static string ReplaceDiacritics(this string text)
+    {
+        var normalizedString = text.Normalize(NormalizationForm.FormD);
+        var stringBuilder = new StringBuilder();
+        
+        foreach (var c in normalizedString.Where(c => CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark))
+        {
+            stringBuilder.Append(c);
+        }
+        
+        return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
+    }
+    
     public static Task<string> ToBase64(this string str)
     {
-        return Task.Run<string>(() => Convert.ToBase64String(Encoding.UTF8.GetBytes(str)));
+        return Task.Run(() => Convert.ToBase64String(Encoding.UTF8.GetBytes(str)));
+    }
+    
+    public static Task<string> FromBase64ToString(this string toDecode)
+    {
+        return Task.Run((Func<string>) (() => Encoding.UTF8.GetString(Convert.FromBase64String(toDecode))));
     }
     
     public static string ToCamelCase(this string str)
@@ -43,4 +62,12 @@ public static class StringExtensions
         return str;
     }
 
+    public static BlaterId ToBlaterId(this string value)
+    {
+        var parts = value.Split(':');
+
+        return parts.Length != 2
+            ? throw new FormatException("The value is not in the correct format")
+            : new BlaterId(parts[0], Guid.Parse(parts[1]));
+    }
 }

@@ -1,4 +1,6 @@
-﻿namespace Blater.Models.User;
+﻿using Blater.Models.Bases;
+
+namespace Blater.Models.User;
 
 public class BlaterPermission<TPermission> : BaseDataModel where TPermission : IConvertible
 {

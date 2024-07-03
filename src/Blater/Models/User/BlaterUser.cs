@@ -1,3 +1,5 @@
+using Blater.Models.Bases;
+
 namespace Blater.Models.User;
 
 public sealed class BlaterUser : BaseDataModel

@@ -1,3 +1,5 @@
+using Blater.Models.Bases;
+
 namespace Blater.Models.User;
 
 public class BlaterRole<TFeature, TPermission> 

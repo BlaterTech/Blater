@@ -1,7 +1,7 @@
 ﻿using Blater.Models.User;
 using Blater.Results;
 
-namespace Blater.Interfaces.BlaterAuthentication;
+namespace Blater.Interfaces.BlaterAuthentication.Stores;
 
 public interface IBlaterAuthUserRoleStore
 {
@@ -15,7 +15,6 @@ public interface IBlaterAuthUserRoleStore
     Task<BlaterResult<bool>> IsInRole(BlaterUser user, BlaterRole role);
 
     Task<BlaterResult<IReadOnlyList<BlaterRole>>> GetRoles(BlaterUser user);
-    Task<BlaterResult<IReadOnlyList<string>>> GetRoleNames(BlaterUser user);
     
     Task<BlaterResult<IReadOnlyList<BlaterUser>>> GetUsersInRole(string roleName);
     Task<BlaterResult<IReadOnlyList<BlaterUser>>> GetUsersInRole(BlaterRole role);

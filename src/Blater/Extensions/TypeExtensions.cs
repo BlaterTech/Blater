@@ -3,28 +3,8 @@ using System.Reflection;
 
 namespace Blater.Extensions;
 
-internal static class TypeExtensions
+public static class TypeExtensions
 {
-    /*public static string GetName(this Type t, CouchOptions options)
-    {
-        object[] jsonObjectAttributes = t.GetCustomAttributes(typeof(JsonObjectAttribute), true);
-        JsonObjectAttribute? jsonObject = jsonObjectAttributes.Length > 0
-            ? jsonObjectAttributes[0] as JsonObjectAttribute
-            : null;
-    
-        if (jsonObject != null)
-        {
-            return jsonObject.Id;
-        }
-    
-        var typeName = t.Name;
-        if (options.PluralizeEntities)
-        {
-            typeName = typeName.Pluralize();
-        }
-        return options.DocumentsCaseType.Convert(typeName);
-    }*/
-    
     public static Type GetSequenceType(this Type type)
     {
         var sequenceType = TryGetSequenceType(type);
@@ -91,6 +71,48 @@ internal static class TypeExtensions
         {
             yield return type;
         }
+    }
+    
+    public static object? GetDefaultValue(this Type type)
+    {
+        ArgumentNullException.ThrowIfNull(type);
+        
+        if (type.IsValueType)
+        {
+            return Activator.CreateInstance(type);
+        }
+        
+        if (type == typeof(string))
+        {
+            return string.Empty;
+        }
+        
+        if (type == typeof(int))
+        {
+            return 0;
+        }
+        
+        if (type == typeof(double))
+        {
+            return 0.0;
+        }
+        
+        if (type == typeof(float))
+        {
+            return 0.0f;
+        }
+        
+        if (type == typeof(decimal))
+        {
+            return 0.0m;
+        }
+        
+        if (type == typeof(Guid))
+        {
+            return Guid.Empty;
+        }
+        
+        return default;
     }
     
     public static bool IsEnumerable(this Type type)

@@ -18,7 +18,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     #endif
 
     public JsonSerializerOptions DefaultJsonSerializerOptions { get; set; } = JsonExtensions.DefaultJsonSerializerOptions;
-    public string BaseAddress { get; } = httpClient.BaseAddress?.ToString() ?? string.Empty;
+    public string BaseAddress => httpClient.BaseAddress?.ToString() ?? string.Empty;
 
     public void SetToken(string token)
     {
@@ -114,7 +114,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
             throw;
         }
     }
-    
+
     public async Task<BlaterResult<string>> PostString(string url, object body, JsonSerializerOptions? options = null)
     {
         try
@@ -172,7 +172,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
             throw;
         }
     }
-    
+
     public async Task<BlaterResult<T>> Post<T>(string url)
     {
         try
@@ -228,7 +228,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
             throw;
         }
     }
-    
+
     public async Task<BlaterResult<T>> Post<T>(string url, object body, CancellationToken ct, JsonSerializerOptions? options = null)
     {
         try
@@ -370,15 +370,18 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
                 yield break;
             }
 
-            #if DEBUG
-            logger.LogDebug("BlaterHttpClient === STREAM RESPONSE: {@JsonObject}", line);
-            #endif
-
-            var json = line.FromJson<T>();
-
-            if (json != null)
+            if (line.TryParseJson<T>(out var value))
             {
-                yield return json;
+                if (value == null)
+                {
+                    yield return BlaterErrors.Error("Value is nullable");
+                }
+                
+                #if DEBUG
+                logger.LogDebug("BlaterHttpClient === STREAM RESPONSE: {@JsonObject}", line);
+                #endif
+                
+                yield return value!;
             }
         }
     }
@@ -450,7 +453,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
                 if (handleResponse != null && handleResponse.Value != null)
                 {
                     return handleResponse;
-                }   
+                }
             }
 
             if (stream.TryParseJson<T>(out var value))
@@ -460,7 +463,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
                     return value;
                 }
             }
-            
+
             logger.LogError("BlaterHttpClient === Error while deserializing response");
             return BlaterErrors.JsonSerializationError("Error while deserializing response");
         }
@@ -470,13 +473,13 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
             return BlaterErrors.Error("Internal server error");
         }
     }
-    
+
     public void Dispose()
     {
         Dispose(true);
         GC.SuppressFinalize(this);
     }
-    
+
     protected virtual void Dispose(bool disposing)
     {
         if (disposing)

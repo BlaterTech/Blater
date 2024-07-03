@@ -48,7 +48,7 @@ public static class JsonExtensions
                 return false;
             }
 
-            result = JsonSerializer.Deserialize<T>(str, DefaultJsonSerializerOptions);
+            result = str.FromJson<T>();
             return result != null;
         }
         catch (JsonException)

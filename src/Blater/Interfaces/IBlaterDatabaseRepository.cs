@@ -1,5 +1,6 @@
 using Blater.Query.Interfaces;
 using System.Linq.Expressions;
+using Blater.Models.Bases;
 
 namespace Blater.Interfaces;
 
@@ -25,14 +26,6 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// <returns></returns>
     public Task<T?> FindOne(Expression<Func<T, bool>> predicate);
 
-    /// <summary>
-    /// Finds many documents using query and partition
-    /// </summary>
-    /// <param name="partition"></param>
-    /// <param name="predicate"></param>
-    /// <returns></returns>
-    public Task<T?> FindOne(string partition, Expression<Func<T, bool>> predicate);
-
     #endregion
 
     #region Query
@@ -43,14 +36,6 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// <param name="predicate"></param>
     /// <returns></returns>
     public Task<IReadOnlyList<T?>> FindMany(Expression<Func<T, bool>> predicate);
-
-    /// <summary>
-    /// Finds many documents using query and partition
-    /// </summary>
-    /// <param name="partition"></param>
-    /// <param name="predicate"></param>
-    /// <returns></returns>
-    public Task<IReadOnlyList<T?>> FindMany(string partition, Expression<Func<T, bool>> predicate);
 
     #endregion
 
@@ -105,13 +90,6 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// </summary>
     /// <returns></returns>
     public Task<int> Count();
-
-    /// <summary>
-    /// Counts all documents by partition
-    /// </summary>
-    /// <param name="partition"></param>
-    /// <returns></returns>
-    public Task<int> Count(string partition);
 
     /// <summary>
     /// Counts all documents by query
