@@ -9,7 +9,7 @@ public sealed class BlaterUser : BaseDataModel
     public string Name { get; set; } = string.Empty;
 
     public string Email { get; set; } = string.Empty;
-    
+
     public string AvatarUrl { get; set; } = string.Empty;
 
     public bool EmailConfirmed { get; set; }
@@ -31,12 +31,12 @@ public sealed class BlaterUser : BaseDataModel
     public bool LockoutEnabled { get; set; }
 
     public List<BlaterLoginInfo> Logins { get; set; } = [];
-    
+
     /// <summary>
     /// CreateDatabase, CreateUser
     /// </summary>
     public List<string> Permissions { get; set; } = [];
-    
+
     /// <summary>
     /// Admin, Support, Owner
     /// </summary>

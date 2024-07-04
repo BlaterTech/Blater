@@ -10,7 +10,7 @@ public static class HttpClientExtensions
     public static async Task<Stream> PostStreamAsync(this HttpClient httpClient, string url, object body)
     {
         StringContent content;
-        
+
         if (body is string stringBody)
         {
             content = new StringContent(stringBody, Encoding.UTF8, "application/json");
@@ -25,7 +25,7 @@ public static class HttpClientExtensions
 
             content = new StringContent(json, Encoding.UTF8, "application/json");
         }
-        
+
         var cts = new CancellationTokenSource();
         cts.CancelAfter(Timeout.InfiniteTimeSpan);
 

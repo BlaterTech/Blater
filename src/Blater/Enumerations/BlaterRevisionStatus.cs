@@ -9,8 +9,10 @@ public enum BlaterRevisionStatus
 {
     [Description("available")]
     Available,
+
     [Description("deleted")]
     Deleted,
+
     [Description("missing")]
     Missing
 }

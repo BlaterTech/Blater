@@ -9,7 +9,7 @@ public partial class BlaterResult<TValue>
             Success = true
         };
     }
-    
+
     public static implicit operator BlaterResult<TValue>((TValue value, string message) tuple)
     {
         return new BlaterResult<TValue>(tuple.value)
@@ -18,7 +18,7 @@ public partial class BlaterResult<TValue>
             Messages = [tuple.message]
         };
     }
-    
+
     public static implicit operator BlaterResult<TValue>(BlaterError error)
     {
         return new BlaterResult<TValue>(error)
@@ -26,7 +26,7 @@ public partial class BlaterResult<TValue>
             Success = false
         };
     }
-    
+
     public static implicit operator BlaterResult<TValue>(List<BlaterError> errors)
     {
         return new BlaterResult<TValue>(errors)
@@ -34,7 +34,7 @@ public partial class BlaterResult<TValue>
             Success = false
         };
     }
-    
+
     public static implicit operator BlaterResult<TValue>(BlaterError[] errors)
     {
         return new BlaterResult<TValue>(errors.ToList())

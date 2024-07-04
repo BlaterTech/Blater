@@ -11,7 +11,7 @@ public class LessAndGreaterThanHandler : BinaryHandler
         {
             return;
         }
-        
+
         var @operator = expression.NodeType switch
         {
             ExpressionType.LessThan           => "$lt",
@@ -20,14 +20,14 @@ public class LessAndGreaterThanHandler : BinaryHandler
             ExpressionType.GreaterThanOrEqual => "$gte",
             _                                 => null
         };
-        
+
         var nameValue = GetNameValue(expression);
-        
+
         if (@operator == null)
         {
             return;
         }
-        
+
         var compareObject = new DynamicDictionary
         {
             {
@@ -36,20 +36,20 @@ public class LessAndGreaterThanHandler : BinaryHandler
             }
         };
         var result = CreateQuery(nameValue.Member, compareObject, context);
-        
+
         context.SetResult(result);
     }
-    
-    
+
+
     public override bool CanHandle(BinaryExpression expression)
     {
         var isLessThan = expression.NodeType           == ExpressionType.LessThan;
         var isLessThanOrEqual = expression.NodeType    == ExpressionType.LessThanOrEqual;
         var isGreaterThan = expression.NodeType        == ExpressionType.GreaterThan;
         var isGreaterThanOrEqual = expression.NodeType == ExpressionType.GreaterThanOrEqual;
-        
+
         var supported = isLessThan || isLessThanOrEqual || isGreaterThan || isGreaterThanOrEqual;
-        
+
         return supported;
     }
 }

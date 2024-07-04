@@ -7,7 +7,7 @@ public partial class BlaterResult<TValue> : BlaterResult
         Success = false;
         Errors = [];
     }
-    
+
     public BlaterResult(TValue value)
     {
         Success = true;
@@ -28,7 +28,7 @@ public partial class BlaterResult<TValue> : BlaterResult
     }
 
     public TValue? Value { get; set; }
-    
+
     public bool HandleErrors(out List<BlaterError> errors, out TValue value)
     {
         if (HasErrors)
@@ -37,7 +37,7 @@ public partial class BlaterResult<TValue> : BlaterResult
             value = Value!;
             return true;
         }
-        
+
         errors = [];
         value = Value!;
         return false;

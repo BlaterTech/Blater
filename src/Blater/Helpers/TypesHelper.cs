@@ -12,19 +12,19 @@ public static class TypesHelper
     {
         Initialize();
     }
-    
+
     public static HashSet<Assembly> Assemblies { get; } = new();
-    
+
     public static HashSet<Type> AllTypes { get; } = new();
-    
+
     public static Dictionary<string, Type> BaseDataModels { get; } = new();
-    
+
     public static void Initialize()
     {
         try
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            
+
             foreach (var assembly in assemblies)
             {
                 try
@@ -34,7 +34,7 @@ public static class TypesHelper
                     {
                         continue;
                     }
-                    
+
                     //Log.Debug("Adding assembly {AssemblyName}", assembly.FullName);
                     Assemblies.Add(assembly);
                     AllTypes.UnionWith(assembly.GetTypes());
@@ -50,13 +50,13 @@ public static class TypesHelper
             Log.Error(e, "Error during TypesHelper initialization");
         }
     }
-    
+
     /*public static void InitializeBaseDataModels()
     {
         try
         {
             var baseDataModels = AllTypes.Where(x => x.IsSubclassOf(typeof(BaseDataModel))).ToList();
-            
+
             foreach (var baseDataModel in baseDataModels)
             {
                 var name = baseDataModel.Name;
@@ -68,16 +68,16 @@ public static class TypesHelper
             Log.Error(e, "Error during TypesHelper.InitializeBaseDataModels");
         }
     }*/
-    
+
     public static Type GetTypeFromName(this string typeName)
     {
         var type = AllTypes.FirstOrDefault(x => x.Name == typeName);
-        
+
         if (type == null)
         {
             throw new Exception($"Type {typeName} not found");
         }
-        
+
         return type;
     }
 }

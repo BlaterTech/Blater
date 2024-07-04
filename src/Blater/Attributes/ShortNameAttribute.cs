@@ -15,12 +15,12 @@ public static class ShortNameAttributeExtensions
         var type = value.GetType();
         var name = Enum.GetName(type, value);
         var result = type.GetField(name!)?.GetCustomAttribute<ShortNameAttribute>()?.ShortName;
-        
+
         if (result != null)
         {
             return result;
         }
-        
+
         throw new Exception($"ShortNameAttribute not found for {value}");
     }
 }

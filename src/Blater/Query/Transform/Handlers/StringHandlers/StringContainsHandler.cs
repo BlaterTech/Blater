@@ -13,25 +13,25 @@ public class StringContainsHandler : MethodHandler
         {
             throw new NotSupportedException("requires a parameter");
         }
-        
+
         //var name = GetMemberName((MemberExpression)expression.Object, context);
-        
+
         if (cValue.Value == null)
         {
             return;
         }
-        
+
         var regex = new DynamicDictionary { { "$regex", cValue.Value } };
         var query = CreateQuery(expression.Object, regex, context);
-        
+
         context?.SetResult(query);
     }
-    
+
     public override bool CanHandle(MethodCallExpression expression)
     {
         var isString = GetDeclaringType(expression) == typeof(string);
         var isMethod = GetMethodName(expression).Equals("Contains", StringComparison.Ordinal);
-        
+
         return isString && isMethod;
     }
 }

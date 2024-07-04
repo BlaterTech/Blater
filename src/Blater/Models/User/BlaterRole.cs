@@ -2,13 +2,13 @@ using Blater.Models.Bases;
 
 namespace Blater.Models.User;
 
-public class BlaterRole<TFeature, TPermission> 
+public class BlaterRole<TFeature, TPermission>
     : BaseDataModel
     where TPermission : IConvertible
     where TFeature : IConvertible
 {
     public required string Name { get; set; }
-    
+
     public List<string> UsersIds { get; set; } = [];
 
     /// <summary>

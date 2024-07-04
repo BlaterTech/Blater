@@ -11,9 +11,10 @@ public class WhereSubPatternHandler() : SubPatternHandlerBase(objects => objects
         {
             return;
         }
+
         ctx.LinqQuery.AddWhereClause(clause);
     }
-    
+
     public override bool IndexQueryCompleted(ProcessingLinqContext ctx)
     {
         return false;

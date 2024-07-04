@@ -7,10 +7,10 @@ public readonly struct BlaterRevisionInfo : IEquatable<BlaterRevisionInfo>
 {
     [JsonPropertyName("rev")]
     public string Revision { get; init; }
-    
+
     [JsonPropertyName("status")]
     public BlaterRevisionStatus Status { get; init; }
-    
+
     public BlaterRevisionInfo(string revision, BlaterRevisionStatus status)
     {
         Revision = revision;

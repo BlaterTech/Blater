@@ -11,7 +11,7 @@ public sealed class CNPJAttribute() : ValidationAttribute("O campo {0} não é u
         {
             return stringValue.ValidateCnpj();
         }
-        
+
         return false;
     }
 }

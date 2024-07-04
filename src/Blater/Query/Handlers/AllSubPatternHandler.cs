@@ -8,7 +8,7 @@ public class AllSubPatternHandler() : SubPatternHandlerBase(objects => objects.A
     {
         throw new NotImplementedException();
     }
-    
+
     public override bool IndexQueryCompleted(ProcessingLinqContext ctx)
     {
         return false;

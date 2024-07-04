@@ -12,53 +12,53 @@ public class StorageFileInfo
     ///     Ex: prd-lipor-files
     /// </summary>
     public string Container { get; set; } = null!;
-    
+
     /// <summary>
     ///     The name of the blob file
     ///     photo1.jpeg
     /// </summary>
     public string Name { get; set; } = null!;
-    
+
     /// <summary>
     ///     Example exe, png, jpg, txt
     /// </summary>
     public string Extension { get; set; } = null!;
-    
+
     /*/// <summary>
     /// An optional type of the file.
     /// </summary>
     public string? Type { get; set; }*/
-    
+
     /// <summary>
     ///     The url to access the file
     /// </summary>
     public string? Url { get; set; }
-    
+
     /// <summary>
     ///     In case if we ever need more data
     /// </summary>
     public Dictionary<string, string>? Metadata { get; set; }
-    
+
     /// <summary>
     ///     Used to check if the file is public or not and use the correct storage account
     /// </summary>
     public bool IsPublic { get; set; }
-    
+
     /// <summary>
     ///     Who uploaded the file
     /// </summary>
     public string? OwnerEmail { get; set; }
-    
+
     /// <summary>
     ///     Sas uri
     /// </summary>
     public string? SasUri { get; set; }
-    
+
     /// <summary>
     ///     Expiration Uri Sas
     /// </summary>
     public DateTime? SasExpiration { get; set; }
-    
+
     public string GetMimeType()
     {
         switch (Extension)

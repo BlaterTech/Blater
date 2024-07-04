@@ -12,31 +12,31 @@ public static class EnvironmentHelpers
         CurrentEnvironment = GetEnvironmentFromString(env);
         CurrentEnvironmentString = GetEnvironmentString(CurrentEnvironment);
     }
-    
+
     /// <summary>
     ///     Short string for the current environment like "dev", "sta" or "prd"
     /// </summary>
     public static string CurrentEnvironmentString { get; private set; } = null!;
-    
+
     public static Environments CurrentEnvironment { get; private set; }
-    
+
     public static bool Is(Environments environment)
     {
         return CurrentEnvironment == environment;
     }
-    
+
     public static void SetEnvironment(Environments env)
     {
         CurrentEnvironment = env;
         CurrentEnvironmentString = GetEnvironmentString(env);
     }
-    
+
     public static void SetEnvironment(string env)
     {
         CurrentEnvironment = GetEnvironmentFromString(env);
         CurrentEnvironmentString = GetEnvironmentString(CurrentEnvironment);
     }
-    
+
     public static string GetEnvironmentString(Environments env)
     {
         return env switch
@@ -47,7 +47,7 @@ public static class EnvironmentHelpers
             _                       => "lcl"
         };
     }
-    
+
     public static Environments GetEnvironmentFromString(string environment)
     {
         return environment switch
@@ -60,12 +60,12 @@ public static class EnvironmentHelpers
             _             => Environments.Local
         };
     }
-    
+
     public static string AddEnvironmentPrefix(this string text)
     {
         return text.StartsWith($"{CurrentEnvironmentString}-") ? text : $"{CurrentEnvironmentString}-{text}";
     }
-    
+
     public static string AddEnvironmentPrefix(this string text, string environmentString)
     {
         return text.StartsWith($"{environmentString}-") ? text : $"{environmentString}-{text}";

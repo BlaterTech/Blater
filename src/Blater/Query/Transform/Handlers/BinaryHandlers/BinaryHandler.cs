@@ -8,11 +8,11 @@ public abstract class BinaryHandler : HandlerBase<BinaryExpression>
     {
         var nameValueExp = new MemberNameEvaluator();
         nameValueExp.Visit(expression);
-        
+
         return new NameValue
         {
             Member = nameValueExp.Property,
-            Constant = nameValueExp.Value,
+            Constant = nameValueExp.Value
         };
     }
 }

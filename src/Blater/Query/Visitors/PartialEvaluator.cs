@@ -24,7 +24,7 @@ public static class PartialEvaluator
     {
         return SubtreeEvaluator.Eval(Nominator.Nominate(fnCanBeEvaluated, expression), expression);
     }
-    
+
     /// <summary>
     /// Performs evaluation and replacement of independent subtrees
     /// </summary>
@@ -34,48 +34,48 @@ public static class PartialEvaluator
     {
         return Eval(expression, CanBeEvaluatedLocally);
     }
-    
+
     private static bool CanBeEvaluatedLocally(Expression expression)
     {
         return expression.NodeType != ExpressionType.Parameter;
     }
-    
+
     /// <summary>
     /// Evaluates and replaces subtrees when first candidate is reached (top-down)
     /// </summary>
     private class SubtreeEvaluator : ExpressionVisitor
     {
         private readonly HashSet<Expression> _candidates;
-        
+
         private SubtreeEvaluator(HashSet<Expression> candidates)
         {
             _candidates = candidates;
         }
-        
+
         internal static Expression? Eval(HashSet<Expression> candidates, Expression exp)
         {
             return new SubtreeEvaluator(candidates).Visit(exp);
         }
-        
+
         public override Expression? Visit(Expression? exp)
         {
             if (exp == null)
             {
                 return null;
             }
-            
+
             if (_candidates.Contains(exp))
             {
                 return Evaluate(exp);
             }
-            
+
             return base.Visit(exp);
         }
-        
+
         private static Expression Evaluate(Expression e)
         {
             var type = e.Type;
-            
+
             switch (e.NodeType)
             {
                 case ExpressionType.Convert:
@@ -86,7 +86,7 @@ public static class PartialEvaluator
                     {
                         e = ((UnaryExpression)e).Operand;
                     }
-                    
+
                     break;
                 }
                 // in case we actually threw out a nullable conversion above, simulate it here
@@ -95,7 +95,7 @@ public static class PartialEvaluator
                 case ExpressionType.Constant when TypeHelper.GetNonNullableType(e.Type) == TypeHelper.GetNonNullableType(type):
                     return Expression.Constant(((ConstantExpression)e).Value, type);
             }
-            
+
             if (e is MemberExpression { Expression: ConstantExpression ce } me)
                 // member accesses off of constants are common, and yet since these partial evals
                 // are never re-used, using reflection to access the member is faster than compiling  
@@ -103,25 +103,25 @@ public static class PartialEvaluator
             {
                 var value = ce.Value;
                 me.Member.GetValue(value);
-                
+
                 //If ce type is BlaterId
                 /*if (actualValue is BlaterId blaterId)
                 {
                     return Expression.Constant(blaterId.ToString(), typeof(string));
                 }*/
-                
+
                 return Expression.Constant(me.Member.GetValue(value), type);
             }
-            
+
             if (type.GetTypeInfo().IsValueType)
             {
                 e = Expression.Convert(e, typeof(object));
             }
-            
+
             var lambda = Expression.Lambda<Func<object>>(e);
-            
+
             var fn = lambda.CompileFast();
-            
+
             return Expression.Constant(fn(), type);
         }
     }
@@ -136,36 +136,36 @@ internal class Nominator : ExpressionVisitor
     private readonly Func<Expression, bool> _fnCanBeEvaluated;
     private readonly HashSet<Expression> _candidates;
     private bool _cannotBeEvaluated;
-    
+
     private Nominator(Func<Expression, bool> fnCanBeEvaluated)
     {
         _candidates = new HashSet<Expression>();
         _fnCanBeEvaluated = fnCanBeEvaluated;
     }
-    
+
     internal static HashSet<Expression> Nominate(Func<Expression, bool> fnCanBeEvaluated, Expression expression)
     {
         var nominator = new Nominator(fnCanBeEvaluated);
         nominator.Visit(expression);
         return nominator._candidates;
     }
-    
+
     protected override Expression VisitConstant(ConstantExpression c)
     {
         return base.VisitConstant(c);
     }
-    
+
     public override Expression? Visit(Expression? expression)
     {
         if (expression == null)
         {
             return expression;
         }
-        
+
         var saveCannotBeEvaluated = _cannotBeEvaluated;
         _cannotBeEvaluated = false;
         base.Visit(expression);
-        
+
         if (!_cannotBeEvaluated)
         {
             if (_fnCanBeEvaluated(expression))
@@ -177,7 +177,7 @@ internal class Nominator : ExpressionVisitor
                 _cannotBeEvaluated = true;
             }
         }
-        
+
         _cannotBeEvaluated |= saveCannotBeEvaluated;
         return expression;
     }

@@ -12,30 +12,30 @@ namespace Blater.AutoModelConfigurations.Configs;
 public class AutoComponentConfiguration
 {
     public readonly Dictionary<AutoComponentDisplayType, BaseAutoComponentTypeEnumeration> ComponentTypes = new();
-    
+
     /// <summary>
     ///     Used for metadata
     /// </summary>
     public readonly Dictionary<string, object> ExtraAttributes = new();
-    
+
     public readonly Dictionary<AutoComponentDisplayType, AutoGridConfiguration> Grids = new();
-    
+
     public readonly Dictionary<AutoComponentDisplayType, int> Order = new();
-    
+
     public readonly Dictionary<AutoComponentDisplayType, AutoFieldSize> Sizes = new();
     public PropertyInfo? Property { get; internal set; }
-    
+
     public bool SeparateCard { get; set; }
-    
+
     //Specific configurations
-    
+
     /// <summary>
     ///     Used to set the field as important and hide the non-important fields
     /// </summary>
     public bool Important { get; set; }
-    
+
     public bool SeparateComponent { get; set; }
-    
+
     public override string ToString()
     {
         var sb = new StringBuilder();

@@ -20,7 +20,7 @@ public class DictionaryOrderDirectionConverter : JsonConverter<List<IDictionary<
             {
                 var key = property.Name;
                 var value = property.Value.GetString(); // assuming value is string
-                
+
                 if (OrderDirectionExtensions.TryParse(value, out var orderDirection, true, true))
                 {
                     dict.Add(key, orderDirection);

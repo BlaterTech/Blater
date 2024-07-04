@@ -7,7 +7,7 @@ namespace Blater.Interfaces;
 public interface IBlaterDatabaseStoreT<T>
 {
     public string Partition { get; }
-    
+
     #region FindOnes
 
     /// <summary>
@@ -23,7 +23,7 @@ public interface IBlaterDatabaseStoreT<T>
     /// <param name="query"></param>
     /// <returns></returns>
     public Task<BlaterResult<T>> FindOne(BlaterQuery query);
-    
+
     public Task<BlaterResult<T>> FindOne(Expression<Func<T, bool>> predicate);
 
     #endregion
@@ -36,27 +36,27 @@ public interface IBlaterDatabaseStoreT<T>
     /// <param name="query"></param>
     /// <returns></returns>
     public Task<BlaterResult<IReadOnlyList<T>>> FindMany(BlaterQuery query);
-    
+
     public Task<BlaterResult<IReadOnlyList<T>>> FindMany(Expression<Func<T, bool>> predicate);
 
     #endregion
 
     #region Update/Insert/Upserts
-    
+
     /// <summary>
     /// Upserts a document, it replaces the document if it exists
     /// </summary>
     /// <param name="obj"></param>
     /// <returns>Returns the same document but with the new revision</returns>
     public Task<BlaterResult<T>> Upsert(T obj);
-    
+
     /// <summary>
     /// Updates a document by its id
     /// </summary>
     /// <param name="obj"></param>
     /// <returns>Returns true if the document was updated</returns>
     public Task<BlaterResult<T>> Update(T obj);
-    
+
     /// <summary>
     /// Updates a document by its id and query
     /// </summary>
@@ -65,9 +65,9 @@ public interface IBlaterDatabaseStoreT<T>
     public Task<BlaterResult<T>> Insert(T obj);
 
     #endregion
-    
+
     #region Changes
-    
+
     IAsyncEnumerable<BlaterResult<T>> GetChangesQuery(BlaterQuery query);
 
     #endregion

@@ -6,7 +6,7 @@ namespace Blater.Logging;
 public class LogTimer(string message = "") : IDisposable
 {
     private readonly Stopwatch _stopwatch = Stopwatch.StartNew();
-    
+
     public void Dispose()
     {
         Dispose(true);
@@ -21,7 +21,7 @@ public class LogTimer(string message = "") : IDisposable
             Print();
         }
     }
-    
+
     [Conditional("DEBUG")]
     private void Print()
     {

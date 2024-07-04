@@ -11,7 +11,7 @@ public sealed class CEPAttribute() : ValidationAttribute("O campo {0} não é um
         {
             return stringValue.ValidateCpf();
         }
-        
+
         return false;
     }
 }

@@ -1,7 +1,3 @@
-
-
-
-
 using NetEscapades.EnumGenerators;
 
 namespace Blater.Enumerations;
@@ -11,5 +7,5 @@ public enum BlaterFeatures
 {
     Database,
     Queue,
-    Storage,
+    Storage
 }

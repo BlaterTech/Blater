@@ -7,8 +7,8 @@ namespace Blater.Query.Handlers;
 /// </summary>
 public static class SubPatternRegistry
 {
-    public static List<ISubPatternHandler> Handlers  { get; set; }
-    
+    public static List<ISubPatternHandler> Handlers { get; set; }
+
     static SubPatternRegistry()
     {
         Handlers = new List<ISubPatternHandler>

@@ -40,6 +40,7 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     #endregion
 
     #region Insert
+
     /// <summary>
     /// Upserts a document, it replaces the document if it exists
     /// </summary>
@@ -60,10 +61,10 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// <param name="entity"></param>
     /// <returns></returns>
     public Task<BlaterId> Update(T entity);
+
     #endregion
 
     #region Deletes
-
 
     public Task<bool> Delete(T entity);
 
@@ -99,9 +100,9 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     public Task<int> Count(Expression<Func<T, bool>> predicate);
 
     #endregion
-    
+
     #region Changes
-    
+
     IAsyncEnumerable<string> GetChangesQuery(Expression<Func<T, bool>> predicate);
 
     #endregion

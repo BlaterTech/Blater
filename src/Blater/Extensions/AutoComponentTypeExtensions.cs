@@ -10,7 +10,7 @@ public static class AutoComponentTypeExtensions
         {
             return false;
         }
-        
+
         return componentType.Name switch
         {
             nameof(AutoComponentType.ImageCircle)    => true,
@@ -19,14 +19,14 @@ public static class AutoComponentTypeExtensions
             _                                        => false
         };
     }
-    
+
     public static bool IsFormInput(this BaseAutoComponentTypeEnumeration? componentType)
     {
         if (componentType is null)
         {
             return false;
         }
-        
+
         return componentType.GetType() == typeof(AutoFormInputType);
     }
 }

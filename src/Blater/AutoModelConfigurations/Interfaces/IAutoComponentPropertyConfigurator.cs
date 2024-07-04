@@ -6,14 +6,14 @@ namespace Blater.AutoModelConfigurations.Interfaces;
 public interface IAutoComponentPropertyConfigurator
 {
     public AutoComponentConfiguration CurrentComponentConfiguration { get; }
-    
+
     /// <summary>
     ///     Sets the order on all show flag
     /// </summary>
     /// <param name="order"></param>
     /// <returns></returns>
     IAutoComponentPropertyConfigurator Order(int order);
-    
+
     IAutoComponentPropertyConfigurator Order(AutoComponentDisplayType displayType, int order);
     IAutoComponentPropertyConfigurator FormOrder(int order);
     IAutoComponentPropertyConfigurator FormEditOrder(int order);
@@ -41,9 +41,9 @@ public interface IAutoComponentPropertyConfigurator
     IAutoComponentPropertyConfigurator AddExtraAttributes(Dictionary<string, object> metadata);
     IAutoComponentPropertyConfigurator AddExtraAttribute(string name, object value);
     IAutoComponentPropertyConfigurator LabelName(string labelName);
-    
+
     IAutoComponentPropertyConfigurator HasParent(IAutoComponentPropertyConfigurator parent);
-    
+
     IAutoComponentPropertyConfigurator SeparateCard();
     IAutoComponentPropertyConfigurator SeparateComponent();
 }

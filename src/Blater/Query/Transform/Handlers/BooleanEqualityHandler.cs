@@ -14,37 +14,36 @@ public class BooleanEqualityHandler : HandlerBase<UnaryExpression>
         {
             return false;
         }
-        
+
         if (expression.Operand is not LambdaExpression lambda)
         {
             return false;
         }
-        
+
         var isBoolReturn = lambda.ReturnType == typeof(bool);
         if (!isBoolReturn)
         {
             return false;
         }
-        
+
         var memberExpression = lambda.Body as MemberExpression;
         return memberExpression != null;
-        
     }
-    
+
     public override void Handle(UnaryExpression expression, VisitorContext? context)
     {
         if (context == null)
         {
             return;
         }
-        
+
         var memberExpression = (MemberExpression)((LambdaExpression)expression.Operand).Body;
-        
+
         var name = memberExpression.Member.Name;
-        
+
         var equal = new DynamicDictionary { { "$eq", true } };
         var result = new DynamicDictionary { { name, equal } };
-        
+
         context.SetResult(result);
     }
 }

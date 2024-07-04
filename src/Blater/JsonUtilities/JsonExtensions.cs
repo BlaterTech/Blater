@@ -18,18 +18,18 @@ public static class JsonExtensions
         {
             new BlaterIdConverter(),
             new JsonStringEnumConverter(),
-            new DictionaryOrderDirectionConverter(),
+            new DictionaryOrderDirectionConverter()
         },
-#if DEBUG
+        #if DEBUG
         WriteIndented = true,
-#endif
+        #endif
     };
 
     public static string? ToJson(this object? str, JsonSerializerOptions? options = null)
     {
         return str == null ? null : JsonSerializer.Serialize(str, options ?? DefaultJsonSerializerOptions);
     }
-    
+
     public static JsonObject? ToJsonObject(this string? str)
     {
         return str == null ? null : FromJson<JsonObject>(str);
@@ -39,7 +39,7 @@ public static class JsonExtensions
     {
         return str == null ? default : JsonSerializer.Deserialize<T>(str, options ?? DefaultJsonSerializerOptions);
     }
-    
+
     public static bool TryParseJson<T>(this string? str, out T? result)
     {
         result = default;
@@ -58,7 +58,7 @@ public static class JsonExtensions
             return false;
         }
     }
-    
+
     public static async Task<T?> FromJson<T>(this Stream stream)
     {
         stream.Position = 0;

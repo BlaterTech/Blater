@@ -1,5 +1,3 @@
-
-
 using Blater.Options;
 using Blater.Results;
 

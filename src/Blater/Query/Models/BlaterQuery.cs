@@ -1,5 +1,4 @@
 using Blater.Enumerations;
-
 using System.Text.Json.Serialization;
 
 namespace Blater.Query.Models;
@@ -44,7 +43,7 @@ public class BlaterQuery
     public int? ReadQorum { get; set; }
 
     public string? Bookmark { get; set; }
-    
+
     [JsonPropertyName("execution_stats")]
     public bool ExecutionStats { get; set; }
     #if DEBUG

@@ -13,20 +13,20 @@ public class StringStartsWithHandler : MethodHandler
         {
             throw new NotSupportedException("requires a parameter");
         }
-        
+
         //var name = GetMemberName((MemberExpression)expression.Object, context);
-        
+
         var regex = new DynamicDictionary { { "$regex", $"^{cValue.Value}" } };
         var query = CreateQuery(expression.Object, regex, context);
-        
+
         context?.SetResult(query);
     }
-    
+
     public override bool CanHandle(MethodCallExpression expression)
     {
         var isString = GetDeclaringType(expression) == typeof(string);
         var isMethod = GetMethodName(expression).Equals("StartsWith", StringComparison.OrdinalIgnoreCase);
-        
+
         return isString && isMethod;
     }
 }

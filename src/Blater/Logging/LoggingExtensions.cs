@@ -84,26 +84,26 @@ public static class LoggingExtensions
                 Background = ConsoleColor.Red
             }
         });
-    
+
     public static void SetupSerilog(this WebAssemblyHostBuilder builder)
     {
         Log.Logger = new LoggerConfiguration()
-            .Enrich.FromLogContext()
-            .Enrich.WithProperty("ApplicationName", Assembly.GetExecutingAssembly().GetName().Name)
-            .Enrich.WithProperty("Environment", EnvironmentHelpers.CurrentEnvironmentString)
-            .Enrich.WithCorrelationId()
-            .Enrich.WithExceptionDetails()
-            .Enrich.WithInvocationContext()
-            .MinimumLevel.Debug()
-            .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-            .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
-            .MinimumLevel.Override("MudBlazor", LogEventLevel.Warning)
-            .WriteTo.Console(
-                LogEventLevel.Debug,
-                theme: Theme,
-                outputTemplate:
-                "[{Timestamp:HH:mm:ss.fff}] [{Level:u3}] {Message} ({SourceContext})|{CallerLineNumber}|{NewLine}{Exception}")
-            .CreateLogger();
+                    .Enrich.FromLogContext()
+                    .Enrich.WithProperty("ApplicationName", Assembly.GetExecutingAssembly().GetName().Name)
+                    .Enrich.WithProperty("Environment", EnvironmentHelpers.CurrentEnvironmentString)
+                    .Enrich.WithCorrelationId()
+                    .Enrich.WithExceptionDetails()
+                    .Enrich.WithInvocationContext()
+                    .MinimumLevel.Debug()
+                    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                    .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
+                    .MinimumLevel.Override("MudBlazor", LogEventLevel.Warning)
+                    .WriteTo.Console(
+                         LogEventLevel.Debug,
+                         theme: Theme,
+                         outputTemplate:
+                         "[{Timestamp:HH:mm:ss.fff}] [{Level:u3}] {Message} ({SourceContext})|{CallerLineNumber}|{NewLine}{Exception}")
+                    .CreateLogger();
 
         builder.Services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog());
     }

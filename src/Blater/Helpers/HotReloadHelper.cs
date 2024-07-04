@@ -11,11 +11,11 @@ namespace Blater.Helpers;
 public static class HotReloadHelper
 {
     public static event Action<Type[]?>? UpdateApplicationEvent;
-    
+
     internal static void ClearCache(Type[]? types)
     {
     }
-    
+
     internal static void UpdateApplication(Type[]? types)
     {
         using var _ = new LogTimer("HotReloadHelper.UpdateApplication");

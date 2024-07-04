@@ -11,39 +11,39 @@ public class AndOrVisitorHandler : HandlerBase<BinaryExpression>
         {
             return;
         }
-        
+
         var isAnd = expression.NodeType is ExpressionType.AndAlso or ExpressionType.And;
-        
+
         context.Visit(expression.Left);
         context.Visit(expression.Right);
-        
+
         var right = context.GetResult();
         var left = context.GetResult();
-        
+
         //if (right == null || left == null)
         //{
         //    return;
         //}
-        
+
         var @operator = isAnd
             ? "$and"
             : "$or";
-        
+
         var query = new DynamicDictionary
         {
             { @operator, new List<IDictionary<string, object>> { left!, right! } }
         };
-        
+
         context.SetResult(query);
     }
-    
+
     public override bool CanHandle(BinaryExpression expression)
     {
         var isAnd = expression.NodeType is ExpressionType.AndAlso or ExpressionType.And;
         var isOr = expression.NodeType is ExpressionType.OrElse or ExpressionType.Or;
-        
+
         var supported = isAnd || isOr;
-        
+
         return supported;
     }
 }

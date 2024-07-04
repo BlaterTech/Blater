@@ -20,12 +20,12 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
 
     public JsonSerializerOptions DefaultJsonSerializerOptions { get; set; } = JsonExtensions.DefaultJsonSerializerOptions;
     public string BaseAddress => httpClient.BaseAddress?.ToString() ?? string.Empty;
-    
+
     //TODO: removing gamb
     public static string? Token { get; set; }
     public static string? Schema { get; set; }
 
-    void SetJwt()
+    private void SetJwt()
     {
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(string.IsNullOrWhiteSpace(Schema) ? "Bearer" : Schema, Token);
     }
@@ -155,7 +155,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
             throw;
         }
     }
-    
+
     public async Task<BlaterResult<string>> PostString(string url)
     {
         try
@@ -236,13 +236,13 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
 
     #endregion
 
-    public async Task<BlaterResult<T>> Get<T>(string url, Dictionary<string,string>? extraHeaders = null)
+    public async Task<BlaterResult<T>> Get<T>(string url, Dictionary<string, string>? extraHeaders = null)
     {
         try
         {
             SetJwt();
             using var getRequest = new HttpRequestMessage(HttpMethod.Get, url);
-            
+
             if (extraHeaders != null)
             {
                 foreach (var header in extraHeaders)
@@ -371,17 +371,17 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     public async IAsyncEnumerable<BlaterResult<T>> GetStream<T>(string url)
     {
         SetJwt();
-        
+
         using var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
         requestMessage.Headers.ConnectionClose = false;
         requestMessage.Headers.Connection.Add("keep-alive");
-        
+
         var cts = new CancellationTokenSource();
         cts.CancelAfter(Timeout.InfiniteTimeSpan);
-        
+
         var response = await httpClient.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead, cts.Token).ConfigureAwait(false);
         response.EnsureSuccessStatusCode();
-    
+
         var responseStream = await response.Content.ReadAsStreamAsync(cts.Token).ConfigureAwait(false);
         using var streamReader = new StreamReader(responseStream);
 
@@ -428,11 +428,11 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
                 {
                     yield return BlaterErrors.Error("Value is nullable");
                 }
-                
+
                 #if DEBUG
                 logger.LogDebug("BlaterHttpClient === STREAM RESPONSE: {@JsonObject}", line);
                 #endif
-                
+
                 yield return value!;
             }
         }

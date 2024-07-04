@@ -15,7 +15,7 @@ public class BlaterDatabaseException : BlaterException
     public BlaterDatabaseException()
     {
     }
-    
+
     public BlaterDatabaseException(IEnumerable<BlaterError> errors) : base(string.Join(", ", errors))
     {
     }

@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Globalization;
 
 namespace Blater.Extensions;
+
 public static class EnumGenerator
 {
     public static string? GetDescription(this Enum value)
@@ -27,8 +28,8 @@ public static class EnumGenerator
     {
         var enumName = enumValue.GetType().Name;
         var enumValueCode = Convert
-        .ToInt32(enumValue, CultureInfo.InvariantCulture)
-        .ToString("D4", CultureInfo.InvariantCulture);
+                           .ToInt32(enumValue, CultureInfo.InvariantCulture)
+                           .ToString("D4", CultureInfo.InvariantCulture);
         return $"{enumName}{enumValueCode}";
     }
 }

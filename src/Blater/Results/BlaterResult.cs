@@ -6,19 +6,19 @@ public partial class BlaterResult
     {
         Errors = [];
     }
-    
+
     public BlaterResult(BlaterError error)
     {
         Errors = [error];
     }
-    
+
     public BlaterResult(IEnumerable<BlaterError> errors)
     {
         Errors = errors.ToList();
     }
 
     public bool Success { get; set; }
-    
+
     public List<string> Messages { get; set; } = [];
 
     public bool Failure => !Success;

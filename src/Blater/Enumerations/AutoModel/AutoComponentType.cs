@@ -23,9 +23,9 @@ public class AutoComponentType(string name, int value) : BaseAutoComponentTypeEn
     public static readonly AutoComponentType AutoStatus = new(nameof(AutoStatus), 215);
     public static readonly AutoComponentType AutoTextArea = new(nameof(AutoTextArea), 216);
     public static readonly AutoComponentType AutoTextStatus = new(nameof(AutoTextStatus), 217);
-    
+
     public static readonly AutoComponentType AutoTextTable = new(nameof(AutoTextTable), 218);
-    
+
     /*public static readonly AutoComponentType AutoDateTable = new(nameof(AutoDateTable), 219);*/
     public static readonly AutoComponentType AutoWallet = new(nameof(AutoWallet), 220);
     public static readonly AutoComponentType AutoWalletTable = new(nameof(AutoWalletTable), 221);
@@ -36,8 +36,8 @@ public class AutoComponentType(string name, int value) : BaseAutoComponentTypeEn
     public static readonly AutoComponentType AutoUserGroupName = new(nameof(AutoUserGroupName), 226);
     public static readonly AutoComponentType AutoDecimal = new(nameof(AutoDecimal), 227);
     public static readonly AutoComponentType AutoTextLink = new(nameof(AutoTextLink), 228);
-    
-    
+
+
     public static readonly AutoComponentType AutoFileDetails = new(nameof(AutoFileDetails), 229);
     public static readonly AutoComponentType AutoSectionText = new(nameof(AutoSectionText), 230);
     public static readonly AutoComponentType AutoNumeric = new(nameof(AutoNumeric), 231);

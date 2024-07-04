@@ -8,9 +8,9 @@ public abstract class BaseAvatarFrontendModel
 {
     [JsonIgnore]
     public abstract string Title { get; }
-    
+
     [JsonIgnore]
     public abstract string SubTitle { get; }
-    
+
     public virtual string AvatarUrl { get; set; } = "";
 }

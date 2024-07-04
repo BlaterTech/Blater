@@ -22,18 +22,18 @@ public class BlaterQueryProvider<T> : IQueryProvider, IQueryText where T : class
         {
             throw new InvalidOperationException("Could not get element type");
         }
-        
+
         try
         {
             var queryableGenericType = typeof(BlaterQueryable<>).MakeGenericType(elementType);
-            
+
             var instance = Activator.CreateInstance(queryableGenericType, [this, expression]);
-            
+
             if (instance == null)
             {
                 throw new InvalidOperationException("Could not create new instance of BlaterQueryable");
             }
-            
+
             return (IQueryable)instance;
         }
         catch (Exception tie)
@@ -43,24 +43,24 @@ public class BlaterQueryProvider<T> : IQueryProvider, IQueryText where T : class
             throw;
         }
     }
-    
+
     public IQueryable<TElement> CreateQuery<TElement>(Expression expression)
     {
         return new BlaterQueryable<TElement>(expression, this);
     }
-    
+
     public object? Execute(Expression expression)
     {
-        
+
         expression = PartialEvaluator.Eval(expression) ?? throw new InvalidOperationException("Could not evaluate expression");
-        
+
         var linqQuery = LinqVisitor.Eval(expression);
-        
+
         //TODO: Add TypeFilter here
-        
+
         var clauses = new List<IDictionary<string, object>>();
         //TODO add type clause here: clauses.Add(typesQuery);
-        
+
         foreach (var linqQueryWhereClause in linqQuery.WhereClauses)
         {
             var partialQuery = MongoQueryTransformVisitor.Eval(linqQueryWhereClause);
@@ -71,7 +71,7 @@ public class BlaterQueryProvider<T> : IQueryProvider, IQueryText where T : class
             }
             clauses.Add(partialQuery);
         }
-        
+
         //Add the clauses to the query, if more than one we add an $and
         IDictionary<string, object> query;
         if (clauses.Counts == 1 && !linqQuery.Ordering.Any())
@@ -85,7 +85,7 @@ public class BlaterQueryProvider<T> : IQueryProvider, IQueryText where T : class
                 { "$and", clauses }
             }!;
         }
-        
+
         //Sort(OrderBy)
         var orderHandler = new OrderByHandler();
         var orders = new List<IDictionary<string, OrderDirection>>();
@@ -96,19 +96,19 @@ public class BlaterQueryProvider<T> : IQueryProvider, IQueryText where T : class
             var or = orderBy.Direction == OrderDirection.Ascending ? OrderDirection.Ascending : OrderDirection.Descending;
             order.Add(name, or);
             orders.Add(order);
-            
+
             //add the name to the selector.
             var sortSelector = new DynamicDictionary { { name, new DynamicDictionary { { "$gt", null } } } };
             clauses.Add(sortSelector!);
         }
-        
+
         //Index
         //object index = null;
         //if (_index != null && _index.Any())
         //{
         //    index = _index.Counts() == 1 ? (object)_index.First() : (object)_index;
         //}
-        
+
         //Construct the final query object
         var blaterQuery = new BlaterQuery
         {
@@ -118,7 +118,7 @@ public class BlaterQueryProvider<T> : IQueryProvider, IQueryText where T : class
             Limit = linqQuery.Paging.Take,
             Sort = orders.Counts == 0 ? null : orders
         };
-        
+
         //TODO: Add PostProcess here
         //Call the Database Client here
         //var collection = _session.Query<T>(mongoQuery);
@@ -127,40 +127,41 @@ public class BlaterQueryProvider<T> : IQueryProvider, IQueryText where T : class
         {
             return linqQuery.PostProcess.Execute(resultList);
         }
-        
+
         //we have only run some of the query, this will setup the rest
         linqQuery.ParentQuery.RewriteSource(resultList);
         var exp = linqQuery.ParentQuery.Expression;
-        
+
         if (exp == null)
         {
             throw new InvalidOperationException("Could not evaluate expression");
         }
-        
+
         var result = Expression.Lambda(exp).CompileFast().DynamicInvoke();
-        
+
         if(result == null)
         {
             throw new InvalidOperationException("Could not evaluate expression");
         }
-        
+
         return result;
     }
-    
+
     public TResult Execute<TResult>(Expression expression)
     {
         var resultObject = Execute(expression);
-        
+
         if (resultObject is TResult result)
         {
             return result;
         }
-        
+
         return default!;
     }
-    
+
     public string GetQueryText(Expression expression)
     {
         return expression.ExpressionToMangoQuery();
     }
 }*/
+

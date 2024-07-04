@@ -15,7 +15,7 @@ public enum OrderDirection
     [Display(Name = "asc")]
     [JsonPropertyName("asc")]
     Ascending,
-    
+
     /// <summary>
     /// Descending order
     /// </summary>

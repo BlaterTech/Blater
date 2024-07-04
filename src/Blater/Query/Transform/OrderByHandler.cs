@@ -15,7 +15,7 @@ public class OrderByHandler
         {
             return memberExpression.Member.Name;
         }
-        
+
         var prefix = GetMemberName(prefixExpression);
         return string.Join(".", prefix, memberExpression.Member.Name);
     }

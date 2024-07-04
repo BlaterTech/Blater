@@ -10,12 +10,12 @@ public static class ReflectionExtensions
         {
             return null;
         }
-        
+
         if (instance == null)
         {
             return null;
         }
-        
+
         switch (member.MemberType)
         {
             case MemberTypes.Property:
@@ -26,7 +26,7 @@ public static class ReflectionExtensions
                 return null;
         }
     }
-    
+
     public static void SetValue(this MemberInfo member, object instance, object value)
     {
         switch (member.MemberType)

@@ -10,13 +10,13 @@ public enum ChatStatus
 {
     [Description("typing")]
     Typing,
-    
+
     [Description("online")]
     Online,
-    
+
     [Description("away")]
     Away,
-    
+
     [Description("offline")]
     Offline
 }

@@ -17,18 +17,18 @@ public class HttpContextEnricher(IServiceProvider serviceProvider) : ILogEventEn
         {
             return;
         }
-        
+
         var httpContextCache = ctx.Items["serilog-enrichers-aspnetcore-httpcontext"];
-        
+
         if (httpContextCache == null)
         {
             httpContextCache = StandardEnricher(_httpContextAccessor);
             ctx.Items["serilog-enrichers-aspnetcore-httpcontext"] = httpContextCache;
         }
-        
+
         logEvent.AddPropertyIfAbsent(propertyFactory.CreateProperty("HttpContext", httpContextCache, true));
     }
-    
+
     public static object? StandardEnricher(IHttpContextAccessor? hca)
     {
         var ctx = hca?.HttpContext;
@@ -36,7 +36,7 @@ public class HttpContextEnricher(IServiceProvider serviceProvider) : ILogEventEn
         {
             return null;
         }
-        
+
         var httpContextCache = new HttpContextInfo
         {
             IpAddress = ctx.Connection.RemoteIpAddress?.ToString(),
@@ -52,19 +52,19 @@ public class HttpContextEnricher(IServiceProvider serviceProvider) : ILogEventEn
             Headers = ctx.Request.Headers.ToDictionary(x => x.Key, y => y.Value.ToString()),
             Cookies = ctx.Request.Cookies.ToDictionary(x => x.Key, y => y.Value.ToString())
         };
-        
+
         if (ctx.Request.ContentLength is not > 0)
         {
             return httpContextCache;
         }
-        
+
         ctx.Request.EnableBuffering();
-        
+
         using (var reader = new StreamReader(ctx.Request.Body, Encoding.UTF8, true, 1024, true))
         {
             httpContextCache.Body = reader.ReadToEnd();
         }
-        
+
         ctx.Request.Body.Position = 0;
         return httpContextCache;
     }

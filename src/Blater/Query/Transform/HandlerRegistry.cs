@@ -13,40 +13,40 @@ namespace Blater.Query.Transform;
 public static class HandlerRegistry
 {
     public static readonly Dictionary<Type, List<IHandler>?> Handlers = new();
-    
+
     static HandlerRegistry()
     {
         Register<AndOrVisitorHandler>();
-        
+
         Register<EqualityHandler>();
         Register<NotHandler>();
         Register<LessAndGreaterThanHandler>();
-        
+
         Register<StringContainsHandler>();
         Register<StringStartsWithHandler>();
         Register<StringEndsWithHandler>();
-        
+
         Register<AnyHandler>();
-        
+
         Register<DictionaryContainsKeyHandler>();
         Register<IndexHandler>();
-        
+
         Register<InHandler>();
         Register<NotInHandler>();
-        
+
         Register<BooleanEqualityHandler>();
     }
-    
+
     public static void Register<T>() where T : IHandler, new()
     {
         var handler = new T();
-        
+
         if (!Handlers.TryGetValue(handler.HandleTypeOf, out var handlers))
         {
             handlers = new List<IHandler>();
             Handlers.Add(handler.HandleTypeOf, handlers);
         }
-        
+
         handlers?.Add(handler);
     }
 }

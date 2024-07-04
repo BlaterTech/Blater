@@ -9,7 +9,7 @@ namespace Blater.Enumerations;
 public enum BlaterProjects
 {
     None = 0,
-    
+
     [ShortName("bl")]
     Blater = 1
 }

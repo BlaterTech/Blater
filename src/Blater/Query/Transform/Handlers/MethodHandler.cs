@@ -9,7 +9,7 @@ public abstract class MethodHandler : HandlerBase<MethodCallExpression>
         var method = expression.Method;
         return method.DeclaringType;
     }
-    
+
     protected static string GetMethodName(MethodCallExpression expression)
     {
         var method = expression.Method;

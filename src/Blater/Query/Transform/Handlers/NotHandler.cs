@@ -11,19 +11,19 @@ public class NotHandler : HandlerBase<UnaryExpression>
         {
             return;
         }
-        
+
         context.Visit(expression.Operand);
         var val = context.GetResult();
-        
+
         var result = new DynamicDictionary();
         if (val != null)
         {
             result.Add("$not", val);
         }
-        
+
         context.SetResult(result);
     }
-    
+
     public override bool CanHandle(UnaryExpression expression)
     {
         return expression.NodeType == ExpressionType.Not;

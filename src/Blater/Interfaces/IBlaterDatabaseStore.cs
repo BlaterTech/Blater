@@ -15,7 +15,7 @@ public interface IBlaterDatabaseStore
     /// <param name="id"></param>
     /// <returns>Returns the JSON object in string format</returns>
     public Task<BlaterResult<string>> Get(BlaterId id);
-    
+
 
     /// <summary>
     /// Finds a single document using query and partition
@@ -24,7 +24,7 @@ public interface IBlaterDatabaseStore
     /// <param name="query"></param>
     /// <returns>Returns the JSON object in string format</returns>
     public Task<BlaterResult<string>> QueryOne(string partition, BlaterQuery query);
-    
+
     /// <summary>
     /// Finds many documents using query and partition
     /// </summary>
@@ -34,7 +34,7 @@ public interface IBlaterDatabaseStore
     public Task<BlaterResult<IReadOnlyList<string>>> Query(string partition, BlaterQuery query);
 
     #region Changes
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -46,7 +46,7 @@ public interface IBlaterDatabaseStore
     #endregion
 
     #region Update/Insert/Upserts
-    
+
     /// <summary>
     /// Upserts a document, it replaces the document if it exists
     /// </summary>
