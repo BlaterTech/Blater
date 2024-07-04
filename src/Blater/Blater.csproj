@@ -4,11 +4,10 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LangVersion>preview</LangVersion>
-        <EnablePreviewFeatures>true</EnablePreviewFeatures>
-
-        <Version>1.0.0.0</Version>
+        <!--<EnablePreviewFeatures>true</EnablePreviewFeatures>-->
+        
         <Authors>Blater</Authors>
-        <PackageLicenseUrl>https://github.com/BlaterTech/Blater/blob/main/LICENSE</PackageLicenseUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
 
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <AnalysisLevel>latest-all</AnalysisLevel>
