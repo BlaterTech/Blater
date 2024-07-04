@@ -34,4 +34,9 @@ public static class BlaterErrors
     {
         return new BlaterError($"Failed to serialize json: {json}");
     }
+    
+    public static BlaterError InvalidOperation(string error)
+    {
+        return new BlaterError(error);
+    }
 }

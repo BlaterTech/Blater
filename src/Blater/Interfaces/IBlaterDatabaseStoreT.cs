@@ -46,27 +46,22 @@ public interface IBlaterDatabaseStoreT<T>
     /// <summary>
     /// Upserts a document, it replaces the document if it exists
     /// </summary>
-    /// <param name="id"></param>
     /// <param name="obj"></param>
     /// <returns>Returns the same document but with the new revision</returns>
-    public Task<BlaterResult<T>> Upsert(BlaterId id, T obj);
     public Task<BlaterResult<T>> Upsert(T obj);
     
     /// <summary>
     /// Updates a document by its id
     /// </summary>
-    /// <param name="id"></param>
     /// <param name="obj"></param>
     /// <returns>Returns true if the document was updated</returns>
-    public Task<BlaterResult<T>> Update(BlaterId id, T obj);
+    public Task<BlaterResult<T>> Update(T obj);
     
     /// <summary>
     /// Updates a document by its id and query
     /// </summary>
-    /// <param name="id"></param>
     /// <param name="obj"></param>
     /// <returns></returns>
-    public Task<BlaterResult<T>> Insert(BlaterId id, T obj);
     public Task<BlaterResult<T>> Insert(T obj);
 
     #endregion

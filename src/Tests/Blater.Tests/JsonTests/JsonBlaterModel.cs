@@ -1,4 +1,5 @@
 using Blater.Models;
+using Blater.Models.Bases;
 
 namespace Blater.Tests.JsonTests;
 
