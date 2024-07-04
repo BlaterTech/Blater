@@ -1,6 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
+using Blater.Enumerations;
 
 namespace Blater.JsonUtilities;
 
@@ -16,7 +17,8 @@ public static class JsonExtensions
         Converters =
         {
             new BlaterIdConverter(),
-            new JsonStringEnumConverter()
+            new JsonStringEnumConverter(),
+            new DictionaryOrderDirectionConverter(),
         },
 #if DEBUG
         WriteIndented = true,

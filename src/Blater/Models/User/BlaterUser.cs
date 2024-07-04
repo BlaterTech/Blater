@@ -1,12 +1,16 @@
+using System.Diagnostics.CodeAnalysis;
 using Blater.Models.Bases;
 
 namespace Blater.Models.User;
 
+[SuppressMessage("Design", "CA1056:As propriedades do tipo URI não devem ser cadeias de caracteres")]
 public sealed class BlaterUser : BaseDataModel
 {
     public string Name { get; set; } = string.Empty;
 
     public string Email { get; set; } = string.Empty;
+    
+    public string AvatarUrl { get; set; } = string.Empty;
 
     public bool EmailConfirmed { get; set; }
 

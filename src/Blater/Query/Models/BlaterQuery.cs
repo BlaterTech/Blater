@@ -25,6 +25,7 @@ public class BlaterQuery
     /// <summary>
     /// the sorts to apply to this query, note an index is required to use a sort.
     /// </summary>
+    [JsonConverter(typeof(DictionaryOrderDirectionConverter))]
     public List<IDictionary<string, OrderDirection>>? Sort { get; set; }
 
     public List<string>? Fields { get; set; }

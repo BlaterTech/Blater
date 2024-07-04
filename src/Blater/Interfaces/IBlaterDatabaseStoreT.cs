@@ -66,6 +66,7 @@ public interface IBlaterDatabaseStoreT<T>
     /// <param name="obj"></param>
     /// <returns></returns>
     public Task<BlaterResult<T>> Insert(BlaterId id, T obj);
+    public Task<BlaterResult<T>> Insert(T obj);
 
     #endregion
     
