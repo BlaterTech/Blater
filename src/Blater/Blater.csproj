@@ -15,17 +15,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <InternalsVisibleTo Include="Blater.SDK"/>
-        <InternalsVisibleTo Include="Blater.Backend"/>
-        <InternalsVisibleTo Include="Blater.Database"/>
-        <InternalsVisibleTo Include="Blater.Internal"/>
-        <InternalsVisibleTo Include="Blater.Tests"/>
-        <InternalsVisibleTo Include="Blater.Database.Tests"/>
-        <InternalsVisibleTo Include="Blater.Backend.Tests"/>
+        <InternalsVisibleTo Include="Blater.*"/>
     </ItemGroup>
 
     <ItemGroup>
-
         <PackageReference Include="Ardalis.SmartEnum" Version="8.0.0"/>
 
         <PackageReference Include="FastExpressionCompiler" Version="4.2.0"/>
