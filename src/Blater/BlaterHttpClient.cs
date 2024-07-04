@@ -10,6 +10,7 @@ namespace Blater;
 [SuppressMessage("Design", "CA1054:URI-like parameters should not be strings")]
 [SuppressMessage("Usage", "CA2234:Pass system uri objects instead of strings")]
 [SuppressMessage("Design", "CA1031:Não capturar exceptions de tipos genéricos")]
+[SuppressMessage("Reliability", "CA2000:Descartar objetos antes de perder o escopo")]
 public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpClient) : IDisposable
 {
     #if DEBUG
@@ -370,12 +371,23 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     public async IAsyncEnumerable<BlaterResult<T>> GetStream<T>(string url)
     {
         SetJwt();
-        var response = await httpClient.GetStreamAsync(url).ConfigureAwait(false);
-        using var streamReader = new StreamReader(response);
+        
+        using var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
+        requestMessage.Headers.ConnectionClose = false;
+        requestMessage.Headers.Connection.Add("keep-alive");
+        
+        var cts = new CancellationTokenSource();
+        cts.CancelAfter(Timeout.InfiniteTimeSpan);
+        
+        var response = await httpClient.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead, cts.Token).ConfigureAwait(false);
+        response.EnsureSuccessStatusCode();
+    
+        var responseStream = await response.Content.ReadAsStreamAsync(cts.Token).ConfigureAwait(false);
+        using var streamReader = new StreamReader(responseStream);
 
         while (!streamReader.EndOfStream)
         {
-            var line = await streamReader.ReadLineAsync();
+            var line = await streamReader.ReadLineAsync(cts.Token);
 
             if (string.IsNullOrWhiteSpace(line))
             {

@@ -50,6 +50,7 @@ public interface IBlaterDatabaseStoreT<T>
     /// <param name="obj"></param>
     /// <returns>Returns the same document but with the new revision</returns>
     public Task<BlaterResult<T>> Upsert(BlaterId id, T obj);
+    public Task<BlaterResult<T>> Upsert(T obj);
     
     /// <summary>
     /// Updates a document by its id
