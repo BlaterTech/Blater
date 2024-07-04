@@ -27,6 +27,6 @@ jobs:
     - name: Pack
       run: |
         export NUGET_VERSION=$(date --utc '+%Y.%m.%d.%H%M' | sed 's/\.\(0*\)/./g')
-        dotnet pack --no-build --output nupkgs -p:PackageVersion=$NUGET_VERSION src/Blater/Blater.csproj
+        dotnet pack --output nupkgs -p:PackageVersion=$NUGET_VERSION src/Blater/Blater.csproj
     - name: Push
       run: dotnet nuget push nupkgs/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
