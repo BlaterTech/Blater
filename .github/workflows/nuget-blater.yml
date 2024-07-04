@@ -21,6 +21,12 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore src/Blater.sln
     - name: Build
-      run: dotnet build --no-restore src/Blater.sln
+      run: dotnet build --no-restore src/Blater/Blater.csproj
     - name: Test
-      run: dotnet test --no-build --verbosity normal src/Blater.sln
+      run: dotnet test --no-build --verbosity normal src/Blater/Blater.csproj
+    - name: Pack
+      run: |
+        export NUGET_VERSION=$(date --utc '+%Y.%m.%d.%H%M' | sed 's/\.\(0*\)/./g')
+        dotnet pack --no-build --output nupkgs -p:PackageVersion=$NUGET_VERSION src/Blater/Blater.csproj
+    - name: Push
+      run: dotnet nuget push nupkgs/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
