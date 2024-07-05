@@ -41,7 +41,7 @@ public interface IBlaterDatabaseStore
     /// <param name="partition"></param>
     /// <param name="query"></param>
     /// <returns>Returns the JSON object in string format</returns>
-    IAsyncEnumerable<BlaterResult<string>> WatchChangesQuery(string partition, BlaterQuery query);
+    IAsyncEnumerable<BlaterResult<string>> WatchChangesQuery(string partition, BlaterQuery query, CancellationToken cancellationToken);
 
     #endregion
 

@@ -25,18 +25,15 @@ public static class HttpClientExtensions
 
             content = new StringContent(json, Encoding.UTF8, "application/json");
         }
-
-        var cts = new CancellationTokenSource();
-        cts.CancelAfter(Timeout.InfiniteTimeSpan);
-
+        
         using var request = new HttpRequestMessage(HttpMethod.Post, url);
         request.Content = content;
         request.Headers.ConnectionClose = false;
         request.Headers.Connection.Add("keep-alive");
 
-        var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cts.Token).ConfigureAwait(false);
+        var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
         response.EnsureSuccessStatusCode();
 
-        return await response.Content.ReadAsStreamAsync(cts.Token).ConfigureAwait(false);
+        return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
     }
 }
