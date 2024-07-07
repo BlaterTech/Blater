@@ -1,10 +1,11 @@
 ﻿using System.Linq.Expressions;
+using Blater.Models.Bases;
 using Blater.Query.Models;
 using Blater.Results;
 
 namespace Blater.Interfaces;
 
-public interface IBlaterDatabaseStoreT<T>
+public interface IBlaterDatabaseStoreT<T> where T : BaseDataModel
 {
     public string Partition { get; }
 
