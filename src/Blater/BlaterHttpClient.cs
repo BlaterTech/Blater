@@ -2,6 +2,7 @@ using Microsoft.Extensions.Logging;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using Blater.Results;
 
@@ -407,7 +408,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
         }
     }
 
-    public async IAsyncEnumerable<BlaterResult<T>> PostStream<T>(string url, object body)
+    public async IAsyncEnumerable<BlaterResult<T>> PostStream<T>(string url, object body, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         SetJwt();
         var stream = await httpClient.PostStreamAsync(url, body).ConfigureAwait(false);
@@ -415,7 +416,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
 
         while (!streamReader.EndOfStream)
         {
-            var line = await streamReader.ReadLineAsync();
+            var line = await streamReader.ReadLineAsync(cancellationToken);
 
             if (string.IsNullOrWhiteSpace(line))
             {

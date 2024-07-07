@@ -103,7 +103,7 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
 
     #region Changes
 
-    IAsyncEnumerable<string> GetChangesQuery(Expression<Func<T, bool>> predicate);
+    IAsyncEnumerable<string> GetChangesQuery(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken);
 
     #endregion
 
