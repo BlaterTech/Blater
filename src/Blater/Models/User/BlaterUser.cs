@@ -10,7 +10,7 @@ public sealed class BlaterUser : BaseDataModel
 
     public string Email { get; set; } = string.Empty;
 
-    public string AvatarUrl { get; set; } = string.Empty;
+    public string AvatarImage { get; set; } = string.Empty;
 
     public bool EmailConfirmed { get; set; }
 

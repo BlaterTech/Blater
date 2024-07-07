@@ -12,5 +12,5 @@ public abstract class BaseAvatarFrontendModel
     [JsonIgnore]
     public abstract string SubTitle { get; }
 
-    public virtual string AvatarUrl { get; set; } = "";
+    public virtual string AvatarImage { get; set; } = "";
 }

@@ -1,12 +1,15 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace Blater.Models.User;
+﻿namespace Blater.Models.User;
 
 public class BlaterAuthState
 {
     public string UserId { get; set; } = null!;
     public string Name { get; set; } = null!;
     public string Email { get; set; } = null!;
+    
+    /// <summary>
+    /// Avatar image URL
+    /// </summary>
+    public string? AvatarImage { get; set; } = null!;
 
     public bool LockoutEnabled { get; set; }
 

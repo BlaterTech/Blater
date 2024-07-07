@@ -11,7 +11,7 @@ public class BlaterUserToken
     
     public string Email { get; set; } = null!;
     
-    public string AvatarUrl { get; set; } = null!;
+    public string AvatarImage { get; set; } = null!;
     
     public bool LockoutEnabled { get; set; }
     
