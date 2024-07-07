@@ -4,6 +4,7 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
+using Blater.Models.User;
 using Blater.Results;
 
 namespace Blater;
@@ -22,14 +23,6 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     public JsonSerializerOptions DefaultJsonSerializerOptions { get; set; } = JsonExtensions.DefaultJsonSerializerOptions;
     public string BaseAddress => httpClient.BaseAddress?.ToString() ?? string.Empty;
 
-    //TODO: removing gamb
-    public static string? Token { get; set; }
-    public static string? Schema { get; set; }
-
-    private void SetJwt()
-    {
-        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(string.IsNullOrWhiteSpace(Schema) ? "Bearer" : Schema, Token);
-    }
 
     #region SpecialCases
 
@@ -37,7 +30,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            SetJwt();
+            
             var response = await httpClient.GetAsync(url).ConfigureAwait(false);
 
             if (!response.IsSuccessStatusCode)
@@ -70,7 +63,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            SetJwt();
+            
             var response = await httpClient.DeleteAsync(url).ConfigureAwait(false);
 
             var valueString = await response.Content.ReadAsStringAsync();
@@ -102,7 +95,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            SetJwt();
+            
             var response = await httpClient.PostAsJsonAsync(url, body, JsonExtensions.DefaultJsonSerializerOptions).ConfigureAwait(false);
 
             if (!response.IsSuccessStatusCode)
@@ -128,7 +121,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            SetJwt();
+            
             var response = await httpClient.PostAsJsonAsync(url, body, JsonExtensions.DefaultJsonSerializerOptions).ConfigureAwait(false);
 
             if (!response.IsSuccessStatusCode)
@@ -161,7 +154,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            SetJwt();
+            
             using var stringEmpty = new StringContent(string.Empty);
             var response = await httpClient.PostAsJsonAsync(url, stringEmpty).ConfigureAwait(false);
 
@@ -195,7 +188,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            SetJwt();
+            
             using var stringEmpty = new StringContent(string.Empty);
             var response = await httpClient.PostAsync(url, stringEmpty).ConfigureAwait(false);
 
@@ -222,7 +215,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            SetJwt();
+            
             using var stringEmpty = new StringContent(string.Empty);
             var response = await httpClient.PostAsync(url, stringEmpty).ConfigureAwait(false);
 
@@ -241,7 +234,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            SetJwt();
+            
             using var getRequest = new HttpRequestMessage(HttpMethod.Get, url);
 
             if (extraHeaders != null)
@@ -266,7 +259,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            SetJwt();
+            
             var response = await httpClient.PostAsJsonAsync(url, body, options ?? DefaultJsonSerializerOptions).ConfigureAwait(false);
             return await HandleResponse<T>(response);
         }
@@ -281,7 +274,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            SetJwt();
+            
             var response = await httpClient.PostAsync(url, content).ConfigureAwait(false);
             return await HandleResponse<T>(response);
         }
@@ -296,7 +289,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            SetJwt();
+            
             var response = await httpClient.PutAsJsonAsync(url, body, options ?? DefaultJsonSerializerOptions).ConfigureAwait(false);
             return await HandleResponse<T>(response, options ?? DefaultJsonSerializerOptions);
         }
@@ -311,7 +304,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            SetJwt();
+            
             var response = await httpClient.PutAsync(url, content).ConfigureAwait(false);
             return await HandleResponse<T>(response);
         }
@@ -326,7 +319,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            SetJwt();
+            
             var response = await httpClient.DeleteAsync(url).ConfigureAwait(false);
             return await HandleResponse<T>(response);
         }
@@ -341,7 +334,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            SetJwt();
+            
             var response = await httpClient.PatchAsync(url, content).ConfigureAwait(false);
             return await HandleResponse<T>(response);
         }
@@ -356,7 +349,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            SetJwt();
+            
             var response = await httpClient.PatchAsJsonAsync(url, body, DefaultJsonSerializerOptions).ConfigureAwait(false);
             return await HandleResponse<T>(response);
         }
@@ -371,7 +364,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
 
     public async IAsyncEnumerable<BlaterResult<T>> GetStream<T>(string url)
     {
-        SetJwt();
+        
 
         using var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
         requestMessage.Headers.ConnectionClose = false;
@@ -410,7 +403,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
 
     public async IAsyncEnumerable<BlaterResult<T>> PostStream<T>(string url, object body, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        SetJwt();
+        
         var stream = await httpClient.PostStreamAsync(url, body).ConfigureAwait(false);
         using var streamReader = new StreamReader(stream);
 
