@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Text.Json;
 using Blater.Models.User;
 using Blater.Results;
@@ -21,16 +22,14 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     #endif
 
     public JsonSerializerOptions DefaultJsonSerializerOptions { get; set; } = JsonExtensions.DefaultJsonSerializerOptions;
-    public string BaseAddress => httpClient.BaseAddress?.ToString() ?? string.Empty;
-
-
+    
     #region SpecialCases
 
+    //TODO is there a better way to handle this?
     public async Task<BlaterResult<string>> GetString(string url)
     {
         try
         {
-            
             var response = await httpClient.GetAsync(url).ConfigureAwait(false);
 
             if (!response.IsSuccessStatusCode)
@@ -211,153 +210,83 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
         }
     }
 
-    public async Task<BlaterResult<T>> Post<T>(string url)
-    {
-        try
-        {
-            
-            using var stringEmpty = new StringContent(string.Empty);
-            var response = await httpClient.PostAsync(url, stringEmpty).ConfigureAwait(false);
-
-            return await HandleResponse<T>(response);
-        }
-        catch (Exception e)
-        {
-            logger.LogError(e, "BlaterHttpClient Exception === Error while making POST request to {Url}", url);
-            throw;
-        }
-    }
-
     #endregion
 
-    public async Task<BlaterResult<T>> Get<T>(string url, Dictionary<string, string>? extraHeaders = null)
+    public Task<BlaterResult<T>> Get<T>(string url, Dictionary<string, string>? extraHeaders = null)
     {
-        try
-        {
-            
-            using var getRequest = new HttpRequestMessage(HttpMethod.Get, url);
+        using var getRequest = new HttpRequestMessage(HttpMethod.Get, url);
 
-            if (extraHeaders != null)
+        if (extraHeaders != null)
+        {
+            foreach (var header in extraHeaders)
             {
-                foreach (var header in extraHeaders)
-                {
-                    getRequest.Headers.Add(header.Key, header.Value);
-                }
+                getRequest.Headers.Add(header.Key, header.Value);
             }
-
-            var response = await httpClient.SendAsync(getRequest).ConfigureAwait(false);
-            return await HandleResponse<T>(response);
         }
-        catch (Exception e)
-        {
-            logger.LogError(e, "BlaterHttpClient Exception === Error while making GET request to {Url}", url);
-            throw;
-        }
+        
+        return HandleRequest<T>(getRequest);
     }
 
-    public async Task<BlaterResult<T>> Post<T>(string url, object body, JsonSerializerOptions? options = null)
+    public Task<BlaterResult<T>> Post<T>(string url, object? body = null)
     {
-        try
+        var request = new HttpRequestMessage(HttpMethod.Post, url);
+        if (body == null)
         {
-            
-            var response = await httpClient.PostAsJsonAsync(url, body, options ?? DefaultJsonSerializerOptions).ConfigureAwait(false);
-            return await HandleResponse<T>(response);
+            return HandleRequest<T>(request);
         }
-        catch (Exception e)
+
+        var json = body.ToJson();
+        if (json == null)
         {
-            logger.LogError(e, "BlaterHttpClient Exception === Error while making POST request to {Url}", url);
-            throw;
+            return Task.FromResult(new BlaterResult<T>(BlaterErrors.JsonSerializationError("Error while serializing body")));
         }
+        request.Content = new StringContent(json, Encoding.UTF8, "application/json");
+
+        return HandleRequest<T>(request);
     }
 
     public async Task<BlaterResult<T>> Post<T>(string url, HttpContent content)
     {
-        try
+        var request = new HttpRequestMessage(HttpMethod.Post, url)
         {
-            
-            var response = await httpClient.PostAsync(url, content).ConfigureAwait(false);
-            return await HandleResponse<T>(response);
-        }
-        catch (Exception e)
-        {
-            logger.LogError(e, "BlaterHttpClient Exception === Error while making POST request to {Url}", url);
-            throw;
-        }
+            Content = content
+        };
+        
+        return await HandleRequest<T>(request);
     }
 
-    public async Task<BlaterResult<T>> Put<T>(string url, object? body = null, JsonSerializerOptions? options = null)
+    public async Task<BlaterResult<T>> Put<T>(string url, object? body = null)
     {
-        try
+        var request = new HttpRequestMessage(HttpMethod.Put, url);
+        if (body == null)
         {
-            
-            var response = await httpClient.PutAsJsonAsync(url, body, options ?? DefaultJsonSerializerOptions).ConfigureAwait(false);
-            return await HandleResponse<T>(response, options ?? DefaultJsonSerializerOptions);
+            return await HandleRequest<T>(request);
         }
-        catch (Exception e)
+
+        var json = body.ToJson();
+        if (json == null)
         {
-            logger.LogError(e, "BlaterHttpClient Exception === Error while making PUT request to {Url}", url);
-            throw;
+            return new BlaterResult<T>(BlaterErrors.JsonSerializationError("Error while serializing body"));
         }
+        request.Content = new StringContent(json, Encoding.UTF8, "application/json");
+
+        return await HandleRequest<T>(request);
     }
 
     public async Task<BlaterResult<T>> Put<T>(string url, HttpContent content)
     {
-        try
+        var request = new HttpRequestMessage(HttpMethod.Put, url)
         {
-            
-            var response = await httpClient.PutAsync(url, content).ConfigureAwait(false);
-            return await HandleResponse<T>(response);
-        }
-        catch (Exception e)
-        {
-            logger.LogError(e, "BlaterHttpClient Exception === Error while making PUT request to {Url}", url);
-            throw;
-        }
+            Content = content
+        };
+        
+        return await HandleRequest<T>(request);
     }
 
     public async Task<BlaterResult<T>> Delete<T>(string url)
     {
-        try
-        {
-            
-            var response = await httpClient.DeleteAsync(url).ConfigureAwait(false);
-            return await HandleResponse<T>(response);
-        }
-        catch (Exception e)
-        {
-            logger.LogError(e, "BlaterHttpClient Exception === Error while making DELETE request to {Url}", url);
-            throw;
-        }
-    }
-
-    public async Task<BlaterResult<T>> Patch<T>(string url, HttpContent content)
-    {
-        try
-        {
-            
-            var response = await httpClient.PatchAsync(url, content).ConfigureAwait(false);
-            return await HandleResponse<T>(response);
-        }
-        catch (Exception e)
-        {
-            logger.LogError(e, "BlaterHttpClient Exception === Error while making PATCH request to {Url}", url);
-            throw;
-        }
-    }
-
-    public async Task<BlaterResult<T>> Patch<T>(string url, object? body = null)
-    {
-        try
-        {
-            
-            var response = await httpClient.PatchAsJsonAsync(url, body, DefaultJsonSerializerOptions).ConfigureAwait(false);
-            return await HandleResponse<T>(response);
-        }
-        catch (Exception e)
-        {
-            logger.LogError(e, "BlaterHttpClient Exception === Error while making PATCH request to {Url}", url);
-            throw;
-        }
+        var request = new HttpRequestMessage(HttpMethod.Delete, url);
+        return await HandleRequest<T>(request);
     }
 
     #region Stream
@@ -434,32 +363,34 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
 
     #endregion
 
-    private async Task<BlaterResult<T>> HandleResponse<T>(HttpResponseMessage message, JsonSerializerOptions? options = null)
+    private async Task<BlaterResult<T>> HandleRequest<T>(HttpRequestMessage request, JsonSerializerOptions? options = null)
     {
         try
         {
+            var response = await httpClient.SendAsync(request).ConfigureAwait(false);
+            
             #if DEBUG
 
             if (LogRequests)
             {
                 var stringContent = string.Empty;
-                if (message.RequestMessage?.Content != null)
+                if (response.RequestMessage?.Content != null)
                 {
-                    stringContent = await message.RequestMessage?.Content?.ReadAsStringAsync()!;
+                    stringContent = await response.RequestMessage?.Content?.ReadAsStringAsync()!;
                 }
 
                 logger.LogDebug("BlaterHttpClient === REQUEST [{Method}] to {Url}, StatusCode: {StatusCode}\n Content:\n{Content} \nHeaders:{@Headers}",
-                                message.RequestMessage?.Method,
-                                message.RequestMessage?.RequestUri, message.StatusCode, stringContent, message.RequestMessage?.Headers);
+                                response.RequestMessage?.Method,
+                                response.RequestMessage?.RequestUri, response.StatusCode, stringContent, response.RequestMessage?.Headers);
             }
             #endif
 
-            if (!message.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode)
             {
-                var stringContent = await message.Content.ReadAsStringAsync();
+                var stringContent = await response.Content.ReadAsStringAsync();
                 logger.LogError("BlaterHttpClient === ERROR [{Method}] to {Url}, StatusCode: {StatusCode}\n ResponseContent:\n{Content} \nHeaders:{@Headers}",
-                                message.RequestMessage?.Method,
-                                message.RequestMessage?.RequestUri, message.StatusCode, stringContent, message.RequestMessage?.Headers);
+                                response.RequestMessage?.Method,
+                                response.RequestMessage?.RequestUri, response.StatusCode, stringContent, response.RequestMessage?.Headers);
                 return new BlaterError(stringContent);
             }
 
@@ -467,10 +398,10 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
 
             if (LogResponse)
             {
-                var debugString = await message.Content.ReadAsStringAsync();
+                var debugString = await response.Content.ReadAsStringAsync();
 
                 logger.LogDebug("BlaterHttpClient === RESPONSE [{Method}] to {Url}, StatusCode: {StatusCode} Response:\n {@JsonObject}",
-                                message.RequestMessage?.Method, message.RequestMessage?.RequestUri, message.StatusCode, debugString);
+                                response.RequestMessage?.Method, response.RequestMessage?.RequestUri, response.StatusCode, debugString);
 
                 try
                 {
@@ -491,7 +422,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
             }
             #endif
 
-            var stream = await message.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var stream = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
             if (stream.TryParseJson<BlaterResult<T>>(out var handleResponse))
             {
