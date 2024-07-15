@@ -55,7 +55,7 @@ public static class ExpressionExtensions
 
         var query = MongoQueryTransformVisitor.Eval(expressionEvaluated);
 
-        var mongoQuery = new BlaterQuery()
+        var mongoQuery = new BlaterQuery
         {
             //Index = index,
             Selector = query
