@@ -1,10 +1,8 @@
 using Microsoft.Extensions.Logging;
 using System.Diagnostics.CodeAnalysis;
-using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
-using Blater.Models.User;
 using Blater.Results;
 
 namespace Blater;
