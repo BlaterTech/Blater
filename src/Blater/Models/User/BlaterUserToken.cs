@@ -15,7 +15,7 @@ public class BlaterUserToken
     
     public bool LockoutEnabled { get; set; }
     
-    public List<string> RoleNames { get; set; } = [];
+    public List<string> Roles { get; set; } = [];
     
     public List<string> Permissions { get; set; } = [];
 }
