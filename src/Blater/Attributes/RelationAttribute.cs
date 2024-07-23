@@ -1,3 +1,5 @@
+using System;
+
 namespace Blater.Attributes;
 
 [AttributeUsage(AttributeTargets.Property)]

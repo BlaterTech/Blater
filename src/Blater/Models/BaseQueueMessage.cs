@@ -1,3 +1,5 @@
+using System;
+
 namespace Blater.Models;
 
 public class BaseQueueMessage

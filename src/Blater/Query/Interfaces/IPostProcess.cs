@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Blater.Query.Interfaces;
 
 public interface IPostProcess

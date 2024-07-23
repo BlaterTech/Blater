@@ -1,4 +1,5 @@
-﻿using Blater.Results;
+﻿using System.Threading.Tasks;
+using Blater.Results;
 
 namespace Blater.Interfaces.BlaterAuthentication.Stores;
 

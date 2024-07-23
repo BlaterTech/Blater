@@ -1,3 +1,4 @@
+using System;
 using Blater.Query.Models;
 
 namespace Blater.Query.Handlers;

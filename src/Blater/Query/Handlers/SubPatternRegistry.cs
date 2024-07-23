@@ -1,4 +1,5 @@
-﻿using Blater.Query.Interfaces;
+﻿using System.Collections.Generic;
+using Blater.Query.Interfaces;
 
 namespace Blater.Query.Handlers;
 

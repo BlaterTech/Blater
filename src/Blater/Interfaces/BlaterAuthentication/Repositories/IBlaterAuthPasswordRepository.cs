@@ -1,4 +1,6 @@
-﻿namespace Blater.Interfaces.BlaterAuthentication.Repositories;
+﻿using System.Threading.Tasks;
+
+namespace Blater.Interfaces.BlaterAuthentication.Repositories;
 
 public interface IBlaterAuthPasswordRepository
 {

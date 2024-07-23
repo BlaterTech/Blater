@@ -1,4 +1,5 @@
-﻿using Blater.Models.User;
+﻿using System.Threading.Tasks;
+using Blater.Models.User;
 
 namespace Blater.Interfaces.BlaterAuthentication.Repositories;
 

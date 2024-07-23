@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Blater.Results;
 
 public partial class BlaterResult<TValue> : BlaterResult

@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Blater.Query.Interfaces;
 using Blater.Query.Models;
 

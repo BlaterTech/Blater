@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Blater.Query.Interfaces;
 
 namespace Blater.Query.Models;

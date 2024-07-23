@@ -1,4 +1,6 @@
-﻿using Blater.Models.User;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Blater.Models.User;
 using Blater.Query.Models;
 using Blater.Results;
 

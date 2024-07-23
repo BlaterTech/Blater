@@ -1,3 +1,5 @@
+using System;
+
 namespace Blater.Exceptions.Database;
 
 public class BlaterQueryException : BlaterDatabaseException

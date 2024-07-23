@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace Blater.Query.Visitors;

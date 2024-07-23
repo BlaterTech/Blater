@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Blater.Enumerations;
 using System.Text.Json.Serialization;
 

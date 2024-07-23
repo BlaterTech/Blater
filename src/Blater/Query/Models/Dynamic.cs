@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Dynamic;
 
 namespace Blater.Query.Models;
@@ -96,7 +97,7 @@ public class DynamicDictionary : DynamicObject, IDictionary<string, object?>
 
     public void CopyTo(KeyValuePair<string, object?>[] array, int arrayIndex)
     {
-        ((ICollection<KeyValuePair<string, object?>>)_dictionary).CopyTo(array, arrayIndex);
+        ((ICollection)_dictionary).CopyTo(array, arrayIndex);
     }
 
     public bool Remove(KeyValuePair<string, object?> item)
