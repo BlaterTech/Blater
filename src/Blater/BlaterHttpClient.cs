@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Logging;
 using System.Diagnostics.CodeAnalysis;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
@@ -19,6 +20,11 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     #endif
 
     public JsonSerializerOptions DefaultJsonSerializerOptions { get; set; } = JsonExtensions.DefaultJsonSerializerOptions;
+
+    public void SetToken(string jwt, string schema = "Bearer")
+    {
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(schema, jwt);
+    }
     
     #region SpecialCases
 
