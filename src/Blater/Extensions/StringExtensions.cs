@@ -1,8 +1,5 @@
-using System;
 using System.Globalization;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Blater.Extensions;
 
@@ -66,14 +63,5 @@ public static class StringExtensions
 
         str[0] = char.ToLowerInvariant(str[0]);
         return str;
-    }
-
-    public static BlaterId ToBlaterId(this string value)
-    {
-        var parts = value.Split(':');
-
-        return parts.Length != 2
-            ? throw new FormatException("The value is not in the correct format")
-            : new BlaterId(parts[0], Guid.Parse(parts[1]));
     }
 }

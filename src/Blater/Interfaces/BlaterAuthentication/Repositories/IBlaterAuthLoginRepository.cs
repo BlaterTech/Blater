@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Blater.Models.User;
+﻿using Blater.Models.User;
 
 namespace Blater.Interfaces.BlaterAuthentication.Repositories;
 
@@ -17,7 +15,7 @@ public interface IBlaterAuthLoginRepository
 
     Task<BlaterUser> RemoveLogin(BlaterUser user, string loginProvider, string providerKey);
 
-    Task<IReadOnlyList<BlaterLoginInfo>> GetLogins(BlaterId id);
+    Task<IReadOnlyList<BlaterLoginInfo>> GetLogins(Ulid id);
 
     Task<BlaterUser> FindByLogin(string loginProvider, string providerKey);
 }

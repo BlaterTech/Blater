@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Blater.Models.Pagination;
 
 public class PaginationResponse<T> : BasePaginationResponse

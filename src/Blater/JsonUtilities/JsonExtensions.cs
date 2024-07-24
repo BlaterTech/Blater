@@ -1,8 +1,6 @@
-using System.IO;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace Blater.JsonUtilities;
 
@@ -17,9 +15,8 @@ public static class JsonExtensions
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
         Converters =
         {
-            new BlaterIdConverter(),
             new JsonStringEnumConverter(),
-            new DictionaryOrderDirectionConverter()
+            new Cysharp.Serialization.Json.UlidJsonConverter()
         },
         #if DEBUG
         WriteIndented = true,

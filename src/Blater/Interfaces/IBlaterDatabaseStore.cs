@@ -1,8 +1,4 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Blater.Query.Models;
-using Blater.Results;
+/*using Blater.Results;
 
 namespace Blater.Interfaces;
 
@@ -17,7 +13,7 @@ public interface IBlaterDatabaseStore
     /// </summary>
     /// <param name="id"></param>
     /// <returns>Returns the JSON object in string format</returns>
-    public Task<BlaterResult<string>> Get(BlaterId id);
+    public Task<BlaterResult<string>> Get(Ulid id);
 
 
     /// <summary>
@@ -56,7 +52,7 @@ public interface IBlaterDatabaseStore
     /// <param name="id"></param>
     /// <param name="json"></param>
     /// <returns>Returns the same document but with the new revision</returns>
-    public Task<BlaterResult<BlaterId>> Upsert(BlaterId id, string json);
+    public Task<BlaterResult<Ulid>> Upsert(Ulid id, string json);
 
     /// <summary>
     /// Updates a document by its id
@@ -64,7 +60,7 @@ public interface IBlaterDatabaseStore
     /// <param name="id"></param>
     /// <param name="json"></param>
     /// <returns>Returns true if the document was updated</returns>
-    public Task<BlaterResult<BlaterId>> Update(BlaterId id, string json);
+    public Task<BlaterResult<Ulid>> Update(Ulid id, string json);
 
     /// <summary>
     /// Updates a document by its id and query
@@ -72,7 +68,7 @@ public interface IBlaterDatabaseStore
     /// <param name="id"></param>
     /// <param name="json"></param>
     /// <returns></returns>
-    public Task<BlaterResult<BlaterId>> Insert(BlaterId id, string json);
+    public Task<BlaterResult<Ulid>> Insert(Ulid id, string json);
 
     #endregion
 
@@ -83,14 +79,14 @@ public interface IBlaterDatabaseStore
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public Task<BlaterResult<bool>> Delete(BlaterId id);
+    public Task<BlaterResult<bool>> Delete(Ulid id);
 
     /// <summary>
     /// Deletes a document by its ids
     /// </summary>
     /// <param name="ids"></param>
     /// <returns></returns>
-    public Task<BlaterResult<int>> Delete(List<BlaterId> ids);
+    public Task<BlaterResult<int>> Delete(List<Ulid> ids);
 
     /// <summary>
     /// Deletes a document by its query
@@ -119,4 +115,4 @@ public interface IBlaterDatabaseStore
     public Task<BlaterResult<int>> Count(string partition, BlaterQuery query);
 
     #endregion
-}
+}*/

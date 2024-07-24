@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Blater.Results;
 
 public class BlaterError(string message, List<string>? errors = null)

@@ -1,5 +1,4 @@
-﻿using System;
-using Blater.Models.Bases;
+﻿using Blater.Models.Bases;
 
 namespace Blater.Models.User;
 

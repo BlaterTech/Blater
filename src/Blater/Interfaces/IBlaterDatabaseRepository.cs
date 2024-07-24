@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using Blater.Query.Interfaces;
 using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
 using Blater.Models.Bases;
 
 namespace Blater.Interfaces;
@@ -21,7 +16,7 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public Task<T?> FindOne(BlaterId id);
+    public Task<T?> FindOne(Ulid id);
 
     /// <summary>
     /// Finds a single document using query.
@@ -50,21 +45,21 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// </summary>
     /// <param name="entity"></param>
     /// <returns>Returns the same entity but with the revision</returns>
-    public Task<BlaterId> Upsert(T entity);
+    public Task<Ulid> Upsert(T entity);
 
     /// <summary>
     /// Inserts a document, it fails if the document already exists
     /// </summary>
     /// <param name="entity"></param>
     /// <returns></returns>
-    public Task<BlaterId> Insert(T entity);
+    public Task<Ulid> Insert(T entity);
 
     /// <summary>
     /// Updates a document, it fails if the document does not exist
     /// </summary>
     /// <param name="entity"></param>
     /// <returns></returns>
-    public Task<BlaterId> Update(T entity);
+    public Task<Ulid> Update(T entity);
 
     #endregion
 
@@ -77,7 +72,7 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public Task<bool> Delete(BlaterId id);
+    public Task<bool> Delete(Ulid id);
 
     /// <summary>
     /// Deletes many documents using a query
@@ -111,5 +106,5 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
 
     #endregion
 
-    public IBlaterQueryable<T> Queryable { get; }
+    //public IBlaterQueryable<T> Queryable { get; }
 }

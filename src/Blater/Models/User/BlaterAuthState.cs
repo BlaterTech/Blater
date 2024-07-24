@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Blater.Models.User;
+﻿namespace Blater.Models.User;
 
 public class BlaterAuthState
 {
