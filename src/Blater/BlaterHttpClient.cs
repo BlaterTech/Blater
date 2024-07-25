@@ -20,11 +20,6 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     #endif
 
     public JsonSerializerOptions DefaultJsonSerializerOptions { get; set; } = JsonExtensions.DefaultJsonSerializerOptions;
-
-    public void SetToken(string jwt, string schema = "Bearer")
-    {
-        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(schema, jwt);
-    }
     
     #region SpecialCases
 
