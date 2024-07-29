@@ -73,4 +73,9 @@ public static class StringExtensions
             ? throw new FormatException("The value is not in the correct format")
             : new BlaterId(parts[0], Guid.Parse(parts[1]));
     }
+    
+    public static bool StartsWithAny(this string value, IEnumerable<string> strings)
+    {
+        return strings.Any(value.StartsWith);
+    }
 }
