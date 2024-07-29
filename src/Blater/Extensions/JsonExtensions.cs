@@ -48,6 +48,33 @@ public static class JsonExtensions
         stream.Position = 0;
         return await JsonSerializer.DeserializeAsync<T>(stream, options ?? DefaultJsonSerializerOptions);
     }
+    
+    public static T? FromJson<T>(this Memory<byte> bytes, JsonSerializerOptions? options = null)
+    {
+        return JsonSerializer.Deserialize<T>(bytes.Span, options ?? DefaultJsonSerializerOptions);
+    }
+    
+    public static T? FromJson<T>(this ReadOnlyMemory<byte> bytes, JsonSerializerOptions? options = null)
+    {
+        return JsonSerializer.Deserialize<T>(bytes.Span, options ?? DefaultJsonSerializerOptions);
+    }
+    
+    public static T? FromJson<T>(this in Span<byte> bytes, JsonSerializerOptions? options = null)
+    {
+        return JsonSerializer.Deserialize<T>(bytes, options ?? DefaultJsonSerializerOptions);
+    }
+    
+    public static T? FromJson<T>(this in ReadOnlySpan<byte> bytes, JsonSerializerOptions? options = null)
+    {
+        return JsonSerializer.Deserialize<T>(bytes, options ?? DefaultJsonSerializerOptions);
+    }
+    
+    public static T? FromJson<T>(this byte[] bytes, JsonSerializerOptions? options = null)
+    {
+        return JsonSerializer.Deserialize<T>(bytes, options ?? DefaultJsonSerializerOptions);
+    }
+    
+    
 
     public static bool TryParseJson<T>(this string? str, out T? result)
     {
