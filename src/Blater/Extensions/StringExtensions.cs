@@ -38,10 +38,37 @@ public static class StringExtensions
     {
         return Task.Run(() => Convert.ToBase64String(Encoding.UTF8.GetBytes(str)));
     }
+    
+    public static Task<string> ToBase64(this byte[] bytes)
+    {
+        return Task.Run(() => Convert.ToBase64String(bytes));
+    }
+    
+    public static Task<string> ToBase64(this Stream stream)
+    {
+        return Task.Run(() =>
+        {
+            ArgumentNullException.ThrowIfNull(stream);
+            
+            using var memoryStream = new MemoryStream();
+            stream.CopyTo(memoryStream);
+            var bytes = memoryStream.ToArray();
+            return Convert.ToBase64String(bytes);
+        });
+    }
 
     public static Task<string> FromBase64ToString(this string toDecode)
     {
         return Task.Run((Func<string>)(() => Encoding.UTF8.GetString(Convert.FromBase64String(toDecode))));
+    }
+    
+    public static Task<MemoryStream> FromBase64ToMemoryStream(this string toDecode, bool leaveOpen = false)
+    {
+        return Task.Run(() =>
+        {
+            var data = Convert.FromBase64String(toDecode);
+            return new MemoryStream(data, leaveOpen);
+        });
     }
 
     public static string ToCamelCase(this string str)
