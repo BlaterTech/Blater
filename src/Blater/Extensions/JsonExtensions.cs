@@ -1,8 +1,8 @@
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
-namespace Blater.JsonUtilities;
+namespace Blater.Extensions;
 
 public static class JsonExtensions
 {
@@ -27,15 +27,26 @@ public static class JsonExtensions
     {
         return str == null ? null : JsonSerializer.Serialize(str, options ?? DefaultJsonSerializerOptions);
     }
-
-    public static JsonObject? ToJsonObject(this string? str)
+    
+    public static Memory<byte> ToJsonBytes(this object? str, JsonSerializerOptions? options = null)
     {
-        return str == null ? null : FromJson<JsonObject>(str);
+        return str == null ? Memory<byte>.Empty : JsonSerializer.SerializeToUtf8Bytes(str, options ?? DefaultJsonSerializerOptions);
+    }
+
+    public static JsonDocument? ToJsonDocument(this string? str)
+    {
+        return str == null ? null : JsonSerializer.SerializeToDocument(str);
     }
 
     public static T? FromJson<T>(this string? str, JsonSerializerOptions? options = null)
     {
         return str == null ? default : JsonSerializer.Deserialize<T>(str, options ?? DefaultJsonSerializerOptions);
+    }
+    
+    public static async Task<T?> FromJson<T>(this Stream stream, JsonSerializerOptions? options = null)
+    {
+        stream.Position = 0;
+        return await JsonSerializer.DeserializeAsync<T>(stream, options ?? DefaultJsonSerializerOptions);
     }
 
     public static bool TryParseJson<T>(this string? str, out T? result)
@@ -55,11 +66,5 @@ public static class JsonExtensions
         {
             return false;
         }
-    }
-
-    public static async Task<T?> FromJson<T>(this Stream stream)
-    {
-        stream.Position = 0;
-        return await JsonSerializer.DeserializeAsync<T>(stream, DefaultJsonSerializerOptions);
     }
 }
