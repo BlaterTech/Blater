@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using Serilog;
+
 
 namespace Blater.Helpers;
 
@@ -41,13 +41,13 @@ public static class TypesHelper
                 }
                 catch (Exception e)
                 {
-                    Log.Error(e, "Error during TypesHelper initialization for assembly {AssemblyName}", assembly.FullName);
+                    throw new Exception($"Error during TypesHelper initialization for assembly {assembly.FullName}", e);
                 }
             }
         }
         catch (Exception e)
         {
-            Log.Error(e, "Error during TypesHelper initialization");
+            throw new Exception("Error during TypesHelper initialization", e);
         }
     }
 
