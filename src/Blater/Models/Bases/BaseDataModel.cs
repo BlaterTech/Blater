@@ -1,4 +1,3 @@
-using System.Text.Json.Serialization;
 using Blater.Models.Database;
 
 namespace Blater.Models.Bases;

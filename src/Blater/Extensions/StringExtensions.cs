@@ -1,6 +1,3 @@
-using System.Globalization;
-using System.Text;
-
 namespace Blater.Extensions;
 
 public static partial class StringExtensions

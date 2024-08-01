@@ -1,5 +1,3 @@
-using System.Net;
-
 namespace Blater.Extensions;
 
 public static partial class StringExtensions

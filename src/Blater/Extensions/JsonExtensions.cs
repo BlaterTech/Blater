@@ -1,5 +1,4 @@
 ﻿using System.Text.Json;
-using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
 namespace Blater.Extensions;
@@ -36,6 +35,11 @@ public static class JsonExtensions
     public static JsonDocument? ToJsonDocument(this string? str)
     {
         return str == null ? null : JsonSerializer.SerializeToDocument(str);
+    }
+    
+    public static JsonElement? ToJsonElement(this string? str)
+    {
+        return str == null ? null : JsonSerializer.Deserialize<JsonElement>(str, DefaultJsonSerializerOptions);
     }
 
     public static T? FromJson<T>(this string? str, JsonSerializerOptions? options = null)
@@ -74,8 +78,6 @@ public static class JsonExtensions
         return JsonSerializer.Deserialize<T>(bytes, options ?? DefaultJsonSerializerOptions);
     }
     
-    
-
     public static bool TryParseJson<T>(this string? str, out T? result)
     {
         result = default;
