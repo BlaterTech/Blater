@@ -25,7 +25,12 @@ public static class Utf8Extensions
         return Encoding.UTF8.GetString(span);
     }
 
-    public static Span<byte> ToUtf8(this string str)
+    public static Memory<byte> ToUtf8(this string str)
+    {
+        return Encoding.UTF8.GetBytes(str);
+    }
+    
+    public static Span<byte> ToUtf8Span(this string str)
     {
         return Encoding.UTF8.GetBytes(str);
     }
