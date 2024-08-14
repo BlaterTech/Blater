@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq.Expressions;
 
 namespace Blater.Extensions;
 
@@ -61,5 +62,16 @@ public static class PropertiesExtensions
 
             return false;
         });
+    }
+    
+    public static string GetPropertyName<T, TProperty>(this Expression<Func<T, TProperty>> propertyExpression)
+    {
+        return propertyExpression.Body switch
+        {
+            MemberExpression memberExpression => memberExpression.Member.Name,
+            UnaryExpression { Operand: MemberExpression operand } => operand.Member
+                                                                            .Name,
+            _ => throw new ArgumentException("Invalid expression")
+        };
     }
 }
