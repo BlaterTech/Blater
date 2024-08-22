@@ -34,12 +34,13 @@ public static class JsonExtensions
 
     public static JsonDocument? ToJsonDocument(this string? str)
     {
-        return str == null ? null : JsonSerializer.SerializeToDocument(str);
+        return str == null ? null : JsonSerializer.Deserialize<JsonDocument>(str, DefaultJsonSerializerOptions);
     }
     
     public static JsonElement? ToJsonElement(this string? str)
     {
-        return str == null ? null : JsonSerializer.Deserialize<JsonElement>(str, DefaultJsonSerializerOptions);
+        
+        return str?.ToJsonDocument()?.RootElement;
     }
 
     public static T? FromJson<T>(this string? str, JsonSerializerOptions? options = null)
