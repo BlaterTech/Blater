@@ -4,8 +4,6 @@ using System.Reflection;
 
 namespace Blater.Helpers;
 
-[SuppressMessage("Globalization", "CA1310:Especificar StringComparison para garantir a exatidão")]
-[SuppressMessage("Design", "CA1031:Não capturar exceptions de tipos genéricos")]
 public static class TypesHelper
 {
     static TypesHelper()
@@ -29,11 +27,11 @@ public static class TypesHelper
             {
                 try
                 {
-                    if (!assembly.GetName().Name?.StartsWith("Blater") ?? false)
+                    /*if (!assembly.GetName().Name?.StartsWith("Blater") ?? false)
                         //Log.Debug("Skipping assembly {AssemblyName}", assembly.FullName);
                     {
                         continue;
-                    }
+                    }*/
 
                     //Log.Debug("Adding assembly {AssemblyName}", assembly.FullName);
                     Assemblies.Add(assembly);
