@@ -12,6 +12,8 @@ public static class TypesHelper
     }
 
     public static HashSet<Assembly> Assemblies { get; } = new();
+    
+    public static List<Assembly> RoutesAssemblies { get; } = new();
 
     public static HashSet<Type> AllTypes { get; } = new();
 
