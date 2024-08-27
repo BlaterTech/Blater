@@ -1,6 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿/*using System.Linq.Expressions;
 using Blater.Models.Bases;
-using Blater.Query.Models;
 using Blater.Results;
 
 namespace Blater.Interfaces;
@@ -16,7 +15,7 @@ public interface IBlaterDatabaseStoreT<T> where T : BaseDataModel
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public Task<BlaterResult<T>> FindOne(BlaterId id);
+    public Task<BlaterResult<T>> FindOne(Ulid id);
 
     /// <summary>
     /// Finds a single document using query.
@@ -80,14 +79,14 @@ public interface IBlaterDatabaseStoreT<T> where T : BaseDataModel
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public Task<BlaterResult<bool>> Delete(BlaterId id);
+    public Task<BlaterResult<bool>> Delete(Ulid id);
 
     /// <summary>
     /// Deletes a document by its ids
     /// </summary>
     /// <param name="ids"></param>
     /// <returns></returns>
-    public Task<BlaterResult<int>> Delete(List<BlaterId> ids);
+    public Task<BlaterResult<int>> Delete(List<Ulid> ids);
 
     /// <summary>
     /// Deletes a document by its query
@@ -107,4 +106,4 @@ public interface IBlaterDatabaseStoreT<T> where T : BaseDataModel
     public Task<BlaterResult<int>> Count();
 
     #endregion
-}
+}*/

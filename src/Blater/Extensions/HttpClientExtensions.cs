@@ -1,10 +1,7 @@
-using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace Blater.Extensions;
 
-[SuppressMessage("Design", "CA1054:URI-like parameters should not be strings")]
-[SuppressMessage("Reliability", "CA2000:Descartar objetos antes de perder o escopo")]
 public static class HttpClientExtensions
 {
     public static async Task<Stream> PostStreamAsync(this HttpClient httpClient, string url, object body)

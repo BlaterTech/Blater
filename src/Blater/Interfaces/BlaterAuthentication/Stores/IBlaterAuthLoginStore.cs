@@ -17,7 +17,7 @@ public interface IBlaterAuthLoginStore
 
     Task<BlaterResult<BlaterUser>> RemoveLogin(BlaterUser user, string loginProvider, string providerKey);
 
-    Task<BlaterResult<IReadOnlyList<BlaterLoginInfo>>> GetLogins(BlaterId id);
+    Task<BlaterResult<IReadOnlyList<BlaterLoginInfo>>> GetLogins(Ulid id);
 
     Task<BlaterResult<BlaterUser>> FindByLogin(string loginProvider, string providerKey);
 }

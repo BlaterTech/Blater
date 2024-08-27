@@ -14,8 +14,8 @@ namespace Blater;
 public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpClient) : IDisposable
 {
     #if DEBUG
-    private const bool LogRequests = true;
-    private const bool LogResponse = true;
+    private const bool IkcpLogRequests = true;
+    private const bool IkcpLogResponse = true;
     #endif
 
     public JsonSerializerOptions DefaultJsonSerializerOptions { get; set; } = JsonExtensions.DefaultJsonSerializerOptions;
@@ -436,7 +436,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
         {
             #if DEBUG
 
-            if (LogRequests)
+            if (IkcpLogRequests)
             {
                 var stringContent = string.Empty;
                 if (message.RequestMessage?.Content != null)
@@ -461,7 +461,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
 
             #if DEBUG
 
-            if (LogResponse)
+            if (IkcpLogResponse)
             {
                 var debugString = await message.Content.ReadAsStringAsync();
 
