@@ -64,7 +64,7 @@ public static class PropertiesExtensions
         });
     }
     
-    public static string GetPropertyName<T, TProperty>(this Expression<Func<T, TProperty>> propertyExpression)
+    public static string GetPropertyName<TProperty>(this Expression<Func<TProperty>> propertyExpression)
     {
         return propertyExpression.Body switch
         {
