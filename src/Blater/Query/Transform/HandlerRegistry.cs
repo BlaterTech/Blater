@@ -43,7 +43,7 @@ public static class HandlerRegistry
 
         if (!Handlers.TryGetValue(handler.HandleTypeOf, out var handlers))
         {
-            handlers = new List<IHandler>();
+            handlers = [];
             Handlers.Add(handler.HandleTypeOf, handlers);
         }
 

@@ -139,7 +139,7 @@ internal class Nominator : ExpressionVisitor
 
     private Nominator(Func<Expression, bool> fnCanBeEvaluated)
     {
-        _candidates = new HashSet<Expression>();
+        _candidates = [];
         _fnCanBeEvaluated = fnCanBeEvaluated;
     }
 

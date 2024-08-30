@@ -14,8 +14,8 @@ public static class DocumentValidationExtension
             return false;
         }
 
-        int[] factors1 = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
-        int[] factors2 = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+        int[] factors1 = [10, 9, 8, 7, 6, 5, 4, 3, 2];
+        int[] factors2 = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
 
         var part1 = cpf[..9];
         var sum1 = 0;
@@ -46,8 +46,8 @@ public static class DocumentValidationExtension
             return false;
         }
 
-        int[] factors1 = { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
-        int[] factors2 = { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
+        int[] factors1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+        int[] factors2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
 
         var part1 = cnpj[..12];
         var sum1 = 0;

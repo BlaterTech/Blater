@@ -11,8 +11,8 @@ public static class SubPatternRegistry
 
     static SubPatternRegistry()
     {
-        Handlers = new List<ISubPatternHandler>
-        {
+        Handlers =
+        [
             new AllSubPatternHandler(),
             new AnySubPatternHandler(),
             new FirstSubPatternHandler(),
@@ -22,6 +22,6 @@ public static class SubPatternRegistry
             new SingleSubPatternHandler(),
             new TakeSubPatternHandler(),
             new WhereSubPatternHandler()
-        };
+        ];
     }
 }

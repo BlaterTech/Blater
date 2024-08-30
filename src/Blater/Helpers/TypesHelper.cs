@@ -10,11 +10,11 @@ public static class TypesHelper
         Initialize();
     }
 
-    public static HashSet<Assembly> Assemblies { get; } = new();
+    public static HashSet<Assembly> Assemblies { get; } = [];
     
-    public static List<Assembly> RoutesAssemblies { get; } = new();
+    public static List<Assembly> RoutesAssemblies { get; } = [];
 
-    public static HashSet<Type> AllTypes { get; } = new();
+    public static HashSet<Type> AllTypes { get; } = [];
 
     public static Dictionary<string, Type> BaseDataModels { get; } = new();
 
