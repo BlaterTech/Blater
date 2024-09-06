@@ -1,4 +1,4 @@
-using Blater.Query.Transform.Handlers;
+/*using Blater.Query.Transform.Handlers;
 using Blater.Query.Transform.Handlers.BinaryHandlers;
 using Blater.Query.Transform.Handlers.CollectionHandlers;
 using Blater.Query.Transform.Handlers.Dictionaries;
@@ -49,4 +49,4 @@ public static class HandlerRegistry
 
         handlers?.Add(handler);
     }
-}
+}*/
