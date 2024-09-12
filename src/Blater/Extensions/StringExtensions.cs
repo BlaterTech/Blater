@@ -7,5 +7,8 @@ public static partial class StringExtensions
         return string.Equals(str, with, StringComparison.OrdinalIgnoreCase);
     }
 
-
+    public static bool IsEmpty(this string str)
+    {
+        return string.IsNullOrWhiteSpace(str);
+    }
 }
