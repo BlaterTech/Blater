@@ -15,7 +15,7 @@ public static partial class StringExtensions
     {
         return ASCIIRegex().Replace(original, string.Empty);
     }
-    
+
     /// <summary>
     ///     Clean a string to only contain alpha numeric characters
     /// </summary>
@@ -25,7 +25,7 @@ public static partial class StringExtensions
     {
         return AlphaNumericRegex().Replace(original, string.Empty);
     }
-    
+
     /// <summary>
     ///     Remove all diacritics from a string like á, à, ã, ç, etc.
     /// </summary>
@@ -35,7 +35,7 @@ public static partial class StringExtensions
     {
         var normalizedString = text.Normalize(NormalizationForm.FormC);
         var stringBuilder = new StringBuilder();
-        
+
         foreach (var c in normalizedString)
         {
             var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
@@ -44,10 +44,10 @@ public static partial class StringExtensions
                 stringBuilder.Append(c);
             }
         }
-        
+
         return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
     }
-    
+
     /// <summary>
     ///     Replace all diacritics from a string like á, à, ã, ç, etc.
     /// </summary>
@@ -57,20 +57,20 @@ public static partial class StringExtensions
     {
         var normalizedString = text.Normalize(NormalizationForm.FormD);
         var stringBuilder = new StringBuilder();
-        
+
         foreach (var c in normalizedString.Where(c => CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark))
         {
             stringBuilder.Append(c);
         }
-        
+
         return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
     }
-    
+
     public static string RemoveNoBreakSpace(this string value)
     {
         return value.Replace("\u00A0", string.Empty, StringComparison.OrdinalIgnoreCase).Replace("﻿", string.Empty, StringComparison.OrdinalIgnoreCase);
     }
-    
+
     /// <summary>
     ///     Truncate a string to a maximum length
     /// </summary>
@@ -83,13 +83,13 @@ public static partial class StringExtensions
         {
             return value;
         }
-        
+
         return value.Length <= maxLength ? value : value[..maxLength];
     }
-    
+
     [GeneratedRegex(@"[^0-9a-zA-Z]+")]
     private static partial Regex AlphaNumericRegex();
-    
+
     [GeneratedRegex(@"[^\u0000-\u007F]+")]
     private static partial Regex ASCIIRegex();
 }

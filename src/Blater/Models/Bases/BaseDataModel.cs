@@ -11,7 +11,7 @@ public class BaseDataModel
 
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }
-    
+
     /// <summary>
     /// Shadow property for soft delete
     /// </summary>

@@ -1,6 +1,5 @@
 using NetEscapades.EnumGenerators;
 
-
 namespace Blater.Enumerations;
 
 [EnumExtensions]

@@ -13,7 +13,7 @@ public class BlaterQuery
     public required string Container { get; set; }
 
     public OrderDirection OrderDirection { get; set; }
-    
+
     public required List<BlaterQueryCondition> Conditions { get; set; }
 }
 

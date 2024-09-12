@@ -1,9 +1,11 @@
+using Blater.Results;
+
 using Microsoft.Extensions.Logging;
+
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http.Json;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
-using Blater.Results;
 
 namespace Blater;
 
@@ -13,20 +15,20 @@ namespace Blater;
 [SuppressMessage("Reliability", "CA2000:Descartar objetos antes de perder o escopo")]
 public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpClient) : IDisposable
 {
-    #if DEBUG
+#if DEBUG
     private const bool IkcpLogRequests = true;
     private const bool IkcpLogResponse = true;
-    #endif
+#endif
 
     public JsonSerializerOptions DefaultJsonSerializerOptions { get; set; } = JsonExtensions.DefaultJsonSerializerOptions;
-    
+
     #region SpecialCases
 
     public async Task<BlaterResult<string>> GetString(string url)
     {
         try
         {
-            
+
             var response = await httpClient.GetAsync(url).ConfigureAwait(false);
 
             if (!response.IsSuccessStatusCode)
@@ -59,7 +61,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            
+
             var response = await httpClient.DeleteAsync(url).ConfigureAwait(false);
 
             var valueString = await response.Content.ReadAsStringAsync();
@@ -91,7 +93,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            
+
             var response = await httpClient.PostAsJsonAsync(url, body, JsonExtensions.DefaultJsonSerializerOptions).ConfigureAwait(false);
 
             if (!response.IsSuccessStatusCode)
@@ -117,7 +119,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            
+
             var response = await httpClient.PostAsJsonAsync(url, body, JsonExtensions.DefaultJsonSerializerOptions).ConfigureAwait(false);
 
             if (!response.IsSuccessStatusCode)
@@ -150,7 +152,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            
+
             using var stringEmpty = new StringContent(string.Empty);
             var response = await httpClient.PostAsJsonAsync(url, stringEmpty).ConfigureAwait(false);
 
@@ -184,7 +186,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            
+
             using var stringEmpty = new StringContent(string.Empty);
             var response = await httpClient.PostAsync(url, stringEmpty).ConfigureAwait(false);
 
@@ -211,7 +213,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            
+
             using var stringEmpty = new StringContent(string.Empty);
             var response = await httpClient.PostAsync(url, stringEmpty).ConfigureAwait(false);
 
@@ -230,7 +232,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            
+
             using var getRequest = new HttpRequestMessage(HttpMethod.Get, url);
 
             if (extraHeaders != null)
@@ -255,7 +257,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            
+
             var response = await httpClient.PostAsJsonAsync(url, body, options ?? DefaultJsonSerializerOptions).ConfigureAwait(false);
             return await HandleResponse<T>(response);
         }
@@ -270,7 +272,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            
+
             var response = await httpClient.PostAsync(url, content).ConfigureAwait(false);
             return await HandleResponse<T>(response);
         }
@@ -285,7 +287,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            
+
             var response = await httpClient.PutAsJsonAsync(url, body, options ?? DefaultJsonSerializerOptions).ConfigureAwait(false);
             return await HandleResponse<T>(response, options ?? DefaultJsonSerializerOptions);
         }
@@ -300,7 +302,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            
+
             var response = await httpClient.PutAsync(url, content).ConfigureAwait(false);
             return await HandleResponse<T>(response);
         }
@@ -315,7 +317,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            
+
             var response = await httpClient.DeleteAsync(url).ConfigureAwait(false);
             return await HandleResponse<T>(response);
         }
@@ -330,7 +332,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            
+
             var response = await httpClient.PatchAsync(url, content).ConfigureAwait(false);
             return await HandleResponse<T>(response);
         }
@@ -345,7 +347,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            
+
             var response = await httpClient.PatchAsJsonAsync(url, body, DefaultJsonSerializerOptions).ConfigureAwait(false);
             return await HandleResponse<T>(response);
         }
@@ -360,7 +362,6 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
 
     public async IAsyncEnumerable<BlaterResult<T>> GetStream<T>(string url)
     {
-        
 
         using var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
         requestMessage.Headers.ConnectionClose = false;
@@ -384,9 +385,9 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
                 yield break;
             }
 
-            #if DEBUG
+#if DEBUG
             logger.LogDebug("BlaterHttpClient === STREAM RESPONSE: {@JsonObject}", line);
-            #endif
+#endif
 
             var json = line.FromJson<T>();
 
@@ -399,7 +400,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
 
     public async IAsyncEnumerable<BlaterResult<T>> PostStream<T>(string url, object body, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        
+
         var stream = await httpClient.PostStreamAsync(url, body).ConfigureAwait(false);
         using var streamReader = new StreamReader(stream);
 
@@ -419,9 +420,9 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
                     yield return BlaterErrors.Error("Value is nullable");
                 }
 
-                #if DEBUG
+#if DEBUG
                 logger.LogDebug("BlaterHttpClient === STREAM RESPONSE: {@JsonObject}", line);
-                #endif
+#endif
 
                 yield return value!;
             }
@@ -434,7 +435,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     {
         try
         {
-            #if DEBUG
+#if DEBUG
 
             if (IkcpLogRequests)
             {
@@ -448,7 +449,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
                                 message.RequestMessage?.Method,
                                 message.RequestMessage?.RequestUri, message.StatusCode, stringContent, message.RequestMessage?.Headers);
             }
-            #endif
+#endif
 
             if (!message.IsSuccessStatusCode)
             {
@@ -459,7 +460,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
                 return new BlaterError(stringContent);
             }
 
-            #if DEBUG
+#if DEBUG
 
             if (IkcpLogResponse)
             {
@@ -485,7 +486,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
                     return BlaterErrors.Error("Internal server error");
                 }
             }
-            #endif
+#endif
 
             var stream = await message.Content.ReadAsStringAsync().ConfigureAwait(false);
 

@@ -1,5 +1,6 @@
-﻿using System.Text.Json.Serialization;
-using NetEscapades.EnumGenerators;
+﻿using NetEscapades.EnumGenerators;
+
+using System.Text.Json.Serialization;
 
 namespace Blater.Enumerations;
 

@@ -28,10 +28,10 @@ public static class ObjectExtensions
             }
 
             var propProps = prop.PropertyType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            if (propProps.Length != 0                                  &&
-                prop is { CanWrite: true, CanRead: true }              &&
-                prop.PropertyType != typeof(string)                    &&
-                prop.PropertyType.IsClass                              &&
+            if (propProps.Length != 0 &&
+                prop is { CanWrite: true, CanRead: true } &&
+                prop.PropertyType != typeof(string) &&
+                prop.PropertyType.IsClass &&
                 !prop.PropertyType.IsAssignableTo(typeof(IEnumerable)) &&
                 !prop.PropertyType.IsAssignableTo(typeof(ICollection)))
             {
@@ -86,7 +86,6 @@ public static class ObjectExtensions
 
         return updateValues;
     }
-
 
     /// <summary>
     ///     Creates a new object from a dictionary of property paths and values

@@ -1,7 +1,8 @@
 ﻿// ReSharper disable InconsistentNaming
 
-using System.Text.Json.Serialization;
 using Blater.Attributes;
+
+using System.Text.Json.Serialization;
 
 namespace Blater.Enumerations;
 

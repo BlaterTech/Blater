@@ -13,23 +13,23 @@ public static class TypesHelper
 
     public static HashSet<Type> AllTypes { get; } = new();
     public static Dictionary<string, Type> TypesDictionary { get; } = new();
-    
+
     private const string BlaterString = "Blater";
 
     public static void Initialize()
     {
         //Current Running Assembly
         var currentAssembly = Assembly.GetExecutingAssembly();
-            
+
         Assemblies.Add(currentAssembly);
         AllTypes.UnionWith(currentAssembly.GetTypes());
-            
+
         var assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
         foreach (var assembly in assemblies)
         {
             if (!assembly.GetName().Name?.StartsWith(BlaterString) ?? false)
-                //Log.Debug("Skipping assembly {AssemblyName}", assembly.FullName);
+            //Log.Debug("Skipping assembly {AssemblyName}", assembly.FullName);
             {
                 continue;
             }
@@ -38,14 +38,14 @@ public static class TypesHelper
             Assemblies.Add(assembly);
             AllTypes.UnionWith(assembly.GetTypes());
         }
-            
+
         //Create dictionary of types
         foreach (var type in AllTypes)
         {
             TypesDictionary[type.Name] = type;
         }
     }
-    
+
     /// <summary>
     /// Get all types in a specific namespace
     /// </summary>
@@ -55,7 +55,7 @@ public static class TypesHelper
     {
         return AllTypes.Where(t => t.Namespace == @namespace).ToHashSet();
     }
-    
+
     /// <summary>
     /// Get all types that implements a specific interface
     /// </summary>
