@@ -1,5 +1,6 @@
-using System.Diagnostics.CodeAnalysis;
 using Blater.Models.Bases;
+
+using System.Diagnostics.CodeAnalysis;
 
 namespace Blater.Models.User;
 

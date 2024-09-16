@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 
-
 namespace Blater.Helpers;
 
 public static class TypesHelper
@@ -14,69 +13,59 @@ public static class TypesHelper
     
     public static List<Assembly> RoutesAssemblies { get; } = [];
 
-    public static HashSet<Type> AllTypes { get; } = [];
+    public static HashSet<Type> AllTypes { get; } = new();
+    public static Dictionary<string, Type> TypesDictionary { get; } = new();
 
-    public static Dictionary<string, Type> BaseDataModels { get; } = new();
+    private const string BlaterString = "Blater";
 
     public static void Initialize()
     {
-        try
-        {
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+        //Current Running Assembly
+        var currentAssembly = Assembly.GetExecutingAssembly();
 
-            foreach (var assembly in assemblies)
+        Assemblies.Add(currentAssembly);
+        AllTypes.UnionWith(currentAssembly.GetTypes());
+
+        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
+        foreach (var assembly in assemblies)
+        {
+            if (!assembly.GetName().Name?.StartsWith(BlaterString) ?? false)
+            //Log.Debug("Skipping assembly {AssemblyName}", assembly.FullName);
             {
-                try
-                {
-                    /*if (!assembly.GetName().Name?.StartsWith("Blater") ?? false)
-                        //Log.Debug("Skipping assembly {AssemblyName}", assembly.FullName);
-                    {
-                        continue;
-                    }*/
-
-                    //Log.Debug("Adding assembly {AssemblyName}", assembly.FullName);
-                    Assemblies.Add(assembly);
-                    AllTypes.UnionWith(assembly.GetTypes());
-                }
-                catch (Exception e)
-                {
-                    throw new Exception($"Error during TypesHelper initialization for assembly {assembly.FullName}", e);
-                }
+                continue;
             }
+
+            //Log.Debug("Adding assembly {AssemblyName}", assembly.FullName);
+            Assemblies.Add(assembly);
+            AllTypes.UnionWith(assembly.GetTypes());
         }
-        catch (Exception e)
+
+        //Create dictionary of types
+        foreach (var type in AllTypes)
         {
-            throw new Exception("Error during TypesHelper initialization", e);
+            TypesDictionary[type.Name] = type;
         }
     }
 
-    /*public static void InitializeBaseDataModels()
+    /// <summary>
+    /// Get all types in a specific namespace
+    /// </summary>
+    /// <param name="namespace"></param>
+    /// <returns></returns>
+    public static HashSet<Type> GetTypesInNamespace(string @namespace)
     {
-        try
-        {
-            var baseDataModels = AllTypes.Where(x => x.IsSubclassOf(typeof(BaseDataModel))).ToList();
+        return AllTypes.Where(t => t.Namespace == @namespace).ToHashSet();
+    }
 
-            foreach (var baseDataModel in baseDataModels)
-            {
-                var name = baseDataModel.Name;
-                BaseDataModels.Add(name, baseDataModel);
-            }
-        }
-        catch (Exception e)
-        {
-            Log.Error(e, "Error during TypesHelper.InitializeBaseDataModels");
-        }
-    }*/
-
-    public static Type GetTypeFromName(this string typeName)
+    /// <summary>
+    /// Get all types that implements a specific interface
+    /// </summary>
+    /// <typeparam name="TInterface"></typeparam>
+    /// <returns></returns>
+    public static HashSet<Type> GetTypesImplementingInterface<TInterface>()
     {
-        var type = AllTypes.FirstOrDefault(x => x.Name == typeName);
-
-        if (type == null)
-        {
-            throw new Exception($"Type {typeName} not found");
-        }
-
-        return type;
+        var interfaceType = typeof(TInterface);
+        return AllTypes.Where(t => interfaceType.IsAssignableFrom(t) && t is { IsClass: true, IsAbstract: false }).ToHashSet();
     }
 }

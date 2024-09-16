@@ -14,12 +14,12 @@ public static class Utf8Extensions
     {
         return Encoding.UTF8.GetString(bytes.Span);
     }
-    
+
     public static string FromUtf8(this ReadOnlySequence<byte> bytes)
     {
         return Encoding.UTF8.GetString(bytes.ToArray());
     }
-    
+
     public static string FromUtf8(this in Span<byte> span)
     {
         return Encoding.UTF8.GetString(span);
@@ -29,7 +29,7 @@ public static class Utf8Extensions
     {
         return Encoding.UTF8.GetBytes(str);
     }
-    
+
     public static Span<byte> ToUtf8Span(this string str)
     {
         return Encoding.UTF8.GetBytes(str);

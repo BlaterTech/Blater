@@ -1,6 +1,6 @@
-using System.ComponentModel;
 using NetEscapades.EnumGenerators;
 
+using System.ComponentModel;
 
 namespace Blater.Enumerations;
 

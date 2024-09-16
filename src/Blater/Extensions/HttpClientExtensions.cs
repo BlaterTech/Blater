@@ -22,7 +22,7 @@ public static class HttpClientExtensions
 
             content = new StringContent(json, Encoding.UTF8, "application/json");
         }
-        
+
         using var request = new HttpRequestMessage(HttpMethod.Post, url);
         request.Content = content;
         request.Headers.ConnectionClose = false;

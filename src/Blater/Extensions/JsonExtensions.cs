@@ -17,16 +17,16 @@ public static class JsonExtensions
             new JsonStringEnumConverter(),
             new Cysharp.Serialization.Json.UlidJsonConverter()
         },
-        #if DEBUG
+#if DEBUG
         WriteIndented = true,
-        #endif
+#endif
     };
 
     public static string? ToJson(this object? str, JsonSerializerOptions? options = null)
     {
         return str == null ? null : JsonSerializer.Serialize(str, options ?? DefaultJsonSerializerOptions);
     }
-    
+
     public static Memory<byte> ToJsonBytes(this object? str, JsonSerializerOptions? options = null)
     {
         return str == null ? Memory<byte>.Empty : JsonSerializer.SerializeToUtf8Bytes(str, options ?? DefaultJsonSerializerOptions);
@@ -36,10 +36,10 @@ public static class JsonExtensions
     {
         return str == null ? null : JsonSerializer.Deserialize<JsonDocument>(str, DefaultJsonSerializerOptions);
     }
-    
+
     public static JsonElement? ToJsonElement(this string? str)
     {
-        
+
         return str?.ToJsonDocument()?.RootElement;
     }
 
@@ -47,38 +47,38 @@ public static class JsonExtensions
     {
         return str == null ? default : JsonSerializer.Deserialize<T>(str, options ?? DefaultJsonSerializerOptions);
     }
-    
+
     public static async Task<T?> FromJson<T>(this Stream stream, JsonSerializerOptions? options = null)
     {
         stream.Position = 0;
         return await JsonSerializer.DeserializeAsync<T>(stream, options ?? DefaultJsonSerializerOptions);
     }
-    
+
     public static T? FromJson<T>(this Memory<byte> bytes, JsonSerializerOptions? options = null)
     {
         return JsonSerializer.Deserialize<T>(bytes.Span, options ?? DefaultJsonSerializerOptions);
     }
-    
+
     public static T? FromJson<T>(this ReadOnlyMemory<byte> bytes, JsonSerializerOptions? options = null)
     {
         return JsonSerializer.Deserialize<T>(bytes.Span, options ?? DefaultJsonSerializerOptions);
     }
-    
+
     public static T? FromJson<T>(this in Span<byte> bytes, JsonSerializerOptions? options = null)
     {
         return JsonSerializer.Deserialize<T>(bytes, options ?? DefaultJsonSerializerOptions);
     }
-    
+
     public static T? FromJson<T>(this in ReadOnlySpan<byte> bytes, JsonSerializerOptions? options = null)
     {
         return JsonSerializer.Deserialize<T>(bytes, options ?? DefaultJsonSerializerOptions);
     }
-    
+
     public static T? FromJson<T>(this byte[] bytes, JsonSerializerOptions? options = null)
     {
         return JsonSerializer.Deserialize<T>(bytes, options ?? DefaultJsonSerializerOptions);
     }
-    
+
     public static bool TryParseJson<T>(this string? str, out T? result)
     {
         result = default;

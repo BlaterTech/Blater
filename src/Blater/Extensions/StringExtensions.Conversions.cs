@@ -9,18 +9,18 @@ public static partial class StringExtensions
             input.Replace('.', '-');
             return input;
         }
-        
+
         var output = new Span<char>();
-        
+
         var j = 0;
-        
+
         //If first char is uppercase, make it lowercase
         output[j++] = char.ToLower(input[0]);
-        
+
         for (var i = 1; i < input.Length; i++)
         {
             var c = input[i];
-            
+
             switch (c)
             {
                 //Ignore dots
@@ -31,7 +31,7 @@ public static partial class StringExtensions
                     output[j++] = '-';
                     continue;
             }
-            
+
             if (char.IsUpper(c))
             {
                 output[j++] = '-';
@@ -45,7 +45,7 @@ public static partial class StringExtensions
 
         return output;
     }
-    
+
     public static string ToKebabCase(this string inputString, bool onlyDots = false)
     {
         var input = inputString.AsSpan();
@@ -57,14 +57,14 @@ public static partial class StringExtensions
         }
 
         var j = 0;
-        
+
         //If first char is uppercase, make it lowercase
         output[j++] = char.ToLower(input[0]);
-        
+
         for (var i = 1; i < input.Length; i++)
         {
             var c = input[i];
-            
+
             switch (c)
             {
                 //Ignore dots
@@ -75,7 +75,7 @@ public static partial class StringExtensions
                     output[j++] = '-';
                     continue;
             }
-            
+
             if (char.IsUpper(c))
             {
                 output[j++] = '-';
@@ -86,10 +86,10 @@ public static partial class StringExtensions
                 output[j++] = c;
             }
         }
-        
+
         return new string(output);
     }
-    
+
     public static string ToCamelCase(this string str)
     {
         if (string.IsNullOrEmpty(str))
@@ -110,15 +110,14 @@ public static partial class StringExtensions
         str[0] = char.ToLowerInvariant(str[0]);
         return str;
     }
-    
-    
+
     public static string ToFriendlyCase(this string pascalString)
     {
         if (string.IsNullOrEmpty(pascalString))
         {
             return pascalString;
         }
-        
+
         var input = pascalString.AsSpan();
         var result = new char[input.Length * 2];
         var resultIndex = 0;
@@ -129,10 +128,10 @@ public static partial class StringExtensions
             {
                 result[resultIndex++] = ' ';
             }
-            
+
             result[resultIndex++] = input[i];
         }
-        
+
         return new string(result, 0, resultIndex);
     }
 }

@@ -6,7 +6,7 @@ public static class RangeExtensions
     {
         return new CustomEnumerator(range);
     }
-    
+
     public static CustomEnumerator GetEnumerator(this int range)
     {
         return new CustomEnumerator(new Range(0, range));
@@ -21,15 +21,15 @@ public ref struct CustomEnumerator
         {
             throw new Exception("Cannot iterate from end");
         }
-        
+
         Current = range.Start.Value - 1;
         _end = range.End.Value;
     }
-    
+
     public int Current { get; private set; }
-    
+
     private readonly int _end;
-    
+
     public bool MoveNext()
     {
         Current++;

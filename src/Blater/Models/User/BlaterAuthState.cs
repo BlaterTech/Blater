@@ -5,7 +5,7 @@ public class BlaterAuthState
     public string UserId { get; set; } = null!;
     public string Name { get; set; } = null!;
     public string Email { get; set; } = null!;
-    
+
     /// <summary>
     /// Avatar image URL
     /// </summary>
