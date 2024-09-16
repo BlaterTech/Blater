@@ -7,6 +7,7 @@ public class BlaterUserToken
     public string Name { get; set; } = null!;
 
     public string Email { get; set; } = null!;
+    public string Jwt { get; set; } = null!;
 
     public string AvatarImage { get; set; } = null!;
 
