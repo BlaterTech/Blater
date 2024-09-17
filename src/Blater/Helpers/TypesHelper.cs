@@ -13,7 +13,7 @@ public static class TypesHelper
     
     public static List<Assembly> RoutesAssemblies { get; } = [];
 
-    public static HashSet<Type> AllTypes { get; } = new();
+    public static HashSet<Type> AllTypes { get; } = [];
     public static Dictionary<string, Type> TypesDictionary { get; } = new();
 
     private const string BlaterString = "Blater";
