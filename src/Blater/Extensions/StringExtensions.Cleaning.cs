@@ -41,7 +41,7 @@ public static partial class StringExtensions
             var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
             if (unicodeCategory != UnicodeCategory.NonSpacingMark)
             {
-                stringBuilder.Append(c);
+                stringBuilder = stringBuilder.Append(c);
             }
         }
 
@@ -60,7 +60,7 @@ public static partial class StringExtensions
 
         foreach (var c in normalizedString.Where(c => CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark))
         {
-            stringBuilder.Append(c);
+            stringBuilder = stringBuilder.Append(c);
         }
 
         return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
