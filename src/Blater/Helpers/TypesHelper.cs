@@ -9,12 +9,12 @@ public static class TypesHelper
         Initialize();
     }
 
-    public static HashSet<Assembly> Assemblies { get; } = [];
+    public static HashSet<Assembly> Assemblies { get; set; } = [];
     
-    public static List<Assembly> RoutesAssemblies { get; } = [];
+    public static List<Assembly> RoutesAssemblies { get; set; } = [];
 
-    public static HashSet<Type> AllTypes { get; } = new();
-    public static Dictionary<string, Type> TypesDictionary { get; } = new();
+    public static HashSet<Type> AllTypes { get; set; } = new();
+    public static Dictionary<string, Type> TypesDictionary { get; set; } = new();
 
     private const string BlaterString = "Blater";
 

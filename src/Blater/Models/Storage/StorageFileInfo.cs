@@ -17,12 +17,12 @@ public class StorageFileInfo
     ///     The name of the blob file
     ///     photo1.jpeg
     /// </summary>
-    public string Name { get; } = null!;
+    public string Name { get; set; } = null!;
 
     /// <summary>
     ///     Example exe, png, jpg, txt
     /// </summary>
-    public string Extension { get; } = null!;
+    public string Extension { get; set; } = null!;
 
     /*/// <summary>
     /// An optional type of the file.

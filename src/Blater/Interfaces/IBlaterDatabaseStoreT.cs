@@ -6,7 +6,7 @@ namespace Blater.Interfaces;
 
 public interface IBlaterDatabaseStoreT<T> where T : BaseDataModel
 {
-    public string Partition { get; }
+    public string Partition { get; set; }
 
     #region FindOnes
 

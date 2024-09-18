@@ -20,7 +20,7 @@ public class BlaterHttpClient(ILogger<BlaterHttpClient> logger, HttpClient httpC
     private const bool IkcpLogResponse = true;
 #endif
 
-    public JsonSerializerOptions DefaultJsonSerializerOptions { get; } = JsonExtensions.DefaultJsonSerializerOptions;
+    public JsonSerializerOptions DefaultJsonSerializerOptions { get; set; } = JsonExtensions.DefaultJsonSerializerOptions;
 
     #region SpecialCases
 

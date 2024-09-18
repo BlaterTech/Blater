@@ -27,7 +27,7 @@ public partial class BlaterResult<TValue> : BlaterResult
         Success = false;
     }
 
-    public TValue? Value { get; }
+    public TValue? Value { get; set; }
 
     public bool HandleErrors(out List<BlaterError> errors, out TValue value)
     {

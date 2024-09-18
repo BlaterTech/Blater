@@ -2,7 +2,7 @@ namespace Blater.Models.Pagination;
 
 public class PaginationResponse<T> : BasePaginationResponse
 {
-    public List<T> Items { get; }
+    public List<T> Items { get; set; }
 
     public PaginationResponse(BasePaginationResponse response)
     {

@@ -9,7 +9,7 @@ public sealed class BlaterUser : BaseDataModel
 {
     public string Name { get; set; } = string.Empty;
 
-    public string Email { get; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
 
     public string AvatarImage { get; set; } = string.Empty;
 
