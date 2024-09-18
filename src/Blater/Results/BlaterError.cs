@@ -6,6 +6,6 @@ public class BlaterError(string message, List<string>? errors = null)
     {
     }
 
-    public string Message { get; set; } = message;
-    public List<string> Errors { get; set; } = errors ?? [];
+    public string Message { get; } = message;
+    public List<string> Errors { get; } = errors ?? [];
 }
