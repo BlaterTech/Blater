@@ -11,4 +11,9 @@ public static partial class StringExtensions
     {
         return string.IsNullOrWhiteSpace(str);
     }
+    
+    public static bool StartsWithAny(this string value, IEnumerable<string> strings)
+    {
+        return strings.Any(value.StartsWith);
+    }
 }
