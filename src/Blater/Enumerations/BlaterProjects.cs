@@ -12,5 +12,8 @@ public enum BlaterProjects
     None = 0,
 
     [ShortName("bl")]
-    Blater = 1
+    Blater = 1,
+    
+    [ShortName("js")]
+    Juriself = 2
 }
