@@ -9,5 +9,5 @@ namespace Blater.Enumerations;
 public enum LanguageTranslation
 {
     English,
-    Portugues
+    Portuguese
 }
