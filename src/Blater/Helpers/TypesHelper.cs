@@ -16,7 +16,7 @@ public static class TypesHelper
     public static HashSet<Type> AllTypes { get; set; } = new();
     public static Dictionary<string, Type> TypesDictionary { get; set; } = new();
 
-    private const string BlaterString = "Blater";
+    //private const string BlaterString = "Blater";
 
     public static void Initialize()
     {
@@ -30,11 +30,12 @@ public static class TypesHelper
 
         foreach (var assembly in assemblies)
         {
-            if (!assembly.GetName().Name?.StartsWith(BlaterString) ?? false)
+            /*if (!assembly.GetName().Name?.StartsWith(BlaterString) ?? false)
             //Log.Debug("Skipping assembly {AssemblyName}", assembly.FullName);
             {
                 continue;
             }
+            */
 
             //Log.Debug("Adding assembly {AssemblyName}", assembly.FullName);
             Assemblies.Add(assembly);
