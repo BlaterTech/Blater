@@ -11,9 +11,9 @@ public static partial class StringExtensions
     /// </summary>
     /// <param name="original"></param>
     /// <returns></returns>
-    public static string CleanStringASCII(this string original)
+    public static string CleanStringAscii(this string original)
     {
-        return ASCIIRegex().Replace(original, string.Empty);
+        return AsciiRegex().Replace(original, string.Empty);
     }
 
     /// <summary>
@@ -91,5 +91,5 @@ public static partial class StringExtensions
     private static partial Regex AlphaNumericRegex();
 
     [GeneratedRegex(@"[^\u0000-\u007F]+")]
-    private static partial Regex ASCIIRegex();
+    private static partial Regex AsciiRegex();
 }
