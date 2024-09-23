@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Blater.Extensions;
@@ -22,9 +22,9 @@ public static class JsonExtensions
 #endif
     };
 
-    public static string? ToJson(this object? str, JsonSerializerOptions? options = null)
+    public static string ToJson(this object? str, JsonSerializerOptions? options = null)
     {
-        return str == null ? null : JsonSerializer.Serialize(str, options ?? DefaultJsonSerializerOptions);
+        return str == null ? string.Empty : JsonSerializer.Serialize(str, options ?? DefaultJsonSerializerOptions);
     }
 
     public static Memory<byte> ToJsonBytes(this object? str, JsonSerializerOptions? options = null)
