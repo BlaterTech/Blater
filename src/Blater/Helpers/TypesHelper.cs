@@ -10,13 +10,13 @@ public static class TypesHelper
     }
 
     public static HashSet<Assembly> Assemblies { get; set; } = [];
-    
+
     public static List<Assembly> RoutesAssemblies { get; set; } = [];
 
     public static HashSet<Type> AllTypes { get; set; } = new();
     public static Dictionary<string, Type> TypesDictionary { get; set; } = new();
 
-    //private const string BlaterString = "Blater";
+    private const string BlaterString = "Blater";
 
     public static void Initialize()
     {
@@ -30,14 +30,11 @@ public static class TypesHelper
 
         foreach (var assembly in assemblies)
         {
-            /*if (!assembly.GetName().Name?.StartsWith(BlaterString) ?? false)
-            //Log.Debug("Skipping assembly {AssemblyName}", assembly.FullName);
+            if (!assembly.GetName().Name?.StartsWith(BlaterString) ?? false)
             {
                 continue;
             }
-            */
-
-            //Log.Debug("Adding assembly {AssemblyName}", assembly.FullName);
+            
             Assemblies.Add(assembly);
             AllTypes.UnionWith(assembly.GetTypes());
         }
