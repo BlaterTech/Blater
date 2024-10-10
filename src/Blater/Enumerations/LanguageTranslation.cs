@@ -1,4 +1,4 @@
-﻿using NetEscapades.EnumGenerators;
+using NetEscapades.EnumGenerators;
 
 using System.Text.Json.Serialization;
 

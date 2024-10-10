@@ -107,5 +107,5 @@ public interface IBlaterDatabaseRepository<T> where T : BaseDataModel
 
     #endregion
 
-    //public IBlaterQueryable<T> Queryable { get; set; }
+    //public IBlaterQueryable<T> Queryable { get; }
 }
