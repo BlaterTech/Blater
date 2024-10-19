@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Diagnostics;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Blater.Extensions;
@@ -45,7 +46,20 @@ public static class JsonExtensions
 
     public static T? FromJson<T>(this string? str, JsonSerializerOptions? options = null)
     {
-        return str == null ? default : JsonSerializer.Deserialize<T>(str, options ?? DefaultJsonSerializerOptions);
+        try
+        {
+            if (string.IsNullOrWhiteSpace(str))
+            {
+                return default;
+            }
+
+            return JsonSerializer.Deserialize<T>(str, options ?? DefaultJsonSerializerOptions);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return default;
+        }
     }
 
     public static async Task<T?> FromJson<T>(this Stream stream, JsonSerializerOptions? options = null)
@@ -92,8 +106,10 @@ public static class JsonExtensions
             result = str.FromJson<T>();
             return result != null;
         }
-        catch (JsonException)
+        catch (JsonException e)
         {
+            Console.WriteLine(e);
+            Debug.WriteLine(e);
             return false;
         }
     }

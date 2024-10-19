@@ -31,6 +31,7 @@
             NU5104;
             CA1310;
             CA1054;
+            CA1031;
         </NoWarn>
     </PropertyGroup>
 
